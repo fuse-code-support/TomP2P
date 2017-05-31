@@ -27,6 +27,8 @@ import io.netty.channel.FixedRecvByteBufAllocator;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelGroupFuture;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.channel.sctp.SctpChannelOption;
+import io.netty.channel.sctp.nio.NioSctpChannel;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -289,11 +291,12 @@ public class ChannelCreator {
 			}
 			Bootstrap b = new Bootstrap();
 			b.group(workerGroup);
-			b.channel(NioSocketChannel.class);
+			b.channel(NioSctpChannel.class);
 			b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeoutMillis);
 			b.option(ChannelOption.TCP_NODELAY, true);
 			b.option(ChannelOption.SO_LINGER, 0);
 			b.option(ChannelOption.SO_REUSEADDR, true);
+//			b.option(SctpChannelOption.SCTP_DISABLE_FRAGMENTS, true);
 			//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
 			//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
 			addHandlers(b, channelHandlers);
@@ -302,7 +305,7 @@ public class ChannelCreator {
 			ChannelFuture channelFuture = b.connect(socketAddress, new InetSocketAddress(sendFromAddress, 0));
                         ChannelCloseListener cl = new ChannelCloseListener(semaphoreTCP);
                         channelFuture.channel().closeFuture().addListener(cl);
-                        LOG.debug("Create TCP, use from address: {} futur is {}", sendFromAddress, channelFuture);
+                        LOG.error("Create SCTP, use from address: {} future is {}", sendFromAddress, channelFuture);
 			recipients.add(channelFuture.channel());
 			return new Pair<ChannelCloseListener, ChannelFuture>(cl, channelFuture);
 		} finally {
