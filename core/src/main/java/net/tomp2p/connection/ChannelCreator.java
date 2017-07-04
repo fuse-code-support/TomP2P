@@ -293,8 +293,9 @@ public class ChannelCreator {
 			b.group(workerGroup);
 			b.channel(NioSctpChannel.class);
 			b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeoutMillis);
-			b.option(ChannelOption.TCP_NODELAY, true);
-			b.option(ChannelOption.SO_LINGER, 0);
+			b.option(SctpChannelOption.SO_KEEPALIVE, true);
+			//b.option(ChannelOption.TCP_NODELAY, true);
+			//b.option(ChannelOption.SO_LINGER, 0);
 			b.option(ChannelOption.SO_REUSEADDR, true);
 //			b.option(SctpChannelOption.SCTP_DISABLE_FRAGMENTS, true);
 			//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
