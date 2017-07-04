@@ -12,6 +12,8 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
+import io.netty.channel.sctp.SctpChannel;
+import io.netty.channel.sctp.SctpMessage;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.DatagramPacket;
 import net.tomp2p.connection.SignatureFactory;
@@ -83,6 +85,9 @@ public class TomP2POutbound extends ChannelOutboundHandlerAdapter {
                     LOG.debug("Send UDP message {}, datagram: {}.", message, d);
                     ctx.writeAndFlush(d, promise);
 
+                } else if (ctx.channel() instanceof SctpChannel) {
+                	SctpMessage sc = new SctpMessage(0,1,buf);
+                	ctx.writeAndFlush(sc, promise);
                 } else {
                     LOG.debug("Send TCP message {} to {}.", message, message.senderSocket());
                     ctx.writeAndFlush(buf, promise);
