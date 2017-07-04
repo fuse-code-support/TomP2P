@@ -29,6 +29,7 @@ import io.netty.channel.group.ChannelGroupFuture;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.sctp.SctpChannelOption;
 import io.netty.channel.sctp.nio.NioSctpChannel;
+import io.netty.channel.sctp.nio.NioSctpServerChannel;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -301,7 +302,6 @@ public class ChannelCreator {
 			//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
 			//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
 			addHandlers(b, channelHandlers);
-			
 			
 			ChannelFuture channelFuture = b.connect(socketAddress, new InetSocketAddress(sendFromAddress, 0));
                         ChannelCloseListener cl = new ChannelCloseListener(semaphoreTCP);

@@ -26,6 +26,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.FixedRecvByteBufAllocator;
+import io.netty.channel.sctp.nio.NioSctpServerChannel;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -329,7 +330,7 @@ public final class ChannelServer implements DiscoverNetworkListener{
 	boolean startupTCP(final InetSocketAddress listenAddresses, final ChannelServerConfiguration config) {
 		ServerBootstrap b = new ServerBootstrap();
 		b.group(bossGroup, workerGroup);
-		b.channel(NioServerSocketChannel.class);
+		b.channel(NioSctpServerChannel.class);
 		//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
 		//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
 		b.childHandler(new ChannelInitializer<Channel>() {
