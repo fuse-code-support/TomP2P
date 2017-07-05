@@ -52,25 +52,30 @@ public class Main {
 		} else {
 			try {
 				Bindings b = new Bindings();
-				b.addInterface("veth-u1");
+				b.addInterface("enp0s25");
 				peer = new PeerBuilder(new Number160(r)).bindings(b).ports(4001).start();
-				peer.objectDataReply(new ObjectDataReply() {
-					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
-						LOG.error("Message from peer: " + peerAddress.toString() + "\n" + "Message: " + ((String) o));
-						return "";
-					}
-				});
+//				peer.objectDataReply(new ObjectDataReply() {
+//					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
+//						LOG.error("Message from peer: " + peerAddress.toString() + "\n" + "Message: " + ((String) o));
+//						return "";
+//					}
+//				});
 
 //				InetAddress address = Inet4Address.getByName("194.230.137.73");
-				InetAddress address = Inet4Address.getByName("10.0.0.1");
+				InetAddress address = Inet4Address.getByName("10.1.1.1");
 
-				FutureDiscover futureDiscover = peer.discover().inetAddress(address).portTCP(4000).discoverTimeoutSec(10).start();
+				FutureDiscover futureDiscover = peer.discover().inetAddress(address).ports(4000).start();
 				futureDiscover.awaitUninterruptibly();
 
 				if (futureDiscover.isSuccess()) {
 					System.out.println("found that my outside address is " + futureDiscover.peerAddress());
 				} else {
 					System.out.println("failed " + futureDiscover.peerAddress());
+					LOG.error("FAIL");
+					LOG.error("shutdown initiated");
+					BaseFuture fs = peer.shutdown();
+					fs.awaitUninterruptibly();
+					System.exit(1);
 				}
 				FutureBootstrap fb = peer.bootstrap().peerAddress(futureDiscover.peerAddress()).start();
 				fb.awaitUninterruptibly();
@@ -85,7 +90,7 @@ public class Main {
 					System.exit(1);
 				}
 
-				FutureDirect direct = peer.sendDirect(futureDiscover.peerAddress()).object("HELLO").start();
+				FutureDirect direct = peer.sendDirect(futureDiscover.reporter()).object("HELLO").start();
 				direct.awaitUninterruptibly();
 				
 				if (direct.isSuccess()) {
