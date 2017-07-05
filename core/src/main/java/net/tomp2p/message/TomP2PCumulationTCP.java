@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.sctp.SctpMessage;
 
 import java.net.InetSocketAddress;
 
@@ -30,15 +31,19 @@ public class TomP2PCumulationTCP extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void channelRead(final ChannelHandlerContext ctx, final Object msg)
+	public void channelRead(final ChannelHandlerContext ctx, final Object rawMsg)
 			throws Exception {
 
-		if (!(msg instanceof ByteBuf)) {
-			ctx.fireChannelRead(msg);
+		ByteBuf msg = null;
+	
+		if (rawMsg instanceof SctpMessage) {
+			msg = ((SctpMessage) rawMsg).content();
+		} else if (!(rawMsg instanceof ByteBuf)) {
+			ctx.fireChannelRead(rawMsg);
 			return;
 		}
-		
-		final ByteBuf buf = (ByteBuf) msg;
+				
+		final ByteBuf buf = msg;
 		final InetSocketAddress sender = (InetSocketAddress) ctx.channel().remoteAddress();
 
 		try {
