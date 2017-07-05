@@ -41,6 +41,8 @@ public class TomP2PCumulationTCP extends ChannelInboundHandlerAdapter {
 		} else if (!(rawMsg instanceof ByteBuf)) {
 			ctx.fireChannelRead(rawMsg);
 			return;
+		} else {
+			msg = (ByteBuf) rawMsg;
 		}
 				
 		final ByteBuf buf = msg;
