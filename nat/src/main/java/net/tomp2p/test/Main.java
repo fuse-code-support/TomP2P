@@ -52,7 +52,7 @@ public class Main {
 		} else {
 			try {
 				Bindings b = new Bindings();
-				b.addInterface("ens3");
+				b.addInterface("enp0s25");
 				peer = new PeerBuilder(new Number160(r)).bindings(b).ports(4001).start();
 //				peer.objectDataReply(new ObjectDataReply() {
 //					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
@@ -62,7 +62,7 @@ public class Main {
 //				});
 
 //				InetAddress address = Inet4Address.getByName("194.230.137.73");
-				InetAddress address = Inet4Address.getByName("10.1.1.103");
+				InetAddress address = Inet4Address.getByName("10.1.1.1");
 
 				FutureDiscover futureDiscover = peer.discover().inetAddress(address).portTCP(4000).discoverTimeoutSec(10).start();
 				futureDiscover.awaitUninterruptibly();
