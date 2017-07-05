@@ -1,3 +1,5 @@
+package net.tomp2p.test;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
