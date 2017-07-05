@@ -38,12 +38,12 @@ public class Main {
 				} else {
 					b.addInterface("eth3");
 				}
-				peer = new PeerBuilder(new Number160(r)).bindings(b).ports(4000).behindFirewall(true).start();
+				peer = new PeerBuilder(new Number160(r)).bindings(b).ports(4000).start();
 
 				peer.objectDataReply(new ObjectDataReply() {
 					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
 						LOG.error("Message from peer: " + peerAddress.toString() + "\n" + "Message: " + ((String) o));
-						return "World";
+						return "WORLD";
 					}
 				});
 			} catch (IOException e) {
@@ -52,17 +52,17 @@ public class Main {
 		} else {
 			try {
 				Bindings b = new Bindings();
-				b.addInterface("veth-u1");
+				b.addInterface("ens3");
 				peer = new PeerBuilder(new Number160(r)).bindings(b).ports(4001).start();
-				peer.objectDataReply(new ObjectDataReply() {
-					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
-						LOG.error("Message from peer: " + peerAddress.toString() + "\n" + "Message: " + ((String) o));
-						return "";
-					}
-				});
+//				peer.objectDataReply(new ObjectDataReply() {
+//					public Object reply(PeerAddress peerAddress, Object o) throws Exception {
+//						LOG.error("Message from peer: " + peerAddress.toString() + "\n" + "Message: " + ((String) o));
+//						return "";
+//					}
+//				});
 
 //				InetAddress address = Inet4Address.getByName("194.230.137.73");
-				InetAddress address = Inet4Address.getByName("10.0.0.1");
+				InetAddress address = Inet4Address.getByName("10.1.1.103");
 
 				FutureDiscover futureDiscover = peer.discover().inetAddress(address).portTCP(4000).discoverTimeoutSec(10).start();
 				futureDiscover.awaitUninterruptibly();
