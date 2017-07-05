@@ -86,7 +86,7 @@ public class TomP2POutbound extends ChannelOutboundHandlerAdapter {
                     ctx.writeAndFlush(d, promise);
 
                 } else if (ctx.channel() instanceof SctpChannel) {
-                	SctpMessage sc = new SctpMessage(0,1,buf);
+                	SctpMessage sc = new SctpMessage(0, 1, buf);
                 	ctx.writeAndFlush(sc, promise);
                 } else {
                     LOG.debug("Send TCP message {} to {}.", message, message.senderSocket());
