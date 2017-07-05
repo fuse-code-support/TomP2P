@@ -86,7 +86,38 @@ public class TomP2POutbound extends ChannelOutboundHandlerAdapter {
                     ctx.writeAndFlush(d, promise);
 
                 } else if (ctx.channel() instanceof SctpChannel) {
+                	
+                	final PeerAddress recipientAddress;
+                    InetSocketAddress recipient;
+                    InetSocketAddress sender;
+                    if (message.senderSocket() == null) {
+                        //in case of a request
+                        if (message.recipientRelay() != null) {
+                            //in case of sending to a relay (the relayed flag is already set)
+                            recipientAddress = message.recipientRelay();
+                        } else if (message.recipientReflected() != null) {
+                            //in case we use nat reflection
+                            recipientAddress = message.recipientReflected();
+                        } else {
+                            recipientAddress = message.recipient();
+                        }
+                        recipient = recipientAddress.createUDPSocket(message.sender());
+                        sender = message.sender().createSocket(recipientAddress, 0);
+                    } else {
+                        //in case of a reply
+                        recipient = message.senderSocket();
+                        sender = message.recipientSocket();
+                    }
+
+                    // FIXME quickfix for Android (by Nico)
+                    recipient = new InetSocketAddress(InetAddress.getByAddress(recipient.getAddress().
+                            getAddress()), recipient.getPort());
+                    sender = new InetSocketAddress(InetAddress.getByAddress(sender.getAddress().getAddress()),
+                            sender.getPort());
+                	
+                	
                 	SctpMessage sc = new SctpMessage(0, 1, buf);
+                    LOG.debug("Send UDP message {}, sctpMessage: {}.", message, sc);
                 	ctx.writeAndFlush(sc, promise);
                 } else {
                     LOG.debug("Send TCP message {} to {}.", message, message.senderSocket());
