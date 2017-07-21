@@ -23,7 +23,7 @@ public abstract class PeerSocketAddress {
 	public abstract PeerSocketAddress encode(final ByteBuf buf);
 	public abstract PeerSocketAddress encode(final ByteBuf buf, boolean skipAddress);
 	public abstract String toString();
-	
+
 	@Builder
 	@Accessors(fluent = true, chain = true)
 	public static class PeerSocket4Address extends PeerSocketAddress {
