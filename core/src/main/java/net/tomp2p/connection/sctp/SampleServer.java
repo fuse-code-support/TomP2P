@@ -29,7 +29,7 @@ public class SampleServer
      * The logger.
      */
     private final static Logger logger = LoggerFactory.getLogger(SampleServer.class);
-
+    
     public static void main(String[] args) throws Exception
     {
         String localAddr = "127.0.0.1";
