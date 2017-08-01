@@ -62,7 +62,7 @@
 # 4. Build and install usrsctp lib
 #
 #    a) libtoolize
-#
+.U/#
 #    b) aclocal
 #
 #    c) autoconf
