@@ -32,11 +32,11 @@ public class SampleServer
     
     public static void main(String[] args) throws Exception
     {
-        String localAddr = "127.0.0.1";
+        String localAddr = "192.168.43.65";
         int localPort = 48001;
         int localSctpPort = 5001;
 
-        String remoteAddr = "127.0.0.1";
+        String remoteAddr = "192.168.43.26";
         int remotePort = 48002;
 
         Sctp.init();

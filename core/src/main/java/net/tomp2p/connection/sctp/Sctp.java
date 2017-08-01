@@ -25,7 +25,19 @@ import org.slf4j.LoggerFactory;
 /**
  * Class encapsulates native SCTP counterpart.
  *
- * @author Pawel Domas
+ * @author Pawel Domas (initial Author)
+ * </br>
+ * 
+ * @author Jonas Wagner (modifier)
+ * </br>
+ * </br>
+ * Important changes:
+ * </br>
+ * <ul>
+ * 		<li>{@link Logger} is now done by sl4j.</li>
+ * 		<li>Since the Sctp part got removed from Jitsi many renamings were needed. Additionally, 
+ * 			the native c++ code also had to be modified to match the new class paths and names.</li>
+ * </ul>
  */
 public class Sctp
 {
