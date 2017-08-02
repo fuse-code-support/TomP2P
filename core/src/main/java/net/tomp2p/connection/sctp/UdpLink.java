@@ -20,6 +20,9 @@ import java.net.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.*;
 
 /**
@@ -28,97 +31,117 @@ import java.io.*;
  * FIXME: fix receiving loop
  *
  * @author Pawel Domas
+ * @author Jonas Wagner
+ * 
+ * 
+ *         </br>
+ *
+ *         <p>
+ *         Changes: </br>
+ *         New constructor created to be able to just listen to a UDP port
+ *         without explicitly binding the remote IP address or port.
+ *         </p>
  */
-public class UdpLink
-    implements NetworkLink
-{
-    /**
-     * The logger
-     */
-    private final static Logger logger = LoggerFactory.getLogger(UdpLink.class);
+public class UdpLink implements NetworkLink {
+	/**
+	 * The logger
+	 */
+	private final static Logger logger = LoggerFactory.getLogger(UdpLink.class);
 
-    /**
-     * <tt>SctpSocket</tt> instance that is used in this connection.
-     */
-    private final SctpSocket sctpSocket;
+	/**
+	 * <tt>SctpSocket</tt> instance that is used in this connection.
+	 */
+	private final SctpSocket sctpSocket;
 
-    /**
-     * Udp socket used for transport.
-     */
-    private final DatagramSocket udpSocket;
+	/**
+	 * Udp socket used for transport.
+	 */
+	private final DatagramSocket udpSocket;
 
-    /**
-     * Destination UDP port.
-     */
-    private final int remotePort;
+	/**
+	 * Destination UDP port.
+	 */
+	@Getter
+	@Setter
+	private int remotePort = -1;
 
-    /**
-     * Destination <tt>InetAddress</tt>.
-     */
-    private final InetAddress remoteIp;
+	/**
+	 * Destination <tt>InetAddress</tt>.
+	 */
+	@Getter
+	@Setter
+	private InetAddress remoteIp = null;
 
-    /**
-     * Creates new instance of <tt>UdpConnection</tt>.
-     *
-     * @param sctpSocket SCTP socket instance used by this connection.
-     * @param localIp local IP address.
-     * @param localPort local UDP port.
-     * @param remoteIp remote address.
-     * @param remotePort destination UDP port.
-     * @throws IOException when we fail to resolve any of addresses
-     *                     or when opening UDP socket.
-     */
-    public UdpLink(SctpSocket sctpSocket,
-                   String localIp, int localPort,
-                   String remoteIp, int remotePort)
-        throws IOException
-    {
-        this.sctpSocket = sctpSocket;
-        
-        this.udpSocket
-            = new DatagramSocket(localPort, InetAddress.getByName(localIp));
+	/**
+	 * Creates new instance of <tt>UdpConnection</tt>.
+	 *
+	 * @param sctpSocket
+	 *            SCTP socket instance used by this connection.
+	 * @param localIp
+	 *            local IP address.
+	 * @param localPort
+	 *            local UDP port.
+	 * @param remoteIp
+	 *            remote address.
+	 * @param remotePort
+	 *            destination UDP port.
+	 * @throws IOException
+	 *             when we fail to resolve any of addresses or when opening UDP
+	 *             socket.
+	 */
+	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort, String remoteIp, int remotePort)
+			throws IOException {
+		this(sctpSocket, localIp, localPort);
+		this.remoteIp = InetAddress.getByName(remoteIp);
+		this.remotePort = remotePort;
+	}
 
-        this.remotePort = remotePort;
-        this.remoteIp = InetAddress.getByName(remoteIp);
-        
-        // Listening thread
-        new Thread(
-            new Runnable()
-            {
-                public void run()
-                {
-                    try
-                    {
-                        byte[] buff = new byte[2048];
-                        DatagramPacket p = new DatagramPacket(buff, 2048);
-                        while(true)
-                        {
-                            udpSocket.receive(p);
-                            UdpLink.this.sctpSocket.onConnIn(
-                                p.getData(), p.getOffset(), p.getLength());
-                        }
-                    }
-                    catch(IOException e)
-                    {
-                        logger.error(e.getMessage());
-                    }
-                }    
-            }
-        ).start();
-    }
+	/**
+	 * Creates new instance of <tt>UdpConnection</tt>.
+	 *
+	 * @param sctpSocket
+	 *            SCTP socket instance used by this connection.
+	 * @param localIp
+	 *            local IP address.
+	 * @param localPort
+	 *            local UDP port.
+	 * @throws IOException
+	 *             when we fail to resolve any of addresses or when opening UDP
+	 *             socket.
+	 */
+	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort) throws IOException {
+		this.sctpSocket = sctpSocket;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onConnOut(final SctpSocket s, final byte[] packetData)
-        throws IOException
-    {
-        DatagramPacket packet
-            = new DatagramPacket( packetData,
-                                  packetData.length,
-                                  remoteIp,
-                                  remotePort);
-        udpSocket.send(packet);
-    }
+		this.udpSocket = new DatagramSocket(localPort, InetAddress.getByName(localIp));
+
+		// Listening thread
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					byte[] buff = new byte[2048];
+					DatagramPacket p = new DatagramPacket(buff, 2048);
+					while (true) {
+						udpSocket.receive(p);
+						UdpLink.this.sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength());
+					}
+				} catch (IOException e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}).start();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void onConnOut(final SctpSocket s, final byte[] packetData) throws IOException {
+		if (remotePort == -1 || remoteIp == null) {
+			throw new IOException("Remoteport or remoteIp is not set on UDPLink");
+		}
+
+		DatagramPacket packet = new DatagramPacket(packetData, packetData.length, remoteIp, remotePort);
+		udpSocket.send(packet);
+	}
+
 }

@@ -17,8 +17,11 @@
 package net.tomp2p.connection.alternative;
 
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,6 +40,10 @@ import net.tomp2p.connection.DiscoverNetworks;
 import net.tomp2p.connection.DiscoverResults;
 import net.tomp2p.connection.Dispatcher;
 import net.tomp2p.connection.DropConnectionInboundHandler;
+import net.tomp2p.connection.sctp.NetworkLink;
+import net.tomp2p.connection.sctp.Sctp;
+import net.tomp2p.connection.sctp.SctpSocket;
+import net.tomp2p.connection.sctp.UdpLink;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.message.TomP2PCumulationTCP;
 import net.tomp2p.message.TomP2POutbound;
@@ -59,9 +66,6 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
 	private static final Logger LOG = LoggerFactory.getLogger(ChannelServerSctp.class);
 	// private static final int BACKLOG = 128;
 
-	private final EventLoopGroup bossGroup;
-	private final EventLoopGroup workerGroup;
-	
 	private final Map<InetAddress, Channel> channelsTCP = Collections.synchronizedMap(new HashMap<InetAddress, Channel>());
 	private final Map<InetAddress, Channel> channelsUDP = Collections.synchronizedMap(new HashMap<InetAddress, Channel>());
 
@@ -76,7 +80,7 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
         @Getter private final CountConnectionOutboundHandler counterUDP = new CountConnectionOutboundHandler();
         @Getter private final CountConnectionOutboundHandler counterTCP = new CountConnectionOutboundHandler();
         
-	private final ChannelHandler udpDecoderHandler;
+	//private final ChannelHandler udpDecoderHandler;
 	private final DiscoverNetworks discoverNetworks;
         
         
@@ -101,10 +105,8 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
      * @throws IOException
      *               If device discovery failed.
      */
-	public ChannelServerSctp(final EventLoopGroup bossGroup, final EventLoopGroup workerGroup, final ChannelServerConfiguration channelServerConfiguration, final Dispatcher dispatcher,
+	public ChannelServerSctp(final ChannelServerConfiguration channelServerConfiguration, final Dispatcher dispatcher,
 	        final List<PeerStatusListener> peerStatusListeners, final ScheduledExecutorService timer) throws IOException {
-		this.bossGroup = bossGroup;
-		this.workerGroup = workerGroup;
 		this.channelServerConfiguration = channelServerConfiguration;
 		this.dispatcher = dispatcher;
 		this.peerStatusListeners = peerStatusListeners;
@@ -113,7 +115,7 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
 		
 		this.tcpDropConnectionInboundHandler = new DropConnectionInboundHandler(channelServerConfiguration.maxTCPIncomingConnections());
 		this.udpDropConnectionInboundHandler = new DropConnectionInboundHandler(channelServerConfiguration.maxUDPIncomingConnections());
-		this.udpDecoderHandler = new TomP2PSinglePacketUDP(channelServerConfiguration.signatureFactory());
+//		this.udpDecoderHandler = new TomP2PSinglePacketUDP(channelServerConfiguration.signatureFactory());
 		
 		discoverNetworks.addDiscoverNetworkListener(this);
 		if(timer!=null) {
@@ -151,24 +153,11 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
 
 	private void listenAny() {
 		final InetSocketAddress tcpSocket = new InetSocketAddress(channelServerConfiguration.ports().tcpPort());
-		final boolean tcpStart = startupTCP(tcpSocket, channelServerConfiguration);
+		final boolean tcpStart = startupSCTP(tcpSocket, channelServerConfiguration);
     	if(!tcpStart) {
     		LOG.warn("cannot bind TCP on socket {}",tcpSocket);
     	} else {
     		LOG.info("Listening TCP on socket {}",tcpSocket);
-    	}
-    	
-    	final InetSocketAddress udpSocket = new InetSocketAddress(channelServerConfiguration.ports().udpPort());
-    	final boolean udpStart = startupUDP(udpSocket, channelServerConfiguration, true);
-    	if(!udpStart) {
-                final boolean udpStart2 = startupUDP(udpSocket, channelServerConfiguration, false);
-                if(!udpStart2) {
-                    LOG.warn("cannot bind UDP on socket at all {}", udpSocket);
-                } else {
-                    LOG.warn("can only bind to UDP without broadcast support {}", udpSocket);
-                }
-    	} else {
-    		LOG.info("Listening UDP on socket {}",udpSocket);
     	}
     }
 
@@ -188,45 +177,12 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
              */
             final List<InetSocketAddress> broadcastAddresses = new ArrayList<InetSocketAddress>();
             
-	    for (InetAddress inetAddress : discoverResults.newBroadcastAddresses()) {
-	    	InetSocketAddress udpBroadcastSocket = new InetSocketAddress(inetAddress, channelServerConfiguration.ports()
-	                .udpPort());
-	    	broadcastAddressTried = true;
-	    	boolean udpStartBroadcast = startupUDP(udpBroadcastSocket, channelServerConfiguration, false);
-	    	
-	    	if (udpStartBroadcast) {
-	    		//if one broadcast address was found, then we don't need to bind to 0.0.0.0
-	    		broadcastAddressSupported = true;
-                        broadcastAddresses.add(udpBroadcastSocket);
-	    		LOG.info("Listening on broadcast address: {} on port udp: {}"
-		   		        , udpBroadcastSocket, channelServerConfiguration.ports().udpPort());
-	    	} else {
-	    		LOG.warn("cannot bind broadcast UDP {}", udpBroadcastSocket);
-	    	}
-	    }
 	    
-	    for (InetAddress inetAddress : discoverResults.removedFoundBroadcastAddresses()) {
-	    	Channel channelUDP = channelsUDP.remove(inetAddress);
-	    	if (channelUDP != null) {
-	    		channelUDP.close().awaitUninterruptibly();
-	    	}
-	    }
-	    
-	    boolean udpStartBroadcast = false;
-	    //if we tried but could not bind to a broadcast address. Happens on Windows, not on Mac/Linux
-		if(!broadcastAddressSupported && broadcastAddressTried) {
-			InetSocketAddress udpBroadcastSocket = new InetSocketAddress(channelServerConfiguration.ports().udpPort());
-			LOG.info("Listening on wildcard broadcast address {}", udpBroadcastSocket);
-			udpStartBroadcast = startupUDP(udpBroadcastSocket, channelServerConfiguration, true);
-			if(!udpStartBroadcast) {
-				LOG.warn("cannot bind wildcard broadcast UDP on socket {}", udpBroadcastSocket);
-			}
-		} 
 		
 		for (InetAddress inetAddress : discoverResults.newAddresses()) {
 		   	InetSocketAddress tcpSocket = new InetSocketAddress(inetAddress, 
 	    			channelServerConfiguration.ports().tcpPort());
-	    	boolean tcpStart = startupTCP(tcpSocket, channelServerConfiguration);
+	    	boolean tcpStart = startupSCTP(tcpSocket, channelServerConfiguration);
 	    	if(!tcpStart) {
 	    		LOG.warn("cannot bind TCP on socket {}",tcpSocket);
 	    	} else {
@@ -234,32 +190,29 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
 		   		        , inetAddress, channelServerConfiguration.ports().tcpPort());
 	    	}
 	    	
-	    	//as we are listening to anything on UDP, we don't need to listen to any other interfaces
-	    	if(!udpStartBroadcast) {
-                        InetSocketAddress udpSocket = new InetSocketAddress(inetAddress, 
-	    				channelServerConfiguration.ports().udpPort());
-                        //if we already bound to the inetaddress as bcast and inet are the same
-                        if(broadcastAddresses.contains(udpSocket)) {
-                                return;
-                        }
-	    		boolean udpStart = startupUDP(udpSocket, channelServerConfiguration, false); 
-	    		if(!udpStart) {
-	    			LOG.warn("cannot bind UDP on socket {}",udpSocket);
-	    		} else {
-		    		LOG.info("Listening on address: {} on port udp: {}"
-			   		        , inetAddress, channelServerConfiguration.ports().udpPort());
-		    	}
-	    	}
+	    	
 	    }
 		    
 	    for (InetAddress inetAddress : discoverResults.removedFoundAddresses()) {
 	    	Channel channelTCP = channelsTCP.remove(inetAddress);
 	    	if (channelTCP != null) {
-	    		channelTCP.close().awaitUninterruptibly();
+//	    		channelTCP.close().awaitUninterruptibly();
+	    		try {
+					channelTCP.close();
+				} catch (IOException e) {
+					LOG.error("Could not close TCP channel!", e);
+					e.printStackTrace();
+				}
 	    	}
 	    	Channel channelUDP = channelsUDP.remove(inetAddress);
 	    	if (channelUDP != null) {
-	    		channelUDP.close().awaitUninterruptibly();
+//	    		channelUDP.close().awaitUninterruptibly();
+	    		try {
+					channelUDP.close();
+				} catch (IOException e) {
+					LOG.error("Could not close UDP channel!", e);
+					e.printStackTrace();
+				}
 	    	}
 	    }
 	}
@@ -270,44 +223,6 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
     }
 
 	/**
-	 * Start to listen on a UPD port.
-	 * 
-	 * @param listenAddresses
-	 *            The address to listen to
-	 * @param config
-	 *            Can create handlers to be attached to this port
-	 * @param broadcastFlag 
-	 * @return True if startup was successful
-	 */
-	boolean startupUDP(final InetSocketAddress listenAddresses, final ChannelServerConfiguration config, boolean broadcastFlag) {
-		Bootstrap b = new Bootstrap();
-		b.group(workerGroup);
-		b.channel(NioDatagramChannel.class);
-		//option broadcast only required as we not listen to the broadcast address directly
-		if(broadcastFlag) {
-			b.option(ChannelOption.SO_BROADCAST, true);
-		}
-		b.option(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(ConnectionBean.UDP_LIMIT));
-		//default is on my machine 200K, testBroadcastUDP fails with this value, as UDP packets are dropped. Increase to 2MB
-		b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
-		b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
-		
-		b.handler(new ChannelInitializer<Channel>() {
-			@Override
-			protected void initChannel(final Channel ch) throws Exception {
-				ch.config().setAllocator(channelServerConfiguration.byteBufAllocator());
-				for (Map.Entry<String, ChannelHandler> entry : handlers(false).entrySet()) {
-                                    ch.pipeline().addLast(entry.getKey(), entry.getValue());
-				}
-			}
-		});
-
-		ChannelFuture future = b.bind(listenAddresses);
-		channelsUDP.put(listenAddresses.getAddress(), future.channel());
-		return handleFuture(future);
-	}
-
-	/**
 	 * Start to listen on a TCP port.
 	 * 
 	 * @param listenAddresses
@@ -316,35 +231,31 @@ public final class ChannelServerSctp implements DiscoverNetworkListener{
 	 *            Can create handlers to be attached to this port
 	 * @return True if startup was successful
 	 */
-	boolean startupTCP(final InetSocketAddress listenAddresses, final ChannelServerConfiguration config) {
-		ServerBootstrap b = new ServerBootstrap();
-		b.group(bossGroup, workerGroup);
-		b.channel(NioSctpServerChannel.class);
-		//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
-		//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
-		b.childHandler(new ChannelInitializer<Channel>() {
-			@Override
-			protected void initChannel(final Channel ch) throws Exception {
-				ch.config().setAllocator(channelServerConfiguration.byteBufAllocator());
-				//bestEffortOptions(ch, ChannelOption.SO_BACKLOG, BACKLOG);
-				bestEffortOptions(ch, ChannelOption.SO_LINGER, 0);
-				bestEffortOptions(ch, ChannelOption.TCP_NODELAY, true);
-				for (Map.Entry<String, ChannelHandler> entry : handlers(true).entrySet()) {
-                                    ch.pipeline().addLast(entry.getKey(), entry.getValue());
-				}
-			}
-		});
-		ChannelFuture future = b.bind(listenAddresses);
-		channelsTCP.put(listenAddresses.getAddress(), future.channel());
-		return handleFuture(future);
+	boolean startupSCTP(final InetSocketAddress listenAddresses, final ChannelServerConfiguration config) {
+		
+		//FIXME replace this magic number
+		SctpSocket socket = Sctp.createSocket(9899);
+		
+		NetworkLink link = null;
+		try {
+			link = new UdpLink(socket, "", 9899);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		socket.setLink(link);
+		
+		//FIXME jwa we might need to change this
+		return true;
 	}
 
-	private static <T> void bestEffortOptions(final Channel ch, ChannelOption<T> option, T value) {
-		try {
-			ch.config().setOption(option, value);
-		} catch (ChannelException e) {
-			// Ignore
-		}
+	@Deprecated
+	private static <T> void bestEffortOptions(final Channel ch, /*ChannelOption<T> option,*/ T value) {
+//		try {
+//			ch.config().setOption(option, value);
+//		} catch (ChannelException e) {
+//			// Ignore
+//		}
 	}
 
 	/**
