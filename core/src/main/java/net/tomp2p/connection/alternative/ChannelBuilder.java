@@ -7,13 +7,20 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.jdeferred.Deferred;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.ProgressCallback;
+import org.jdeferred.Promise;
+import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.core.spi.DeferredProcessingAware;
 import net.tomp2p.connection.ChannelClientConfiguration;
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.DiscoverNetworkListener;
 import net.tomp2p.connection.DiscoverResults;
+import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.sctp.Sctp;
 import net.tomp2p.connection.sctp.SctpSocket;
 import net.tomp2p.connection.sctp.UdpLink;
@@ -79,9 +86,12 @@ public class ChannelBuilder {
 		return future;
 	}
 
-	public FutureDone<SctpSocket> createSCTPWithUDP(final FutureDone<SctpSocket> future, final String localAddr,
+	public Deferred<PeerConnection, Object, Object> createSCTPWithUDP(final Deferred<PeerConnection, Object, Object> deferred, final String localAddr,
 			final int localPort, final String remoteAddr, final int remotePort) {
 
+		deferred.notify("New connection Started");
+		
+		
 		// FIXME jwa this must be initialized way earlier
 		Sctp.init();
 
@@ -98,22 +108,23 @@ public class ChannelBuilder {
 		UdpLink link;
 		try {
 			link = new UdpLink(client, localAddr, localPort, remoteAddr, remotePort);
+			deferred.notify(link);
 		} catch (IOException e) {
 			LOG.error("Could not set UDP link for Sctp connection!", e);
 			e.printStackTrace();
-			return future.failed(e);
+			return deferred.reject(e);
 		}
 
 		client.setLink(link);
 
 		try {
-			client.connect(officialSctpPort);
+			client.connect(officialSctpPort, deferred);
 		} catch (IOException e) {
 			LOG.error("Sctp connect failed!", e);
 			e.printStackTrace();
-			return future.failed(e);
+			return deferred.reject(e);
 		}
-
-		return future.done(client);
+		
+		return deferred;
 	}
 }
