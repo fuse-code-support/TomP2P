@@ -52,7 +52,7 @@ public class SampleClient
 
         client.connect(remoteSctpPort);
                     
-        try { Thread.sleep(1000); } catch(Exception e) { }
+        try {Thread.sleep(1000); } catch(Exception e) { }
                     
         int sent = client.send(new byte[200], false, 0, 0);
         logger.info("Client sent: "+sent);

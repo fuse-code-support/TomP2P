@@ -16,8 +16,8 @@
 package net.tomp2p.connection.sctp;
 
 import java.io.*;
+import java.net.InetAddress;
 
-import org.jdeferred.Deferred;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -375,7 +375,7 @@ public class SctpSocket
      * @throws java.io.IOException if this socket is closed or an error occurs
      * while trying to connect the socket.
      */
-    public void connect(int remotePort, final Deferred<Object, Object, Object> deferred)
+    public void connect(int remotePort)
         throws IOException
     {
         long ptr = lockPtr();
@@ -460,6 +460,8 @@ public class SctpSocket
      * @param packet network packet received.
      * @param offset the position in the packet buffer where actual data starts
      * @param len length of packet data in the buffer.
+     * @param remotePort 
+     * @param remote 
      */
     public void onConnIn(byte[] packet, int offset, int len)
         throws IOException
