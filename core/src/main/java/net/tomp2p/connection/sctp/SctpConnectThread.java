@@ -26,7 +26,8 @@ public class SctpConnectThread extends Thread {
 
 		UdpLink socketWrapper = null;
 		try {
-			socketWrapper = new UdpLink(socket, local.getAddress().getHostAddress(), local.getPort());
+			socketWrapper = new UdpLink(socket, local.getHostString(), local.getPort(),
+					remote.getHostString(), remote.getPort());
 			deferred.notify(socketWrapper);
 		} catch (IOException e) {
 			deferred.reject(e);
@@ -43,6 +44,7 @@ public class SctpConnectThread extends Thread {
 		} catch (IOException e) {
 			deferred.reject(e);
 		}
+		
 
 		deferred.resolve(socket);
 	}

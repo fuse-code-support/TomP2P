@@ -3,7 +3,6 @@ package net.tomp2p.connection.sctp;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import org.jdeferred.Deferred;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
@@ -14,8 +13,8 @@ public class SctpTestDriver {
 		
 		Sctp.init();
 		
-		InetSocketAddress local = InetSocketAddress.createUnresolved("127.0.0.1", 9989);
-		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.xyz", 9999);
+		InetSocketAddress local = InetSocketAddress.createUnresolved("192.168.0.106", 9989);
+		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.103", 9999);
 
 		SctpSender sender = new SctpSender();
 		Promise<SctpSocket, IOException, UdpLink> p = sender.connect(local, remote);
