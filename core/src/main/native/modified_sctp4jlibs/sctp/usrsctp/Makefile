@@ -119,7 +119,10 @@ build_triplet = x86_64-pc-linux-gnu
 host_triplet = x86_64-pc-linux-gnu
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
@@ -230,14 +233,14 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/missing aclocal-1.15
+ACLOCAL = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 APPCFLAGS =  -DINET -DINET6
 AR = ar
-AUTOCONF = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/missing autoconf
-AUTOHEADER = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/missing autoheader
-AUTOMAKE = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/missing automake-1.15
+AUTOCONF = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/missing autoconf
+AUTOHEADER = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/missing autoheader
+AUTOMAKE = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/missing automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -272,7 +275,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
-MAKEINFO = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/missing makeinfo
+MAKEINFO = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/missing makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -295,10 +298,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.9.3.0
-abs_builddir = /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp
-abs_srcdir = /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp
-abs_top_builddir = /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp
-abs_top_srcdir = /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp
+abs_builddir = /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp
+abs_srcdir = /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp
+abs_top_builddir = /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp
+abs_top_srcdir = /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -327,7 +330,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/moensch/Downloads/libjitsi-master/src/native/sctp/usrsctp/install-sh
+install_sh = ${SHELL} /root/git/TomP2P/core/src/main/native/modified_sctp4jlibs/sctp/usrsctp/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
