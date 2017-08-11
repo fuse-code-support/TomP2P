@@ -15,30 +15,36 @@ public class SctpReceiver {
 	public SctpReceiver(InetSocketAddress local) throws IOException {
 		socket = Sctp.createSocket(local.getPort());
 		link = new UdpLink(socket, local.getAddress().getHostAddress(), local.getPort());
-        socket.setLink(link);
+		socket.setLink(link);
 	}
 
 	public void listen(InetSocketAddress local) throws IOException {
 		socket.listen();
-		
+
 		SctpDataCallback callback = new SctpDataCallback() {
-			
+
 			@Override
 			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags) {
-				Pair<InetAddress, Integer> remote = SctpConnectionRegistry.find("" + tsn + sid + ssn);
-				
 				String s = new String(data, StandardCharsets.UTF_8);
-				
+
 				System.out.println("got message: /n " + s);
+
+				String message = s + " replied";
+
+				int success = -1;
+				try {
+					success = socket.send(message.getBytes(), 0, message.getBytes().length, false, 1, 0);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				
 			}
 		};
-		
-		
-		
+
 		SctpListenThread thread = new SctpListenThread(socket, callback);
 		thread.start();
-		
-		
+
 	}
 
 }

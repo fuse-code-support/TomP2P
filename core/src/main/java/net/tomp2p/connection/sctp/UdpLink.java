@@ -51,6 +51,7 @@ public class UdpLink implements NetworkLink {
 	/**
 	 * <tt>SctpSocket</tt> instance that is used in this connection.
 	 */
+	@Getter
 	private final SctpSocket sctpSocket;
 
 	/**
@@ -63,14 +64,14 @@ public class UdpLink implements NetworkLink {
 	 */
 	@Getter
 	@Setter
-	private int remotePort = -1;
+	private static int remotePort = -1;
 
 	/**
 	 * Destination <tt>InetAddress</tt>.
 	 */
 	@Getter
 	@Setter
-	private InetAddress remoteIp = null;
+	private static InetAddress remoteIp = null;
 
 	/**
 	 * Creates new instance of <tt>UdpConnection</tt>.
@@ -92,8 +93,8 @@ public class UdpLink implements NetworkLink {
 	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort, String remoteIp, int remotePort)
 			throws IOException {
 		this(sctpSocket, localIp, localPort);
-		this.remoteIp = InetAddress.getByName(remoteIp);
-		this.remotePort = remotePort;
+		UdpLink.remoteIp = InetAddress.getByName(remoteIp);
+		UdpLink.remotePort = remotePort;
 	}
 
 	/**
@@ -122,8 +123,8 @@ public class UdpLink implements NetworkLink {
 					DatagramPacket p = new DatagramPacket(buff, 2048);
 					while (true) {
 						udpSocket.receive(p);
-						UdpLink.this.remoteIp = p.getAddress();
-						UdpLink.this.remotePort = p.getPort();
+						UdpLink.remoteIp = p.getAddress();
+						UdpLink.remotePort = p.getPort();
 						UdpLink.this.sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength() );
 					}
 				} catch (IOException e) {
