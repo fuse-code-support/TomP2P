@@ -15,6 +15,10 @@
  */
 package net.tomp2p.connection.sctp;
 
+import java.net.InetAddress;
+
+import net.tomp2p.utils.Pair;
+
 /**
  * Callback used to listen for incoming data on SCTP socket.
  *
@@ -31,7 +35,8 @@ public interface SctpDataCallback
      * @param ppid payload protocol identifier.
      * @param context
      * @param flags
+     * @param remote 
      */
     void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid,
-                      int context, int flags);
+                      int context, int flags, Pair<InetAddress, Integer> remote);
 }

@@ -63,7 +63,8 @@ public class DirectLink
             {
                 try
                 {
-                    dest.onConnIn(packet, 0, packet.length);
+                	//FIXME: jwa I might have to change this back
+                    dest.onConnIn(packet, 0, packet.length, null);
                 }
                 catch (IOException e)
                 {

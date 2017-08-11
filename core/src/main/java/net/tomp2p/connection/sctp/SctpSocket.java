@@ -21,6 +21,8 @@ import java.net.InetAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.tomp2p.utils.Pair;
+
 /**
  * SCTP socket implemented using "usrsctp" lib.
  *
@@ -460,10 +462,9 @@ public class SctpSocket
      * @param packet network packet received.
      * @param offset the position in the packet buffer where actual data starts
      * @param len length of packet data in the buffer.
-     * @param remotePort 
      * @param remote 
      */
-    public void onConnIn(byte[] packet, int offset, int len)
+    public void onConnIn(byte[] packet, int offset, int len, Pair<InetAddress, Integer> remote)
         throws IOException
     {
         if(packet == null)
@@ -480,7 +481,7 @@ public class SctpSocket
 
         try
         {
-            Sctp.onConnIn(ptr, packet, offset, len);
+            Sctp.onConnIn(ptr, packet, offset, len, remote);
         }
         finally
         {
@@ -511,15 +512,16 @@ public class SctpSocket
      * @param ppid payload protocol identifier
      * @param context
      * @param flags
+     * @param remote 
      */
     private void onSctpIn(
             byte[] data, int sid, int ssn, int tsn, long ppid, int context,
-            int flags)
+            int flags, Pair<InetAddress, Integer> remote)
     {
         if (dataCallback != null)
         {
             dataCallback.onSctpPacket(
-                    data, sid, ssn, tsn, ppid, context, flags);
+                    data, sid, ssn, tsn, ppid, context, flags, remote);
         }
         else
         {
@@ -537,9 +539,10 @@ public class SctpSocket
      * @param ppid payload protocol identifier
      * @param context
      * @param flags
+     * @param remote 
      */
     void onSctpInboundPacket(byte[] data, int sid, int ssn, int tsn, long ppid,
-            int context, int flags)
+            int context, int flags, Pair<InetAddress, Integer> remote)
     {
         if((flags & Sctp.MSG_NOTIFICATION) != 0)
         {
@@ -547,7 +550,7 @@ public class SctpSocket
         }
         else
         {
-            onSctpIn(data, sid, ssn, tsn, ppid, context, flags);
+            onSctpIn(data, sid, ssn, tsn, ppid, context, flags, remote);
         }
     }
     

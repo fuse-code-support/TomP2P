@@ -24,21 +24,24 @@ public class SctpReceiver {
 		SctpDataCallback callback = new SctpDataCallback() {
 
 			@Override
-			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags) {
+			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
+					Pair<InetAddress, Integer> remote) {
 				String s = new String(data, StandardCharsets.UTF_8);
 
-				System.out.println("got message: /n " + s);
+				System.out.println("got message from " + remote.element0() + ":" + remote.element1() +": \\n " + s);
 
 				String message = s + " replied";
 
 				int success = -1;
 				try {
-					success = socket.send(message.getBytes(), 0, message.getBytes().length, false, 1, 0);
+					link.setRemoteIp(remote.element0());
+					link.setRemotePort(remote.element1());
+					link.onConnOut(socket, s.getBytes());
+					// success = socket.send(message.getBytes(), 0, message.getBytes().length,
+					// false, 1, 0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				
 			}
 		};
 

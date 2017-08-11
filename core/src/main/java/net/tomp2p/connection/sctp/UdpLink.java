@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.tomp2p.utils.Pair;
 
 import java.io.*;
 
@@ -123,9 +124,7 @@ public class UdpLink implements NetworkLink {
 					DatagramPacket p = new DatagramPacket(buff, 2048);
 					while (true) {
 						udpSocket.receive(p);
-						UdpLink.remoteIp = p.getAddress();
-						UdpLink.remotePort = p.getPort();
-						UdpLink.this.sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength() );
+						UdpLink.this.sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
 					}
 				} catch (IOException e) {
 					logger.error(e.getMessage());
