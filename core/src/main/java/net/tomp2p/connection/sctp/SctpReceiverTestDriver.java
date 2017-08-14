@@ -7,10 +7,11 @@ import java.net.UnknownHostException;
 
 public class SctpReceiverTestDriver {
 	public static void main(String[] args) {
-
+		Sctp.init();
+		
 		InetSocketAddress local = null;
 		try {
-			local = new InetSocketAddress(InetAddress.getByName("192.168.0.106"), 1);
+			local = new InetSocketAddress(InetAddress.getByName("192.168.0.103"), 1);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
