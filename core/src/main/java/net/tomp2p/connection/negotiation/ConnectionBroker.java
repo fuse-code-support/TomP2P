@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import net.tomp2p.connection.Ports;
 import net.tomp2p.connection.sctp.SctpConnectThread;
+import net.tomp2p.connection.sctp.SctpDataCallback;
 import net.tomp2p.connection.sctp.SctpReceiver;
 import net.tomp2p.connection.sctp.SctpSocket;
 import net.tomp2p.connection.sctp.UdpLink;
@@ -91,6 +92,16 @@ public class ConnectionBroker {
 				@Override
 				public void onDone(SctpSocket result) {
 					activePeers.put(result, new Pair<InetAddress, Integer>(address, remotePortInfo));
+					
+					//TODO jwa: we should forward all this stuff to a dispatcher
+					result.setDataCallback(new SctpDataCallback() {
+						
+						@Override
+						public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
+								Pair<InetAddress, Integer> remote) {
+							System.out.println(new String(data, StandardCharsets.UTF_8));
+						}
+					});
 				}
 			});
 		}
