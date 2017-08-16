@@ -17,6 +17,7 @@ package net.tomp2p.connection.sctp;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.SocketPermission;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -241,6 +242,7 @@ public class Sctp {
 		} else if (remote == null) {
 			logger.error("No remote address found for ptr " + socketAddr);
 		} else {
+			logger.error("Data received from ptr: " + socketAddr + " (" + remote.element0() + ":" + remote.element1()+ ")");
 			socket.onSctpInboundPacket(data, sid, ssn, tsn, ppid, context, flags, remote);
 		}
 		
