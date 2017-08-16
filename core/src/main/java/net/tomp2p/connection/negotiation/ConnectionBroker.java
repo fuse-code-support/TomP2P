@@ -107,8 +107,7 @@ public class ConnectionBroker {
 						}
 					});
 					
-					//TODO jwa we need to know the local port
-					String port = "" + 9999;
+					String port = "" + localPort;
 					try {
 						listener.send(new DatagramPacket(port.getBytes(), port.length(), remoteAddress, RemotePortInitiator));
 					} catch (IOException e) {
