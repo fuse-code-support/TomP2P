@@ -32,48 +32,48 @@ public class SampleServer
     
     public static void main(String[] args) throws Exception
     {
-        String localAddr = "192.168.0.106";
-        int localPort = 48001;
-        int localSctpPort = 5001;
-
-        String remoteAddr = "192.168.0.102";
-        int remotePort = 48002;
-
-        Sctp.init();
-
-        final SctpSocket sock1 = Sctp.createSocket(localSctpPort);
-        
-        UdpLink link
-            = new UdpLink(
-                sock1, localAddr, localPort, remoteAddr, remotePort);
-
-        sock1.setLink(link);
-
-        sock1.listen();
-
-        while (!sock1.accept())
-        {
-            Thread.sleep(100);
-        }
-
-        sock1.setDataCallback(new SctpDataCallback()
-        {
-            @Override
-            public void onSctpPacket(byte[] data, int sid, int ssn, int tsn,
-                                     long ppid,
-                                     int context, int flags)
-            {
-                logger.info("Server got some data: " + data.length
-                                + " stream: " + sid
-                                + " payload protocol id: " + ppid);
-            }
-        });
-
-        Thread.sleep(40000);
-        
-        sock1.close();
-        
-        Sctp.finish();
+//        String localAddr = "192.168.0.106";
+//        int localPort = 48001;
+//        int localSctpPort = 5001;
+//
+//        String remoteAddr = "192.168.0.102";
+//        int remotePort = 48002;
+//
+//        Sctp.init();
+//
+//        final SctpSocket sock1 = Sctp.createSocket(localSctpPort);
+//        
+//        UdpLink link
+//            = new UdpLink(
+//                sock1, localAddr, localPort, remoteAddr, remotePort);
+//
+//        sock1.setLink(link);
+//
+//        sock1.listen();
+//
+//        while (!sock1.accept())
+//        {
+//            Thread.sleep(100);
+//        }
+//
+//        sock1.setDataCallback(new SctpDataCallback()
+//        {
+//            @Override
+//            public void onSctpPacket(byte[] data, int sid, int ssn, int tsn,
+//                                     long ppid,
+//                                     int context, int flags)
+//            {
+//                logger.info("Server got some data: " + data.length
+//                                + " stream: " + sid
+//                                + " payload protocol id: " + ppid);
+//            }
+//        });
+//
+//        Thread.sleep(40000);
+//        
+//        sock1.close();
+//        
+//        Sctp.finish();
     }
     
 }
