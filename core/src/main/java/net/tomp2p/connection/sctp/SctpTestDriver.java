@@ -1,6 +1,5 @@
 package net.tomp2p.connection.sctp;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +23,7 @@ public class SctpTestDriver {
 		InetSocketAddress remote = InetSocketAddress.createUnresolved("10.200.13.254", 9999);
 
 		SctpSender sender = new SctpSender();
-		Promise<SctpSocket, IOException, UdpLink> p = sender.connect(local, remote);
+		Promise<SctpSocket, Exception, UdpLink> p = sender.connect(local, remote);
 
 		p.progress(new ProgressCallback<UdpLink>() {
 
@@ -54,10 +53,10 @@ public class SctpTestDriver {
 
 		if (!p.isResolved()) {
 			System.out.println("FAIL!");
-			p.fail(new FailCallback<IOException>() {
+			p.fail(new FailCallback<Exception>() {
 
 				@Override
-				public void onFail(IOException result) {
+				public void onFail(Exception result) {
 					result.printStackTrace();
 				}
 			});

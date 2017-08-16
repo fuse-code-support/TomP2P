@@ -1,0 +1,141 @@
+package net.tomp2p.connection.negotiation;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.jdeferred.Deferred;
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
+import org.jdeferred.impl.DeferredObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import net.tomp2p.connection.Ports;
+import net.tomp2p.connection.sctp.SctpConnectThread;
+import net.tomp2p.connection.sctp.SctpReceiver;
+import net.tomp2p.connection.sctp.SctpSocket;
+import net.tomp2p.connection.sctp.UdpLink;
+import net.tomp2p.utils.Pair;
+
+public class ConnectionBroker {
+
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionBroker.class);
+	
+	/**
+	 * Integer: id InetSocketAddress: remote socket
+	 */
+	private static final Map<SctpSocket, Pair<InetAddress, Integer>> activePeers = new ConcurrentHashMap<>();
+
+	public org.jdeferred.Promise<SctpSocket, Exception, UdpLink> connect(InetAddress localAddress, int localPort, InetAddress remoteAddress, int remotePort) {
+		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
+		int portCandidate = assignPort(); 
+		String portInfo = "" + portCandidate;
+		
+		try {
+			DatagramSocket udpSocket = new DatagramSocket(localPort, localAddress);
+			DatagramPacket p = new DatagramPacket(portInfo.getBytes(), portInfo.length());
+			
+			//TODO: fix timeout time 
+			int timeout = 50000; //50s at the moment
+			
+			// Listening thread
+			new Thread(new Runnable() {
+				public void run() {
+					try {
+						byte[] buff = new byte[2048];
+						DatagramPacket p = new DatagramPacket(buff, 2048);
+						long startTime = System.currentTimeMillis();
+						while ((System.currentTimeMillis()-startTime)<timeout) {
+							
+							udpSocket.receive(p); //this method blocks
+							
+							Integer remotePortInfo = Integer.valueOf(new String(p.getData(), StandardCharsets.UTF_8));
+							InetSocketAddress local = InetSocketAddress.createUnresolved(localAddress.getHostName(), portCandidate);
+							InetSocketAddress remote = InetSocketAddress.createUnresolved(remoteAddress.getHostName(), remotePortInfo);
+							
+							SctpConnectThread thread = new SctpConnectThread(local, remote, def);
+							thread.start();
+						}
+						//TODO: jwa maybe do not close the socket here
+						udpSocket.close();
+					} catch (IOException e) {
+						logger.error(e.getMessage());
+					}
+				}
+			}).start();
+			udpSocket.send(p);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return def.promise();
+	}
+
+	public synchronized void addNew(final InetAddress address, final int port, final byte[] data, final DatagramSocket listener) {
+		Integer remotePortInfo = Integer.valueOf(new String(data, StandardCharsets.UTF_8));
+		if (!checkIfNew(address, remotePortInfo)) {
+			logger.warn("The connection is already established with ip:" + address.toString() + " and port: " + port
+					+ ". TomP2P ignores this connection attempt.");
+			return;
+		} else {
+			Promise<SctpSocket, Exception, UdpLink> promise = negotiate(address, port, remotePortInfo, listener);
+			promise.done(new DoneCallback<SctpSocket>() {
+				
+				@Override
+				public void onDone(SctpSocket result) {
+					activePeers.put(result, new Pair<InetAddress, Integer>(address, remotePortInfo));
+				}
+			});
+		}
+	}
+
+	private org.jdeferred.Promise<SctpSocket, Exception, UdpLink> negotiate(final InetAddress address, final int port,
+			final Integer remotePortInfo, DatagramSocket listener) {
+		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				SctpReceiver receiver;
+				try {
+					int localPort = assignPort();
+					receiver = new SctpReceiver(listener.getLocalAddress(), localPort, address, remotePortInfo);
+					def.notify(receiver.getLink());
+					receiver.listen();
+					def.resolve(receiver.getSocket());
+				} catch (IOException e) {
+					def.reject(e);
+					logger.error("Receiver could not be created correctly.", e);
+				}
+			}
+		}).start();
+		
+		return def.promise();
+	}
+	
+	private boolean checkIfNew(InetAddress address, Integer remotePortInfo) {
+		for (Map.Entry<SctpSocket, Pair<InetAddress, Integer>> entry : activePeers.entrySet()) {
+			if ((entry.getValue().element0().toString().equals(address.toString()))
+					&& entry.getValue().element1().intValue() == remotePortInfo.intValue()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private int assignPort() {
+		Random rand = new Random();
+		
+		//TODO: jwa fix this port choosing mess
+		int portCandidate = rand.nextInt(Ports.MAX_PORT - Ports.MIN_DYN_PORT) + Ports.MIN_DYN_PORT;
+		return portCandidate;
+	}
+
+}

@@ -9,10 +9,10 @@ public class SctpConnectThread extends Thread {
 
 	final private InetSocketAddress local;
 	final private InetSocketAddress remote;
-	final private Deferred<SctpSocket, IOException, UdpLink> deferred;
+	final private Deferred<SctpSocket, Exception, UdpLink> deferred;
 
 	public SctpConnectThread(final InetSocketAddress local, final InetSocketAddress remote,
-			final Deferred<SctpSocket, IOException, UdpLink> deferred) {
+			final Deferred<SctpSocket, Exception, UdpLink> deferred) {
 		this.local = local;
 		this.remote = remote;
 		this.deferred = deferred;
@@ -41,7 +41,8 @@ public class SctpConnectThread extends Thread {
 
 		try {
 			socket.connect(remote.getPort());
-		} catch (IOException e) {
+			Thread.sleep(100);
+		} catch (IOException | InterruptedException e) {
 			deferred.reject(e);
 		}
 		

@@ -13,9 +13,9 @@ public class SctpSender {
 
 	public static final Logger LOG = LoggerFactory.getLogger(SctpSender.class);
 	
-	public Promise<SctpSocket, IOException, UdpLink> connect(InetSocketAddress local, InetSocketAddress remote) {
+	public Promise<SctpSocket, Exception, UdpLink> connect(InetSocketAddress local, InetSocketAddress remote) {
 		
-		Deferred<SctpSocket, IOException, UdpLink> deferred = new DeferredObject<>();
+		Deferred<SctpSocket, Exception, UdpLink> deferred = new DeferredObject<>();
 		SctpConnectThread thread = new SctpConnectThread(local, remote, deferred);
 		thread.start();
 		

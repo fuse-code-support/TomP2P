@@ -5,11 +5,14 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
+import lombok.Getter;
 import net.tomp2p.utils.Pair;
 
 public class SctpReceiver {
 
+	@Getter
 	final private SctpSocket socket;
+	@Getter
 	final private UdpLink link;
 
 	public SctpReceiver(InetSocketAddress local) throws IOException {
@@ -17,8 +20,17 @@ public class SctpReceiver {
 		link = new UdpLink(socket, local.getAddress().getHostAddress(), local.getPort());
 		socket.setLink(link);
 	}
+	
+	public SctpReceiver(InetAddress localAddress, int localPort, InetAddress remoteAddress, int remotePort) throws IOException {
+		socket = Sctp.createSocket(localPort);
+		link = new UdpLink(socket, localAddress.getHostAddress(), localPort, remoteAddress.getHostAddress(), remotePort);
+		socket.setLink(link);
+	}
 
-	public void listen(InetSocketAddress local) throws IOException {
+	/**
+	 * This starts the listening Thread, which prints out all received messages
+	 * */
+	public void listen() throws IOException {
 		socket.listen();
 
 		SctpDataCallback callback = new SctpDataCallback() {
@@ -30,15 +42,8 @@ public class SctpReceiver {
 
 				System.out.println("got message from " + remote.element0() + ":" + remote.element1() +": \\n " + s);
 
-				String message = s + " replied";
-
-				int success = -1;
 				try {
-					link.setRemoteIp(remote.element0());
-					link.setRemotePort(remote.element1());
 					link.onConnOut(socket, s.getBytes());
-					// success = socket.send(message.getBytes(), 0, message.getBytes().length,
-					// false, 1, 0);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
