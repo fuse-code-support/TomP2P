@@ -26,14 +26,14 @@ public class SctpTestDriver {
 
 		Sctp.init();
 
-		InetAddress localAddress = InetAddress.getByName("10.0.2.15");
+		InetAddress localAddress = InetAddress.getByName("10.200.14.101");
 		int localPort = 9989;
-		InetAddress remoteAddress = InetAddress.getByName("10.0.2.15");
+		InetAddress remoteAddress = InetAddress.getByName("10.200.13.224");
 		int remotePort = 9999;
 
 		ConnectionBroker broker = new ConnectionBroker();
-		UdpListener listener = new UdpListener(broker);
-		listener.listen(localAddress, localPort);
+//		UdpListener listener = new UdpListener(broker);
+//		listener.listen(localAddress, localPort);
 		
 		Promise<SctpSocket, Exception, UdpLink> p = broker.connect(localAddress, localPort, remoteAddress, remotePort);
 		p.done(new DoneCallback<SctpSocket>() {

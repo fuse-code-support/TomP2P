@@ -41,7 +41,7 @@ public class ConnectionBroker {
 		
 		try {
 			DatagramSocket udpSocket = new DatagramSocket(localPort, localAddress);
-			DatagramPacket p = new DatagramPacket(portInfo.getBytes(), portInfo.length());
+			DatagramPacket p = new DatagramPacket(portInfo.getBytes(), portInfo.length(), remoteAddress, remotePort);
 			
 			//TODO: fix timeout time 
 			int timeout = 50000; //50s at the moment
