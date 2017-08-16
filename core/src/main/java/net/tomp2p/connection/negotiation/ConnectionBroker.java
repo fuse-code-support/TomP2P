@@ -58,7 +58,8 @@ public class ConnectionBroker {
 							
 							udpSocket.receive(p); //this method blocks
 							
-							Integer remotePortInfo = Integer.valueOf(new String(p.getData(), StandardCharsets.UTF_8));
+							String s = new String(p.getData(), StandardCharsets.UTF_8);
+							int remotePortInfo = Integer.parseInt(s.substring(0, 5));
 							InetSocketAddress local = InetSocketAddress.createUnresolved(localAddress.getHostName(), portCandidate);
 							InetSocketAddress remote = InetSocketAddress.createUnresolved(remoteAddress.getHostName(), remotePortInfo);
 							
