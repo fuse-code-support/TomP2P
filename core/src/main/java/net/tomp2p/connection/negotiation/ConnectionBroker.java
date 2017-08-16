@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.jdeferred.Deferred;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class ConnectionBroker {
 	/**
 	 * Integer: id InetSocketAddress: remote socket
 	 */
-	private static final Map<SctpSocket, Pair<InetAddress, Integer>> activePeers = new ConcurrentHashMap<>();
+	private final Map<SctpSocket, Pair<InetAddress, Integer>> activePeers = new ConcurrentHashMap<>();
 
 	public org.jdeferred.Promise<SctpSocket, Exception, UdpLink> connect(InetAddress localAddress, int localPort, InetAddress remoteAddress, int remotePort) {
 		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
@@ -79,19 +80,22 @@ public class ConnectionBroker {
 		return def.promise();
 	}
 
-	public synchronized void addNew(final InetAddress address, final int port, final byte[] data, final DatagramSocket listener) {
-		Integer remotePortInfo = Integer.valueOf(new String(data, StandardCharsets.UTF_8));
-		if (!checkIfNew(address, remotePortInfo)) {
-			logger.warn("The connection is already established with ip:" + address.toString() + " and port: " + port
+	public synchronized void addNew(final InetAddress remoteAddress, final int RemotePortInitiator, final byte[] data, final DatagramSocket listener) {
+		String s = new String(data, StandardCharsets.UTF_8);
+		int remotePortInfo = Integer.parseInt(s.substring(0, 5));
+		if (!checkIfNew(remoteAddress, remotePortInfo)) {
+			logger.warn("The connection is already established with ip:" + remoteAddress.toString() + " and port: " + remotePortInfo
 					+ ". TomP2P ignores this connection attempt.");
 			return;
 		} else {
-			Promise<SctpSocket, Exception, UdpLink> promise = negotiate(address, port, remotePortInfo, listener);
+			logger.warn("new Connection initiated from peer: " + remoteAddress + ":" + RemotePortInitiator);
+			int localPort = assignPort();
+			Promise<SctpSocket, Exception, UdpLink> promise = negotiate(remoteAddress, localPort, remotePortInfo, listener);
 			promise.done(new DoneCallback<SctpSocket>() {
 				
 				@Override
 				public void onDone(SctpSocket result) {
-					activePeers.put(result, new Pair<InetAddress, Integer>(address, remotePortInfo));
+					activePeers.put(result, new Pair<InetAddress, Integer>(remoteAddress, remotePortInfo));
 					
 					//TODO jwa: we should forward all this stuff to a dispatcher
 					result.setDataCallback(new SctpDataCallback() {
@@ -102,12 +106,28 @@ public class ConnectionBroker {
 							System.out.println(new String(data, StandardCharsets.UTF_8));
 						}
 					});
+					
+					//TODO jwa we need to know the local port
+					String port = "" + 9999;
+					try {
+						listener.send(new DatagramPacket(port.getBytes(), port.length(), remoteAddress, RemotePortInitiator));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			
+			promise.fail(new FailCallback<Exception>() {
+				
+				@Override
+				public void onFail(Exception result) {
+					result.printStackTrace();
 				}
 			});
 		}
 	}
 
-	private org.jdeferred.Promise<SctpSocket, Exception, UdpLink> negotiate(final InetAddress address, final int port,
+	private org.jdeferred.Promise<SctpSocket, Exception, UdpLink> negotiate(final InetAddress remoteAddress, final int localPort,
 			final Integer remotePortInfo, DatagramSocket listener) {
 		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
 		
@@ -116,8 +136,7 @@ public class ConnectionBroker {
 			public void run() {
 				SctpReceiver receiver;
 				try {
-					int localPort = assignPort();
-					receiver = new SctpReceiver(listener.getLocalAddress(), localPort, address, remotePortInfo);
+					receiver = new SctpReceiver(listener.getLocalAddress(), localPort, remoteAddress, remotePortInfo);
 					def.notify(receiver.getLink());
 					receiver.listen();
 					def.resolve(receiver.getSocket());
@@ -149,4 +168,8 @@ public class ConnectionBroker {
 		return portCandidate;
 	}
 
+	public int convertByteToInt(byte[] b) {
+		int value = 0;
+		return (value << 16) | b[0];
+	}
 }
