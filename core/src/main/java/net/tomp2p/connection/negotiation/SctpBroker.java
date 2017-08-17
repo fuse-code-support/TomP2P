@@ -19,12 +19,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.tomp2p.connection.Ports;
+import net.tomp2p.connection.RequestHandler;
 import net.tomp2p.connection.sctp.SctpConnectThread;
 import net.tomp2p.connection.sctp.SctpDataCallback;
 import net.tomp2p.connection.sctp.SctpReceiver;
 import net.tomp2p.connection.sctp.SctpSocket;
 import net.tomp2p.connection.sctp.UdpLink;
+import net.tomp2p.futures.BaseFutureAdapter;
+import net.tomp2p.futures.FutureChannelCreator;
+import net.tomp2p.futures.FutureDirect;
+import net.tomp2p.message.Message;
+import net.tomp2p.p2p.Peer;
+import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.utils.Pair;
+import net.tomp2p.utils.Utils;
 
 public class SctpBroker {
 
@@ -35,6 +43,15 @@ public class SctpBroker {
 	 */
 	private final Map<SctpSocket, Pair<InetAddress, Integer>> activePeers = new ConcurrentHashMap<>();
 
+	/**
+	 * The local peer
+	 * */
+	private final Peer peer;
+	
+	public SctpBroker(final Peer peer) {
+		this.peer = peer;
+	}
+	
 	public org.jdeferred.Promise<SctpSocket, Exception, UdpLink> connect(InetAddress localAddress, int localPort, InetAddress remoteAddress, int remotePort) {
 		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
 		int portCandidate = assignPort(); 
@@ -172,5 +189,27 @@ public class SctpBroker {
 	public int convertByteToInt(byte[] b) {
 		int value = 0;
 		return (value << 16) | b[0];
+	}
+
+	public void negotiate(InetAddress localAddress, int localPort, PeerAddress remotePeerAddress) {
+		Message message = new Message();
+		final FutureDirect futureResponse = new FutureDirect(message, true);
+		futureResponse.request().keepAlive(false);
+		
+		final RequestHandler request = peer.directDataRPC().sendInternal(futureResponse, this);
+		FutureChannelCreator futureChannelCreator = peer.connectionBean().reservation()
+				.create(1, 0);
+		Utils.addReleaseListener(futureChannelCreator, request.futureResponse());
+		futureChannelCreator.addListener(new BaseFutureAdapter<FutureChannelCreator>() {
+			@Override
+			public void operationComplete(final FutureChannelCreator future) throws Exception {
+				if (future.isSuccess()) {
+						request.sendUDP(future.channelCreator());
+				} else {
+					request.futureResponse().failed("Could not create channel.", future);
+				}
+			}
+		});
+	}
 	}
 }

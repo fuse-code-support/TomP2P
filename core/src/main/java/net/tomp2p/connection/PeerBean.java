@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.tomp2p.connection.negotiation.SctpBroker;
+import net.tomp2p.connection.negotiation.UdpListener;
 import net.tomp2p.p2p.MaintenanceTask;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;

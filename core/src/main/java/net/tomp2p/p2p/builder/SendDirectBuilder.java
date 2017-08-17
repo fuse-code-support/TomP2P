@@ -17,12 +17,19 @@
 package net.tomp2p.p2p.builder;
 
 import io.netty.buffer.ByteBuf;
+
+import java.io.IOException;
 import java.security.KeyPair;
+
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 
 import net.tomp2p.connection.ConnectionBean;
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.RequestHandler;
+import net.tomp2p.connection.sctp.SctpSocket;
+import net.tomp2p.connection.sctp.UdpLink;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureDirect;
@@ -206,10 +213,24 @@ public class SendDirectBuilder
 		 */
 		else {
 			if (peerConnection != null) {
-				peerConnection.sendSctp(message);
+//				peerConnection.sendSctp(message);
 			} else {
-				Promise<SctpSocket, Exception, UdpLink> p = peer.peerBean().sctpBroker().connect(localAddress,
-						localPort, remoteAddress, remotePort);
+				Promise<SctpSocket, Exception, UdpLink> p = peer.peerAddress().createSocket(peer, remotePeer);
+				p.done(new DoneCallback<SctpSocket>() {
+					
+					@Override
+					public void onDone(SctpSocket result) {
+						
+						//TODO jwa continue here
+						try {
+							result.send("Sendonce".getBytes(), 0, "Sendonce".length(), false, 0, 1);
+						
+							//TODO jwa close socket
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		}
 
