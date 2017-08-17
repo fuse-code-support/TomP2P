@@ -41,8 +41,9 @@ public class SctpConnectThread extends Thread {
 
 		try {
 			socket.connect(remote.getPort());
-			Thread.sleep(100);
-		} catch (IOException | InterruptedException e) {
+			//FIXME jwa do we have to wait here?
+			//Thread.sleep(100);
+		} catch (IOException /*| InterruptedException*/ e) {
 			deferred.reject(e);
 		}
 		

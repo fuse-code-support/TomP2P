@@ -85,6 +85,7 @@ public class TomP2POutbound extends ChannelOutboundHandlerAdapter {
                     LOG.debug("Send UDP message {}, datagram: {}.", message, d);
                     ctx.writeAndFlush(d, promise);
 
+                    //FIXME jwa delete SCTP stuff, which NAT can't handle
                 } else if (ctx.channel() instanceof SctpChannel) {
                 	
                 	final PeerAddress recipientAddress;

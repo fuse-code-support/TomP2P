@@ -36,6 +36,7 @@ public class TomP2PCumulationTCP extends ChannelInboundHandlerAdapter {
 
 		ByteBuf msg = null;
 	
+		//FIXME jwa remove sctp stuff
 		if (rawMsg instanceof SctpMessage) {
 			msg = ((SctpMessage) rawMsg).content();
 		} else if (!(rawMsg instanceof ByteBuf)) {

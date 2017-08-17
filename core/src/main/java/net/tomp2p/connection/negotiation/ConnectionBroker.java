@@ -56,6 +56,7 @@ public class ConnectionBroker {
 						long startTime = System.currentTimeMillis();
 						while ((System.currentTimeMillis()-startTime)<timeout) {
 							
+//							udpSocket.setSoTimeout(timeout);
 							udpSocket.receive(p); //this method blocks
 							
 							String s = new String(p.getData(), StandardCharsets.UTF_8);

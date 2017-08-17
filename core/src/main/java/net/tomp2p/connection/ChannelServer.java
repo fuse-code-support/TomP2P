@@ -330,9 +330,9 @@ public final class ChannelServer implements DiscoverNetworkListener{
 	boolean startupTCP(final InetSocketAddress listenAddresses, final ChannelServerConfiguration config) {
 		ServerBootstrap b = new ServerBootstrap();
 		b.group(bossGroup, workerGroup);
-		b.channel(NioSctpServerChannel.class);
-		//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
-		//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
+		b.channel(NioServerSocketChannel.class);
+		b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
+		b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
 		b.childHandler(new ChannelInitializer<Channel>() {
 			@Override
 			protected void initChannel(final Channel ch) throws Exception {

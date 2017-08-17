@@ -377,20 +377,23 @@ public class SctpSocket
      * @throws java.io.IOException if this socket is closed or an error occurs
      * while trying to connect the socket.
      */
-    public void connect(int remotePort)
+    public Boolean connect(int remotePort)
         throws IOException
     {
         long ptr = lockPtr();
-
+        Boolean success = null;
+        
         try
         {
-            if (!Sctp.usrsctp_connect(ptr, remotePort))
+        	success = Sctp.usrsctp_connect(ptr, remotePort);
+            if (!success || success == null)
                 throw new IOException("Failed to connect SCTP");
         }
         finally
         {
             unlockPtr();
         }
+        return success;
     }
 
     /**

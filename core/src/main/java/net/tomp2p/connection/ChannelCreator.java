@@ -292,13 +292,12 @@ public class ChannelCreator {
 			}
 			Bootstrap b = new Bootstrap();
 			b.group(workerGroup);
-			b.channel(NioSctpChannel.class);
+			b.channel(NioSocketChannel.class);
 			b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeoutMillis);
 			b.option(SctpChannelOption.SO_KEEPALIVE, true);
-			//b.option(ChannelOption.TCP_NODELAY, true);
-			//b.option(ChannelOption.SO_LINGER, 0);
+			b.option(ChannelOption.TCP_NODELAY, true);
+			b.option(ChannelOption.SO_LINGER, 0);
 			b.option(ChannelOption.SO_REUSEADDR, true);
-//			b.option(SctpChannelOption.SCTP_DISABLE_FRAGMENTS, true);
 			//b.option(ChannelOption.SO_RCVBUF, 2 * 1024 * 1024);
 			//b.option(ChannelOption.SO_SNDBUF, 2 * 1024 * 1024);
 			addHandlers(b, channelHandlers);
