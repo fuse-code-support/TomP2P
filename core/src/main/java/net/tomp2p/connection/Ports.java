@@ -38,7 +38,6 @@ public class Ports {
     // i.e., manual port-forwarding
     private final int tcpPort;
     private final int udpPort;
-    private final int udtPort;
     private final boolean randomPorts;
 
     /**
@@ -47,7 +46,6 @@ public class Ports {
     public Ports() {
     	this.tcpPort = RND.nextInt(RANGE) + MIN_DYN_PORT;
         this.udpPort = RND.nextInt(RANGE) + MIN_DYN_PORT;
-        this.udtPort = RND.nextInt(RANGE) + MIN_DYN_PORT;
         this.randomPorts = true;
     }
 
@@ -56,13 +54,12 @@ public class Ports {
      * @param tcpPort The external TCP port, how other peers will see us. If the provided port is < 0, a random port will be used.
      * @param udpPort The external UDP port, how other peers will see us. If the provided port is < 0, a random port will be used.
      */
-    public Ports(final int tcpPort, final int udpPort, final int udtPort) {
-    	if(tcpPort < 1 || udpPort < 1 || udtPort < 1) {
-    		throw new IllegalArgumentException("manual ports need to be > 1. TCP: "+tcpPort+", UDP:"+udpPort+", UDT:"+udtPort);
+    public Ports(final int tcpPort, final int udpPort) {
+    	if(tcpPort < 1 || udpPort < 1) {
+    		throw new IllegalArgumentException("manual ports need to be > 1. TCP: "+tcpPort+", UDP:"+udpPort);
     	}
     	this.tcpPort = tcpPort;
         this.udpPort = udpPort;
-        this.udtPort = udtPort;
         this.randomPorts = false;
     }
 
@@ -81,13 +78,6 @@ public class Ports {
     }
     
     /**
-     * @return The external UDP port, how other peers see us.
-     */
-    public int udtPort() {
-        return udtPort;
-    }
-
-    /**
      * @return True, if the user specified both ports in advance. This tells us
      *         that the user knows about the ports and did a manual
      *         port-forwarding.
@@ -102,7 +92,7 @@ public class Ports {
     @Override
     public String toString() {
     	final StringBuilder sb = new StringBuilder("ports(udp:");
-    	sb.append(udpPort).append(",tcp:").append(tcpPort).append(",udt:").append(udtPort).append(")");
+    	sb.append(udpPort).append(",tcp:").append(tcpPort).append(")");
     	return sb.toString();
     }
 }
