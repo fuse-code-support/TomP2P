@@ -2,7 +2,7 @@ package net.tomp2p.connection.sctp;
 
 import java.net.InetAddress;
 
-import net.tomp2p.connection.negotiation.ConnectionBroker;
+import net.tomp2p.connection.negotiation.SctpBroker;
 import net.tomp2p.connection.negotiation.UdpListener;
 
 public class SctpReceiverTestDriver {
@@ -12,7 +12,7 @@ public class SctpReceiverTestDriver {
 		InetAddress localAddress = InetAddress.getByName("10.200.13.224");
 		int localPort = 9999;
 		
-		ConnectionBroker broker = new ConnectionBroker();
+		SctpBroker broker = new SctpBroker();
 		UdpListener listener = new UdpListener(broker);
 		listener.listen(localAddress, localPort);
 	}

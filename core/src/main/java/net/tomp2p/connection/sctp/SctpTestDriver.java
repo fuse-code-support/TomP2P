@@ -14,7 +14,7 @@ import org.jdeferred.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.tomp2p.connection.negotiation.ConnectionBroker;
+import net.tomp2p.connection.negotiation.SctpBroker;
 import net.tomp2p.connection.negotiation.UdpListener;
 import net.tomp2p.utils.Pair;
 
@@ -31,7 +31,7 @@ public class SctpTestDriver {
 		InetAddress remoteAddress = InetAddress.getByName("10.200.13.224");
 		int remotePort = 9999;
 
-		ConnectionBroker broker = new ConnectionBroker();
+		SctpBroker broker = new SctpBroker();
 //		UdpListener listener = new UdpListener(broker);
 //		listener.listen(localAddress, localPort);
 		

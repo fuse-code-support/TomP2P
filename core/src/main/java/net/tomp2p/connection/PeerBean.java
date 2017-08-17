@@ -23,7 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
+import net.tomp2p.connection.negotiation.SctpBroker;
 import net.tomp2p.p2p.MaintenanceTask;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
@@ -59,6 +59,7 @@ public class PeerBean {
     @Getter @Setter private DigestStorage digestStorage;
     @Getter @Setter private DigestTracker digestTracker;
     @Getter @Setter private NATHandler natHandler;
+    @Getter @Setter private SctpBroker sctpBroker;
 
     //This map is used for all open PeerConnections which are meant to stay open. {@link Number160} = peer ID.
     private ConcurrentHashMap<Number160, PeerConnection> openPeerConnections = 

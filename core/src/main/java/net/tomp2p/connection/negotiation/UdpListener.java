@@ -14,10 +14,10 @@ public class UdpListener {
 
 	private static final Logger logger = LoggerFactory.getLogger(UdpListener.class);
 	
-	private final ConnectionBroker broker;
+	private final SctpBroker broker;
 	private DatagramSocket udpSocket;
 
-	public UdpListener(final ConnectionBroker broker) {
+	public UdpListener(final SctpBroker broker) {
 		this.broker = broker;
 	}
 

@@ -26,9 +26,9 @@ import net.tomp2p.connection.sctp.SctpSocket;
 import net.tomp2p.connection.sctp.UdpLink;
 import net.tomp2p.utils.Pair;
 
-public class ConnectionBroker {
+public class SctpBroker {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConnectionBroker.class);
+	private static final Logger logger = LoggerFactory.getLogger(SctpBroker.class);
 	
 	/**
 	 * Integer: id InetSocketAddress: remote socket

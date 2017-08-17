@@ -34,9 +34,10 @@ import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.SendDirectBuilderI;
 import net.tomp2p.utils.Utils;
 
-public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBuilderI,
-        SignatureBuilder<SendDirectBuilder> {
-	private static final FutureDirect FUTURE_REQUEST_SHUTDOWN = new FutureDirect(null, false).failed("Peer is shutting down.");
+public class SendDirectBuilder
+		implements ConnectionConfiguration, SendDirectBuilderI, SignatureBuilder<SendDirectBuilder> {
+	private static final FutureDirect FUTURE_REQUEST_SHUTDOWN = new FutureDirect(null, false)
+			.failed("Peer is shutting down.");
 
 	private final Peer peer;
 
@@ -52,6 +53,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	private boolean streaming = false;
 
 	private boolean forceUDP = false;
+	private boolean forceTCP = false;
+	private boolean forceSCTP = false;
 
 	private KeyPair keyPair = null;
 
@@ -59,8 +62,6 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	private int idleUDPMillis = ConnectionBean.DEFAULT_UDP_IDLE_MILLIS;
 	private int connectionTimeoutTCPMillis = ConnectionBean.DEFAULT_CONNECTION_TIMEOUT_TCP;
 	private int heartBeatSeconds = ConnectionBean.DEFAULT_HEARTBEAT_SECONDS;
-
-	private boolean forceTCP = false;
 
 	public SendDirectBuilder(Peer peer, PeerAddress recipientAddress) {
 		this.peer = peer;
@@ -78,7 +79,7 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 		this.peer = peer;
 		this.recipientAddress = null;
 		this.peerConnection = peerConnection;
-    }
+	}
 
 	public PeerAddress recipient() {
 		return recipientAddress;
@@ -158,56 +159,68 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 			throw new IllegalArgumentException("Either the recipient address or peer connection has to be set.");
 		}
 
-		
 		Message message = peer.directDataRPC().sendInternal0(remotePeer, this);
-    	final FutureDirect futureResponse = new FutureDirect(message, isRaw());
-        futureResponse.request().keepAlive(keepAlive);
+		final FutureDirect futureResponse = new FutureDirect(message, isRaw());
+		futureResponse.request().keepAlive(keepAlive);
 
-		final RequestHandler request = peer.directDataRPC().sendInternal(futureResponse, this);
-		if (keepAlive) {
-			if (peerConnection != null) {
-				sendDirectRequest(request, peerConnection);
+		if (!forceSCTP) {
+			final RequestHandler request = peer.directDataRPC().sendInternal(futureResponse, this);
+			if (keepAlive) {
+				if (peerConnection != null) {
+					sendDirectRequest(request, peerConnection);
+				} else {
+					recipientConnection.addListener(new BaseFutureAdapter<FuturePeerConnection>() {
+						@Override
+						public void operationComplete(final FuturePeerConnection future) throws Exception {
+							if (future.isSuccess()) {
+								sendDirectRequest(request, future.object());
+							} else {
+								request.futureResponse().failed("Could not acquire channel (1).", future);
+							}
+						}
+					});
+				}
+
 			} else {
-				recipientConnection.addListener(new BaseFutureAdapter<FuturePeerConnection>() {
+				FutureChannelCreator futureChannelCreator = peer.connectionBean().reservation()
+						.create(isForceUDP() ? 1 : 0, isForceUDP() ? 0 : 1);
+				Utils.addReleaseListener(futureChannelCreator, request.futureResponse());
+				futureChannelCreator.addListener(new BaseFutureAdapter<FutureChannelCreator>() {
 					@Override
-					public void operationComplete(final FuturePeerConnection future) throws Exception {
+					public void operationComplete(final FutureChannelCreator future) throws Exception {
 						if (future.isSuccess()) {
-							sendDirectRequest(request, future.object());
+							if (isForceUDP()) {
+								request.sendUDP(future.channelCreator());
+							} else {
+								request.sendTCP(future.channelCreator());
+							}
 						} else {
-							request.futureResponse().failed("Could not acquire channel (1).", future);
+							request.futureResponse().failed("Could not create channel.", future);
 						}
 					}
 				});
 			}
-
-		} else {
-                    FutureChannelCreator futureChannelCreator = peer.connectionBean().reservation()
-			        .create(isForceUDP() ? 1 : 0, isForceUDP() ? 0 : 1);
-			Utils.addReleaseListener(futureChannelCreator, request.futureResponse());
-			futureChannelCreator.addListener(new BaseFutureAdapter<FutureChannelCreator>() {
-				@Override
-				public void operationComplete(final FutureChannelCreator future) throws Exception {
-					if (future.isSuccess()) {
-						if (isForceUDP()) {
-							request.sendUDP(future.channelCreator());
-						} else {
-							request.sendTCP(future.channelCreator());
-						}
-					} else {
-						request.futureResponse().failed("Could not create channel.", future);
-					}
-				}
-			});
+		}
+		/**
+		 * The packet needs to be sent via SCTP
+		 */
+		else {
+			if (peerConnection != null) {
+				peerConnection.sendSctp(message);
+			} else {
+				Promise<SctpSocket, Exception, UdpLink> p = peer.peerBean().sctpBroker().connect(localAddress,
+						localPort, remoteAddress, remotePort);
+			}
 		}
 
 		return futureResponse;
 	}
 
 	private static void sendDirectRequest(final RequestHandler request, final PeerConnection peerConnection) {
-            //if we reuse the same peerconnetion, send data sequentially
-            synchronized(peerConnection) {
-                request.sendTCP(peerConnection);
-            }
+		// if we reuse the same peerconnetion, send data sequentially
+		synchronized (peerConnection) {
+			request.sendTCP(peerConnection);
+		}
 	}
 
 	public boolean isForceUDP() {
@@ -224,6 +237,11 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 		return this;
 	}
 
+	public SendDirectBuilder forceSCTP() {
+		this.forceSCTP = true;
+		return this;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -236,8 +254,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 
 	/**
 	 * @param idleTCPSeconds
-	 *            The time that a connection can be idle before its considered
-	 *            not active for short-lived connections
+	 *            The time that a connection can be idle before its considered not
+	 *            active for short-lived connections
 	 * @return This class
 	 */
 	public SendDirectBuilder idleTCPMillis(final int idleTCPMillis) {
@@ -257,8 +275,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 
 	/**
 	 * @param idleUDPSeconds
-	 *            The time that a connection can be idle before its considered
-	 *            not active for short-lived connections
+	 *            The time that a connection can be idle before its considered not
+	 *            active for short-lived connections
 	 * @return This class
 	 */
 	public SendDirectBuilder idleUDPMillis(final int idleUDPMillis) {
@@ -280,8 +298,7 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * net.tomp2p.p2p.builder.ConnectionConfiguration#connectionTimeoutTCPMillis
-	 * ()
+	 * net.tomp2p.p2p.builder.ConnectionConfiguration#connectionTimeoutTCPMillis ()
 	 */
 	@Override
 	public int connectionTimeoutTCPMillis() {
@@ -289,8 +306,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	}
 
 	/**
-	 * @return Set to true if the communication should be TCP, default is UDP
-	 *         for routing
+	 * @return Set to true if the communication should be TCP, default is UDP for
+	 *         routing
 	 */
 	public boolean isForceTCP() {
 		return forceTCP;
@@ -298,8 +315,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 
 	/**
 	 * @param forceTCP
-	 *            Set to true if the communication should be TCP, default is UDP
-	 *            for routing
+	 *            Set to true if the communication should be TCP, default is UDP for
+	 *            routing
 	 * @return This class
 	 */
 	public SendDirectBuilder forceTCP(final boolean forceTCP) {
@@ -308,23 +325,24 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	}
 
 	/**
-	 * @return Set to true if the communication should be TCP, default is UDP
-	 *         for routing
+	 * @return Set to true if the communication should be TCP, default is UDP for
+	 *         routing
 	 */
 	public SendDirectBuilder forceTCP() {
 		this.forceTCP = true;
 		return this;
 	}
-	
 
 	@Override
 	public int heartBeatSeconds() {
 		return heartBeatSeconds;
 	}
-	
+
 	/**
-	 * @param slowResponseTimeoutSeconds the amount of seconds a requester waits for the final answer of a
-	 *            slow peer. If the slow peer does not answer within this time, the request fails.
+	 * @param slowResponseTimeoutSeconds
+	 *            the amount of seconds a requester waits for the final answer of a
+	 *            slow peer. If the slow peer does not answer within this time, the
+	 *            request fails.
 	 * @return This class
 	 */
 	public SendDirectBuilder heartBeatSeconds(final int heartBeatSeconds) {
@@ -333,8 +351,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	}
 
 	/**
-	 * @return Set to true if the message should be signed. For protecting an
-	 *         entry, this needs to be set to true.
+	 * @return Set to true if the message should be signed. For protecting an entry,
+	 *         this needs to be set to true.
 	 */
 	public boolean isSign() {
 		return keyPair != null;
@@ -356,8 +374,8 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 	}
 
 	/**
-	 * @return Set to true if the message should be signed. For protecting an
-	 *         entry, this needs to be set to true.
+	 * @return Set to true if the message should be signed. For protecting an entry,
+	 *         this needs to be set to true.
 	 */
 	public SendDirectBuilder sign() {
 		this.keyPair = peer.peerBean().keyPair();
@@ -366,9 +384,9 @@ public class SendDirectBuilder implements ConnectionConfiguration, SendDirectBui
 
 	/**
 	 * @param keyPair
-	 *            The keyPair to sing the complete message. The key will be
-	 *            attached to the message and stored potentially with a data
-	 *            object (if there is such an object in the message).
+	 *            The keyPair to sing the complete message. The key will be attached
+	 *            to the message and stored potentially with a data object (if there
+	 *            is such an object in the message).
 	 * @return This class
 	 */
 	public SendDirectBuilder keyPair(KeyPair keyPair) {
