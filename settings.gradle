@@ -8,6 +8,7 @@ include ':tomp2p-storage'
 include ':tomp2p-dht'
 include ':tomp2p-tracker'
 include ':tomp2p-social'
+include ':tomp2p-sctp'
 
 project(':tomp2p-core').projectDir = "$rootDir/core" as File
 project(':tomp2p-replication').projectDir = "$rootDir/replication" as File
@@ -18,3 +19,4 @@ project(':tomp2p-storage').projectDir = "$rootDir/storage" as File
 project(':tomp2p-dht').projectDir = "$rootDir/dht" as File
 project(':tomp2p-tracker').projectDir = "$rootDir/tracker" as File
 project(':tomp2p-social').projectDir = "$rootDir/social" as File
+project(':tomp2p-sctp').projectDir = "$rootDir/sctp" as File
