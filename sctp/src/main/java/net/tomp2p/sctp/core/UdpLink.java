@@ -1,5 +1,5 @@
 /*
- * Copyright @ 2015 Atlassian Pty Ltd
+* Copyright @ 2015 Atlassian Pty Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,37 +83,14 @@ public class UdpLink implements NetworkLink {
 	 *            local IP address.
 	 * @param localPort
 	 *            local UDP port.
-	 * @param remoteIp
-	 *            remote address.
-	 * @param remotePort
-	 *            destination UDP port.
 	 * @throws IOException
 	 *             when we fail to resolve any of addresses or when opening UDP
 	 *             socket.
 	 */
-	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort, String remoteIp, int remotePort)
-			throws IOException {
-		this(sctpSocket, localIp, localPort);
+	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort, String remoteIp, int remotePort) throws IOException {
+		this.sctpSocket = sctpSocket;
 		UdpLink.remoteIp = InetAddress.getByName(remoteIp);
 		UdpLink.remotePort = remotePort;
-	}
-
-	/**
-	 * Creates new instance of <tt>UdpConnection</tt>.
-	 *
-	 * @param sctpSocket
-	 *            SCTP socket instance used by this connection.
-	 * @param localIp
-	 *            local IP address.
-	 * @param localPort
-	 *            local UDP port.
-	 * @throws IOException
-	 *             when we fail to resolve any of addresses or when opening UDP
-	 *             socket.
-	 */
-	public UdpLink(SctpSocket sctpSocket, String localIp, int localPort) throws IOException {
-		this.sctpSocket = sctpSocket;
-
 		this.udpSocket = new DatagramSocket(localPort, InetAddress.getByName(localIp));
 
 		// Listening thread
@@ -138,10 +115,6 @@ public class UdpLink implements NetworkLink {
 	 */
 	@Override
 	public void onConnOut(final SctpSocket s, final byte[] packetData) throws IOException {
-		if (remotePort == -1 || remoteIp == null) {
-			throw new IOException("Remoteport or remoteIp is not set on UDPLink");
-		}
-
 		DatagramPacket packet = new DatagramPacket(packetData, packetData.length, remoteIp, remotePort);
 		udpSocket.send(packet);
 	}

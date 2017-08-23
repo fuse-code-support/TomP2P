@@ -8,6 +8,7 @@ import org.jdeferred.Deferred;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.UdpLink;
+import net.tomp2p.sctp.core.UdpLinkBroker;
 
 public class SctpConnectThread extends Thread {
 

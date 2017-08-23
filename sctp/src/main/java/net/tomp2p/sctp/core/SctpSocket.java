@@ -21,6 +21,7 @@ import java.net.InetAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javassist.NotFoundException;
 import net.tomp2p.utils.Pair;
 
 /**
@@ -575,7 +576,7 @@ public class SctpSocket
                 link.onConnOut(this, packet);
                 ret = 0;
             }
-            catch (IOException e)
+            catch (IOException | NotFoundException e)
             {
                 logger.error(
                         "Error while sending packet trough the link: " + link,

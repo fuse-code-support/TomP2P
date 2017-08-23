@@ -17,7 +17,7 @@ import net.tomp2p.sctp.core.UdpLink;
 import net.tomp2p.sctp.listener.SctpSender;
 import net.tomp2p.utils.Pair;
 
-public class SctpTestDriver {
+public class SctpTestDriver2 {
 
 	public static UdpLink link = null;
 
@@ -35,7 +35,7 @@ public class SctpTestDriver {
 
 			@Override
 			public void onProgress(UdpLink progress) {
-				SctpTestDriver.link = progress;
+				SctpTestDriver2.link = progress;
 
 				link.getSctpSocket().setDataCallback(new SctpDataCallback() {
 

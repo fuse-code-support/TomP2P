@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpSocket;
-import net.tomp2p.sctp.core.UdpLink;
+import net.tomp2p.sctp.core.UdpLinkBroker;
 
 /**
  * Sample SCTP client that uses UDP socket for transfers.
@@ -34,37 +34,37 @@ public class SampleClient
      */
     private final static Logger logger = LoggerFactory.getLogger(SampleClient.class);
 
-    public static void main(String[] args) throws Exception
-    {
-        String localAddr = "192.168.0.106";
-        int localPort = 48002;
-        int localSctpPort = 5002;
-
-        String remoteAddr = "192.168.0.103";
-        int remotePort = 48001;
-        int remoteSctpPort = 5001;
-
-        Sctp.init();
-
-        final SctpSocket client = Sctp.createSocket(localSctpPort);
-
-        UdpLink link
-            = new UdpLink(
-                client, localAddr, localPort, remoteAddr, remotePort);
-
-        client.setLink(link);
-
-        client.connect(remoteSctpPort);
-                    
-        try {Thread.sleep(1000); } catch(Exception e) { }
-                    
-        int sent = client.send(new byte[200], false, 0, 0);
-        logger.info("Client sent: "+sent);
-        
-        Thread.sleep(4000);
-        
-        client.close();
-        
-        Sctp.finish();
-    }
+//    public static void main(String[] args) throws Exception
+//    {
+//        String localAddr = "192.168.0.106";
+//        int localPort = 48002;
+//        int localSctpPort = 5002;
+//
+//        String remoteAddr = "192.168.0.103";
+//        int remotePort = 48001;
+//        int remoteSctpPort = 5001;
+//
+//        Sctp.init();
+//
+//        final SctpSocket client = Sctp.createSocket(localSctpPort);
+//
+//        UdpLink link
+//            = new UdpLink(
+//                client, localAddr, localPort, remoteAddr, remotePort);
+//
+//        client.setLink(link);
+//
+//        client.connect(remoteSctpPort);
+//                    
+//        try {Thread.sleep(1000); } catch(Exception e) { }
+//                    
+//        int sent = client.send(new byte[200], false, 0, 0);
+//        logger.info("Client sent: "+sent);
+//        
+//        Thread.sleep(4000);
+//        
+//        client.close();
+//        
+//        Sctp.finish();
+//    }
 }
