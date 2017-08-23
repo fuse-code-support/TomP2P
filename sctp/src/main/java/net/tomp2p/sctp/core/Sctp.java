@@ -212,9 +212,7 @@ public class Sctp {
 	 * @param remote
 	 */
 	static void onConnIn(long socketPtr, byte[] packet, int offset, int len, Pair<InetAddress, Integer> remote) {
-		Long id = new Random().nextLong();
-		remotes.put(id, remote);
-		logger.info(socketPtr + " " + remote.element0() + ":" + remote.element1());
+		logger.info("onConnIn called: " + socketPtr + " " + remote.element0() + ":" + remote.element1());
 		on_network_in(socketPtr, packet, offset, len);
 	}
 
@@ -367,8 +365,7 @@ public class Sctp {
 	 */
 
 	/**
-	 * ************************** Jonas Wagner
-	 * ******************************************
+	 * ************************** Jonas Wagner ******************************
 	 */
 	public static synchronized void putRemote(Long ptr, Pair<InetAddress, Integer> remote) {
 		remotes.put(ptr, remote);

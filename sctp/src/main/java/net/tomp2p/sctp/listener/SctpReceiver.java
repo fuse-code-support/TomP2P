@@ -5,50 +5,49 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
+import org.jdeferred.Deferred;
+import org.jdeferred.Promise;
+import org.jdeferred.impl.DeferredObject;
+
+import lombok.Getter;
+import lombok.Setter;
+import net.tomp2p.sctp.core.NetworkLink;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.UdpLink;
 import net.tomp2p.sctp.core.UdpLinkBroker;
 import net.tomp2p.utils.Pair;
 
 public class SctpReceiver {
 
-//	final private SctpSocket socket;
-//	final private UdpLink link;
-//
-//	public SctpReceiver(InetSocketAddress local) throws IOException {
-//		socket = Sctp.createSocket(local.getPort());
-//		link = new UdpLink(socket, local.getAddress().getHostAddress(), local.getPort());
-//		socket.setLink(link);
-//	}
-//
-//	public void listen(InetSocketAddress local) throws IOException {
-//		socket.listen();
-//
-//		SctpDataCallback callback = new SctpDataCallback() {
-//
-//			@Override
-//			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-//					Pair<InetAddress, Integer> remote) {
-//				String s = new String(data, StandardCharsets.UTF_8);
-//
-//				System.out.println("got message from " + remote.element0() + ":" + remote.element1() +": \\n " + s);
-//
-//				String message = s + " replied";
-//
-//				int success = -1;
-//				try {
-//					 success = socket.send(message.getBytes(), 0, message.getBytes().length,
-//					 true, sid, (int) ppid);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		};
-//
-//		SctpListenThread thread = new SctpListenThread(socket, callback);
-//		thread.start();
-//
-//	}
+	@Getter
+	final private SctpSocket socket;
+	@Getter
+	final private NetworkLink link;
+	@Getter @Setter
+	private SctpDataCallback callback;
+
+	public SctpReceiver(InetSocketAddress local, InetSocketAddress remote) throws IOException {
+		socket = Sctp.createSocket(local.getPort());
+		link = new UdpLink(socket, local.getAddress().getHostAddress(), local.getPort(),
+				remote.getAddress().getHostAddress(), remote.getPort());
+		socket.setLink(link);
+	}
+	
+	public SctpReceiver(InetSocketAddress local, InetSocketAddress remote, UdpLinkBroker link, SctpDataCallback callback) throws IOException {
+		socket = Sctp.createSocket(local.getPort());
+		this.link = link;
+		this.callback = callback;
+		socket.setLink(link);
+	}
+
+	public Promise<SctpSocket, Exception, NetworkLink> listen(InetSocketAddress local) throws IOException {
+		Deferred<SctpSocket, Exception, NetworkLink> d = new DeferredObject<SctpSocket, Exception, NetworkLink>();
+		socket.listen();
+		SctpListenThread thread = new SctpListenThread(socket, callback, d);
+		thread.start();
+		return d.promise();
+	}
 
 }

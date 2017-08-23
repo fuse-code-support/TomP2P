@@ -17,12 +17,14 @@ package net.tomp2p.sctp.core;
 
 import java.net.*;
 
+import org.jdeferred.DoneCallback;
+import org.jdeferred.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javassist.NotFoundException;
 import lombok.Getter;
-import net.tomp2p.connection.Ports;
+import net.tomp2p.sctp.listener.SctpReceiver;
 import net.tomp2p.utils.Pair;
 
 import java.io.*;
@@ -59,14 +61,14 @@ public class UdpLinkBroker implements NetworkLink {
 	 * Local UDP port.
 	 */
 	@Getter
-	private final  int localPort;
+	private final int localPort;
 
 	/**
 	 * Local <tt>InetAddress</tt>.
 	 */
 	@Getter
-	private final  InetAddress localAddress;
-	
+	private final InetAddress localAddress;
+
 	/**
 	 * Default callback triggered from <tt>SctpSocket</tt>
 	 */
@@ -82,64 +84,63 @@ public class UdpLinkBroker implements NetworkLink {
 	 * @param localPort
 	 *            local UDP port.
 	 * @param broker
-	 * 			  stores information about known remote addresses
+	 *            stores information about known remote addresses
 	 * @throws IOException
 	 *             when we fail to resolve any of addresses or when opening UDP
 	 *             socket.
 	 */
-	public UdpLinkBroker(final InetAddress localIp, final int localPort, final SctpDataCallback defaultCallback) throws IOException {
+	public UdpLinkBroker(final InetAddress localIp, final int localPort, final SctpDataCallback defaultCallback)
+			throws IOException {
 		this.udpSocket = new DatagramSocket(localPort, localIp);
 		this.defaultCallback = defaultCallback;
 		this.localPort = localPort;
 		this.localAddress = localIp;
 	}
-	
+
 	public void listen() {
-		
+
 		// Listening thread
 		new Thread(new Runnable() {
 			public void run() {
 				try {
 					byte[] buff = new byte[2048];
 					DatagramPacket p = new DatagramPacket(buff, 2048);
+					
 					while (true) {
 						udpSocket.receive(p);
-						
-						Pair<InetAddress, Integer> remote = new Pair<InetAddress, Integer>(p.getAddress(), new Integer(p.getPort()));
-						
+
+						Pair<InetAddress, Integer> remote = new Pair<InetAddress, Integer>(p.getAddress(),
+								new Integer(p.getPort()));
+
 						SctpSocket sctpSocket = Sctp.findSctpSocket(remote);
 						if (sctpSocket == null) {
-							//FIXME jwa these ports are unsafe!
-							Ports ports = new Ports();
-							final SctpSocket newSctpSocket = Sctp.createSocket(ports.udpPort());
-							newSctpSocket.listen();
-							new Thread(new Runnable() {
+							
+							InetSocketAddress local = InetSocketAddress.createUnresolved(localAddress.getHostName(), localPort);
+							InetSocketAddress remoteA = InetSocketAddress.createUnresolved(p.getAddress().getHostName(), p.getPort());
 
+							SctpReceiver receiver = new SctpReceiver(local, remoteA, UdpLinkBroker.this, defaultCallback);
+							Promise<SctpSocket, Exception, NetworkLink> promise = receiver.listen(local);
+							
+							promise.done(new DoneCallback<SctpSocket>() {
+								
 								@Override
-								public void run() {
-									while (true) {
-										logger.error("SctpSocketAcceptThread started");
-										try {
-											while (!newSctpSocket.accept()) {
-												Thread.sleep(100);
-											}
-										} catch (IOException | InterruptedException e) {
-											e.printStackTrace();
-										}
-										logger.error("SctpSocketAcceptThread finished");
+								public void onDone(SctpSocket result) {
+									try {
+										Sctp.putRemote(Sctp.getPtr(receiver.getSocket()), remote);
+										receiver.getSocket().onConnIn(p.getData(), p.getOffset(), p.getLength(),
+												new Pair<>(p.getAddress(), p.getPort()));
+									} catch (IOException | NotFoundException e) {
+										e.printStackTrace();
 									}
 								}
-								
-							}).start();
-							newSctpSocket.setLink(UdpLinkBroker.this);
-							newSctpSocket.setDataCallback(defaultCallback);
-							newSctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
-							Sctp.putRemote(Sctp.getPtr(newSctpSocket), remote);
+							});
+							
 						} else {
-							sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
+							sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(),
+									new Pair<>(p.getAddress(), p.getPort()));
 						}
 					}
-				} catch (IOException | NotFoundException e) {
+				} catch (IOException | NotFoundException  e) {
 					logger.error(e.getMessage());
 				}
 			}
@@ -148,15 +149,15 @@ public class UdpLinkBroker implements NetworkLink {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws NotFoundException 
+	 * 
+	 * @throws NotFoundException
 	 */
 	@Override
-	public synchronized void onConnOut(final SctpSocket s, final byte[] packetData) throws IOException, NotFoundException {
+	public synchronized void onConnOut(final SctpSocket s, final byte[] packetData)
+			throws IOException, NotFoundException {
 		Pair<InetAddress, Integer> remote = Sctp.findRemote(Sctp.getPtr(s));
 		DatagramPacket packet = new DatagramPacket(packetData, packetData.length, remote.element0(), remote.element1());
 		udpSocket.send(packet);
 	}
 
-	
-	
 }
