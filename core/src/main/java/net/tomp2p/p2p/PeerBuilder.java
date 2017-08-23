@@ -183,13 +183,13 @@ public class PeerBuilder {
 			channelServerConfiguration.behindFirewall(behindFirewall);
 		}
 		if(isTcpPortSet || isUdpPortSet) {
-			channelServerConfiguration.ports(new Ports(tcpPort, udpPort, udpPort + 1));
+			channelServerConfiguration.ports(new Ports(tcpPort, udpPort));
 		}
 		
 		if(tcpPortForwarding == -1 && udpPortForwarding == -1) {
 			channelServerConfiguration.portsForwarding(new Ports());
 		} else {
-			channelServerConfiguration.portsForwarding(new Ports(tcpPortForwarding, udpPortForwarding, udpPortForwarding + 1));
+			channelServerConfiguration.portsForwarding(new Ports(tcpPortForwarding, udpPortForwarding));
 		}
 		
 		if (channelClientConfiguration == null) {
@@ -313,8 +313,8 @@ public class PeerBuilder {
 		ChannelServerConfiguration channelServerConfiguration = new ChannelServerConfiguration();
 		channelServerConfiguration.bindings(new Bindings());
 		//these two values may be overwritten in the peer builder
-		channelServerConfiguration.ports(new Ports(Ports.DEFAULT_PORT, Ports.DEFAULT_PORT, Ports.DEFAULT_PORT + 1));
-		channelServerConfiguration.portsForwarding(new Ports(Ports.DEFAULT_PORT, Ports.DEFAULT_PORT, Ports.DEFAULT_PORT + 1));
+		channelServerConfiguration.ports(new Ports(Ports.DEFAULT_PORT, Ports.DEFAULT_PORT));
+		channelServerConfiguration.portsForwarding(new Ports(Ports.DEFAULT_PORT, Ports.DEFAULT_PORT));
 		channelServerConfiguration.behindFirewall(false);
 		channelServerConfiguration.signatureFactory(new DSASignatureFactory());
 		channelServerConfiguration.byteBufPool(false);

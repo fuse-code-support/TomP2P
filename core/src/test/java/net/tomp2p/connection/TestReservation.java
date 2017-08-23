@@ -85,7 +85,7 @@ public class TestReservation {
 		Bindings bindings = new Bindings().addAddress(InetAddress.getByName("127.0.0.1"));
 		ChannelServerConfiguration c = new ChannelServerConfiguration();
 		c.bindings(bindings);
-		c.ports(new Ports(PORT, PORT, PORT + 1));
+		c.ports(new Ports(PORT, PORT));
 		final EventLoopGroup bossGroup = new NioEventLoopGroup(0,
     	        new DefaultThreadFactory(ConnectionBean.THREAD_NAME + "boss - "));
     	workerGroup = new NioEventLoopGroup(0,

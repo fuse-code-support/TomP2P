@@ -25,19 +25,11 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.jdeferred.Deferred;
-import org.jdeferred.Promise;
-import org.jdeferred.impl.DeferredObject;
-
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
-import net.tomp2p.connection.negotiation.SctpBroker;
-import net.tomp2p.connection.sctp.SctpSocket;
-import net.tomp2p.connection.sctp.UdpLink;
-import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
@@ -698,24 +690,6 @@ public final class PeerAddress implements Comparable<PeerAddress>, Serializable 
 		} else {
 			throw new RuntimeException("No matching protocal found");
 		}
-	}
-
-	public Promise<SctpSocket, Exception, UdpLink> createSocket(Peer localPeer, PeerAddress remotePeerAddress) {
-		Deferred<SctpSocket, Exception, UdpLink> def = new DeferredObject<>();
-		SctpBroker broker = localPeer.peerBean().sctpBroker();
-
-		if (!localPeer.peerAddress().ipv6Flag) {
-			InetAddress localAddress = localPeer.peerAddress().ipv4Socket.ipv4().toInetAddress();
-			int localPort = 9989;
-			InetAddress remoteAddress = remotePeerAddress.ipv4Socket().ipv4().toInetAddress();
-			int remotePort = -1; //we don't know the port yet
-			
-			broker.negotiate(localAddress, 9989, remotePeerAddress);
-		} else {
-
-		}
-
-		return def.promise();
 	}
 
 	/*
