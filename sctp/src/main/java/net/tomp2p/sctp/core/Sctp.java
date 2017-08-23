@@ -378,7 +378,7 @@ public class Sctp {
 		return remotes.get(ptr);
 	}
 
-	public static SctpSocket findSctpSocket(Pair<InetAddress, Integer> remote) throws NotFoundException {
+	public static synchronized SctpSocket findSctpSocket(Pair<InetAddress, Integer> remote) throws NotFoundException {
 		if (!remotes.containsValue(remote)) {
 			return null;
 		} else {

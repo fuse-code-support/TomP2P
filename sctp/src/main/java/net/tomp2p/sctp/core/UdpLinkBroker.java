@@ -22,9 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import javassist.NotFoundException;
 import lombok.Getter;
-import lombok.Setter;
 import net.tomp2p.connection.Ports;
-import net.tomp2p.sctp.listener.SctpListenThread;
 import net.tomp2p.utils.Pair;
 
 import java.io.*;
@@ -61,25 +59,18 @@ public class UdpLinkBroker implements NetworkLink {
 	 * Local UDP port.
 	 */
 	@Getter
-	private int localPort;
+	private final  int localPort;
 
 	/**
 	 * Local <tt>InetAddress</tt>.
 	 */
 	@Getter
-	private InetAddress localAddress;
+	private final  InetAddress localAddress;
 	
 	/**
-	 * Destination UDP port.
+	 * Default callback triggered from <tt>SctpSocket</tt>
 	 */
-	@Getter
-	private int remotePort;
-
-	/**
-	 * Destination <tt>InetAddress</tt>.
-	 */
-	@Getter
-	private InetAddress remoteAddress;
+	private final SctpDataCallback defaultCallback;
 
 	/**
 	 * Creates new instance of <tt>UdpConnection</tt>.
@@ -96,9 +87,9 @@ public class UdpLinkBroker implements NetworkLink {
 	 *             when we fail to resolve any of addresses or when opening UDP
 	 *             socket.
 	 */
-	public UdpLinkBroker(final InetAddress localIp, final int localPort, SctpDataCallback defaultCallback) throws IOException {
+	public UdpLinkBroker(final InetAddress localIp, final int localPort, final SctpDataCallback defaultCallback) throws IOException {
 		this.udpSocket = new DatagramSocket(localPort, localIp);
-
+		this.defaultCallback = defaultCallback;
 		this.localPort = localPort;
 		this.localAddress = localIp;
 	}
@@ -141,9 +132,9 @@ public class UdpLinkBroker implements NetworkLink {
 								
 							}).start();
 							newSctpSocket.setLink(UdpLinkBroker.this);
+							newSctpSocket.setDataCallback(defaultCallback);
 							newSctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
 							Sctp.putRemote(Sctp.getPtr(newSctpSocket), remote);
-							
 						} else {
 							sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
 						}
