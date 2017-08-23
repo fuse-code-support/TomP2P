@@ -1,9 +1,13 @@
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.listener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import org.jdeferred.Deferred;
+
+import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.UdpLink;
 
 public class SctpConnectThread extends Thread {
 

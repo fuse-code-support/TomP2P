@@ -1,4 +1,4 @@
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.sample;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -10,6 +10,11 @@ import org.jdeferred.FailCallback;
 import org.jdeferred.ProgressCallback;
 import org.jdeferred.Promise;
 
+import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpDataCallback;
+import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.UdpLink;
+import net.tomp2p.sctp.listener.SctpSender;
 import net.tomp2p.utils.Pair;
 
 public class SctpTestDriver {

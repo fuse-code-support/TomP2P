@@ -1,4 +1,4 @@
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.listener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -8,6 +8,9 @@ import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.UdpLink;
 
 public class SctpSender {
 

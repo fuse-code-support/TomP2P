@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.sample;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.UdpLink;
 
 /**
  * Sample SCTP client that uses UDP socket for transfers.

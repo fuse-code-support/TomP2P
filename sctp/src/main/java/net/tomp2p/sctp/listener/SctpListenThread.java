@@ -1,6 +1,9 @@
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.listener;
 
 import java.io.IOException;
+
+import net.tomp2p.sctp.core.SctpDataCallback;
+import net.tomp2p.sctp.core.SctpSocket;
 
 public class SctpListenThread extends Thread {
 

@@ -1,9 +1,12 @@
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.sample;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+
+import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.listener.SctpReceiver;
 
 public class SctpReceiverTestDriver {
 	public static void main(String[] args) {

@@ -13,30 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.core;
 
-import java.net.InetAddress;
-
-import net.tomp2p.utils.Pair;
+import java.io.*;
 
 /**
- * Callback used to listen for incoming data on SCTP socket.
+ * Interface used by {@link SctpSocket} for sending network packets.
+ *
+ * FIXME: introduce offset and length parameters in order to be able to
+ *        re-use single buffer instance
  *
  * @author Pawel Domas
  */
-public interface SctpDataCallback
+public interface NetworkLink
 {
     /**
-     * Callback fired by <tt>SctpSocket</tt> to notify about incoming data.
-     * @param data buffer holding received data.
-     * @param sid SCTP stream identifier.
-     * @param ssn
-     * @param tsn
-     * @param ppid payload protocol identifier.
-     * @param context
-     * @param flags
-     * @param remote 
+     * Callback triggered by <tt>SctpSocket</tt> whenever it wants to send some
+     * network packet.
+     * @param s source <tt>SctpSocket</tt> instance.
+     * @param packet network packet buffer.
+     *
+     * @throws java.io.IOException in case of transport error.
      */
-    void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid,
-                      int context, int flags, Pair<InetAddress, Integer> remote);
+    public void onConnOut(final SctpSocket s, final byte[] packet)
+        throws IOException;
 }

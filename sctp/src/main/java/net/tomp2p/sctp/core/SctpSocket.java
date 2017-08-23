@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.tomp2p.sctp;
+package net.tomp2p.sctp.core;
 
 import java.io.*;
 import java.net.InetAddress;
