@@ -17,7 +17,7 @@
 CC=gcc
 
 #JNI_HEADERS = -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
-JNI_HEADERS = -I"/usr/lib/jvm/java-8-openjdk/include" -I"/usr/lib/jvm/java-8-openjdk/include/linux"
+JNI_HEADERS = -I"/usr/lib/jvm/java-8-openjdk-amd64/include" -I"/usr/lib/jvm/java-8-openjdk-amd64/include/linux"
 #SCTP_HEADERS = -I"usrsctp/usrsctplib"
 
 CFLAGS = -Wall -Werror -std=c99 $(JNI_HEADERS) -DSCTP_DEBUG=1 -DINET6=1

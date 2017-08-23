@@ -14,7 +14,7 @@ public class SctpReceiverTestDriver {
 		
 		InetSocketAddress local = null;
 		try {
-			local = new InetSocketAddress(InetAddress.getByName("192.168.1.210"), 9999);
+			local = new InetSocketAddress(InetAddress.getByName("192.168.0.106"), 9999);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}

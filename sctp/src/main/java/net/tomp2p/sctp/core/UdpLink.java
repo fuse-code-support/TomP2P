@@ -124,8 +124,6 @@ public class UdpLink implements NetworkLink {
 					DatagramPacket p = new DatagramPacket(buff, 2048);
 					while (true) {
 						udpSocket.receive(p);
-						UdpLink.this.remoteIp = p.getAddress();
-						UdpLink.this.remotePort = p.getPort();
 						UdpLink.this.sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(), new Pair<>(p.getAddress(), p.getPort()));
 					}
 				} catch (IOException e) {

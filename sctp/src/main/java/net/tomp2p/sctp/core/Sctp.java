@@ -17,7 +17,6 @@ package net.tomp2p.sctp.core;
 
 import java.io.*;
 import java.net.InetAddress;
-import java.net.SocketPermission;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -42,6 +41,10 @@ import net.tomp2p.utils.Pair;
  *         </ul>
  */
 public class Sctp {
+	/**
+	 * The Packet store for storing 
+	 * */
+	private static PacketStore packetStore = new PacketStore();
 	/**
 	 * FIXME Remove once usrsctp_finish is fixed
 	 */
@@ -211,7 +214,8 @@ public class Sctp {
 	 * @param remote
 	 */
 	static void onConnIn(long socketPtr, byte[] packet, int offset, int len, Pair<InetAddress, Integer> remote) {
-		remotes.put(socketPtr, remote);
+		Long id = new Random().nextLong();
+		remotes.put(id, remote);
 		logger.info(socketPtr + " " + remote.element0() + ":" + remote.element1());
 		on_network_in(socketPtr, packet, offset, len);
 	}

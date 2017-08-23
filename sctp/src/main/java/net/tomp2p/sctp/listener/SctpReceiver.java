@@ -37,15 +37,12 @@ public class SctpReceiver {
 				String message = s + " replied";
 
 				int success = -1;
-				//try {
-					link.setRemoteIp(remote.element0());
-					link.setRemotePort(remote.element1());
-					//link.onConnOut(socket, s.getBytes());
-					// success = socket.send(message.getBytes(), 0, message.getBytes().length,
-					// false, 1, 0);
-				//} catch (IOException e) {
-				//	e.printStackTrace();
-				//}
+				try {
+					 success = socket.send(message.getBytes(), 0, message.getBytes().length,
+					 true, sid, (int) ppid);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 
