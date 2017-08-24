@@ -16,7 +16,7 @@ public class SctpReceiverTestDriver2 {
 	public static void main(String[] args) throws IOException {
 		Sctp.init();
 
-		InetAddress localAddress = InetAddress.getByName("192.168.0.103");
+		InetAddress localAddress = InetAddress.getByName("192.168.0.106");
 		int localPort = 9899;
 
 		SctpDataCallback callback = new SctpDataCallback() {
