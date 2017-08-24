@@ -27,10 +27,15 @@ public class SctpTestDriver2 {
 
 		Sctp.init();
 
+<<<<<<< HEAD
+		InetSocketAddress local = InetSocketAddress.createUnresolved("192.168.0.103", 9999);
+		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.106", 9899);
+=======
 		InetSocketAddress local = InetSocketAddress.createUnresolved("192.168.0.106", 9999);
 		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.103", 9899);
 		InetAddress remoteInet = InetAddress.getByName("192.168.0.106");
 		int remoteport = 9899;
+>>>>>>> e2af9caa0eeac48925ec742faf98f7c6074d8293
 
 		SctpSender sender = new SctpSender();
 		Promise<SctpSocket, IOException, UdpLink> p = sender.connect(local, remote);
