@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.jdeferred.DoneCallback;
 import org.jdeferred.FailCallback;
-import org.jdeferred.ProgressCallback;
 import org.jdeferred.Promise;
 
 import javassist.NotFoundException;
@@ -27,15 +26,10 @@ public class SctpTestDriver2 {
 
 		Sctp.init();
 
-<<<<<<< HEAD
 		InetSocketAddress local = InetSocketAddress.createUnresolved("192.168.0.103", 9999);
 		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.106", 9899);
-=======
-		InetSocketAddress local = InetSocketAddress.createUnresolved("192.168.0.106", 9999);
-		InetSocketAddress remote = InetSocketAddress.createUnresolved("192.168.0.103", 9899);
 		InetAddress remoteInet = InetAddress.getByName("192.168.0.106");
 		int remoteport = 9899;
->>>>>>> e2af9caa0eeac48925ec742faf98f7c6074d8293
 
 		SctpSender sender = new SctpSender();
 		Promise<SctpSocket, IOException, UdpLink> p = sender.connect(local, remote);
@@ -65,8 +59,8 @@ public class SctpTestDriver2 {
 						result.setDataCallback(new SctpDataCallback() {
 
 							@Override
-							public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-									Pair<InetAddress, Integer> remote) {
+							public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context,
+									int flags, Pair<InetAddress, Integer> remote) {
 								String s = new String(data, StandardCharsets.UTF_8);
 
 								System.out.println("got message: /n " + s);

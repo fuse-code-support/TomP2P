@@ -31,8 +31,14 @@ public class SctpReceiverTestDriver2 {
 				String message = s + " replied";
 				try {
 					SctpSocket sctpSocket = Sctp.findSctpSocket(remote);
-					sctpSocket.send(message.getBytes(), false, sid, (int) ppid);
-				} catch (NotFoundException | IOException e) {
+					int success = -1;
+					success = sctpSocket.send(message.getBytes(), false, sid, (int) ppid);
+					
+					if (success == -1) {
+						Thread.sleep(100);
+						success = sctpSocket.send(message.getBytes(), false, sid, (int) ppid);
+					}
+				} catch (NotFoundException | IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
