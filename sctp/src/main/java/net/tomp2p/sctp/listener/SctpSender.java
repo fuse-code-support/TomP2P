@@ -9,6 +9,7 @@ import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.tomp2p.sctp.core.SctpConfig;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.UdpLink;
 
@@ -19,8 +20,7 @@ public class SctpSender {
 	public Promise<SctpSocket, IOException, UdpLink> connect(InetSocketAddress local, InetSocketAddress remote) {
 		
 		Deferred<SctpSocket, IOException, UdpLink> deferred = new DeferredObject<>();
-		SctpConnectThread thread = new SctpConnectThread(local, remote, deferred);
-		thread.start();
+		SctpConfig.getThreadPoolExecutor().execute(new SctpConnectThread(local, remote, deferred));
 		
 		return deferred.promise();
 	}

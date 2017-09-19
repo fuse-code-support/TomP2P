@@ -24,15 +24,15 @@ public class SctpListenThread extends Thread {
 	public void run() {
 		super.run();
 
-		int counter = 0;
+		boolean visited = false;
 		// while (true) {
 		try {
 			while (!socket.accept()) {
 				Thread.sleep(100);
-				if (counter == 2) {
-					d.resolve(socket);
+				if (!visited) {
+					d.resolve(socket); //we should fire resolved only once
+					visited = true;
 				}
-				counter++;
 			}
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();

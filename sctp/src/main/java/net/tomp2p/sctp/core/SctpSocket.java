@@ -400,7 +400,7 @@ public class SctpSocket {
 	 *            length of packet data in the buffer.
 	 * @param remote
 	 */
-	public void onConnIn(byte[] packet, int offset, int len, Pair<InetAddress, Integer> remote) throws IOException {
+	public void onConnIn(byte[] packet, int offset, int len) throws IOException {
 		if (packet == null) {
 			throw new NullPointerException("packet");
 		}
@@ -411,7 +411,7 @@ public class SctpSocket {
 		long ptr = lockPtr();
 
 		try {
-			Sctp.onConnIn(ptr, packet, offset, len, remote);
+			Sctp.onConnIn(ptr, packet, offset, len);
 		} finally {
 			unlockPtr();
 		}

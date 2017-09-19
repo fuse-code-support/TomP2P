@@ -100,12 +100,12 @@ public class UdpLinkBroker implements NetworkLink {
 	public void listen() {
 
 		// Listening thread
-		new Thread(new Runnable() {
+		SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
 			public void run() {
 				try {
 					byte[] buff = new byte[2048];
 					DatagramPacket p = new DatagramPacket(buff, 2048);
-					
+
 					while (true) {
 						udpSocket.receive(p);
 
@@ -114,37 +114,35 @@ public class UdpLinkBroker implements NetworkLink {
 
 						SctpSocket sctpSocket = Sctp.findSctpSocket(remote);
 						if (sctpSocket == null) {
-							
-							InetSocketAddress local = InetSocketAddress.createUnresolved(localAddress.getHostName(), localPort);
-							InetSocketAddress remoteA = InetSocketAddress.createUnresolved(p.getAddress().getHostName(), p.getPort());
 
-							SctpReceiver receiver = new SctpReceiver(local, remoteA, UdpLinkBroker.this, defaultCallback);
-							Promise<SctpSocket, Exception, NetworkLink> promise = receiver.listen(local);
-							
+							InetSocketAddress local = InetSocketAddress.createUnresolved(localAddress.getHostName(),
+									localPort);
+
+							SctpReceiver receiver = new SctpReceiver(local, UdpLinkBroker.this, defaultCallback);
+							Promise<SctpSocket, Exception, NetworkLink> promise = receiver.listen();
+
 							promise.done(new DoneCallback<SctpSocket>() {
-								
+
 								@Override
 								public void onDone(SctpSocket result) {
 									try {
 										Sctp.putRemote(Sctp.getPtr(receiver.getSocket()), remote);
-										receiver.getSocket().onConnIn(p.getData(), p.getOffset(), p.getLength(),
-												new Pair<>(p.getAddress(), p.getPort()));
+										receiver.getSocket().onConnIn(p.getData(), p.getOffset(), p.getLength());
 									} catch (IOException | NotFoundException e) {
 										e.printStackTrace();
 									}
 								}
 							});
-							
+
 						} else {
-							sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength(),
-									new Pair<>(p.getAddress(), p.getPort()));
+							sctpSocket.onConnIn(p.getData(), p.getOffset(), p.getLength());
 						}
 					}
-				} catch (IOException | NotFoundException  e) {
+				} catch (IOException | NotFoundException e) {
 					logger.error(e.getMessage());
 				}
 			}
-		}).start();
+		});
 	}
 
 	/**
@@ -158,6 +156,8 @@ public class UdpLinkBroker implements NetworkLink {
 		Pair<InetAddress, Integer> remote = Sctp.findRemote(Sctp.getPtr(s));
 		DatagramPacket packet = new DatagramPacket(packetData, packetData.length, remote.element0(), remote.element1());
 		udpSocket.send(packet);
+		
+		
 	}
-
+	
 }

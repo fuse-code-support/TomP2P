@@ -37,7 +37,7 @@ public class SctpReceiverTestDriver {
 		}
 		
 		try {
-			receiver.listen(local);
+			receiver.listen();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

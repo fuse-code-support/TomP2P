@@ -211,8 +211,7 @@ public class Sctp {
 	 *            length of packet data in the buffer.
 	 * @param remote
 	 */
-	static void onConnIn(long socketPtr, byte[] packet, int offset, int len, Pair<InetAddress, Integer> remote) {
-		logger.info("onConnIn called: " + socketPtr + " " + remote.element0() + ":" + remote.element1());
+	static void onConnIn(long socketPtr, byte[] packet, int offset, int len) {
 		on_network_in(socketPtr, packet, offset, len);
 	}
 

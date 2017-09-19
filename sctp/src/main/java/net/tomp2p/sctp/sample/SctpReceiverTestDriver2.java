@@ -20,20 +20,20 @@ public class SctpReceiverTestDriver2 {
 		int localPort = 9899;
 
 		SctpDataCallback callback = new SctpDataCallback() {
-			
+
 			@Override
 			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
 					Pair<InetAddress, Integer> remote) {
 				String s = new String(data, StandardCharsets.UTF_8);
-				
-				System.out.println("got message from " + remote.element0() + ":" + remote.element1() +": \\n " + s);
+
+				System.out.println("got message from " + remote.element0() + ":" + remote.element1() + ": \\n " + s);
 
 				String message = s + " replied";
 				try {
 					SctpSocket sctpSocket = Sctp.findSctpSocket(remote);
 					int success = -1;
 					success = sctpSocket.send(message.getBytes(), false, sid, (int) ppid);
-					
+
 					if (success == -1) {
 						Thread.sleep(100);
 						success = sctpSocket.send(message.getBytes(), false, sid, (int) ppid);
@@ -43,9 +43,8 @@ public class SctpReceiverTestDriver2 {
 				}
 			}
 		};
-		
+
 		UdpLinkBroker link = new UdpLinkBroker(localAddress, localPort, callback);
 		link.listen();
-		
 	}
 }

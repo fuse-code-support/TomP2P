@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.tomp2p.sctp.core.NetworkLink;
 import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpConfig;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.UdpLink;
@@ -35,18 +36,17 @@ public class SctpReceiver {
 		socket.setLink(link);
 	}
 	
-	public SctpReceiver(InetSocketAddress local, InetSocketAddress remote, UdpLinkBroker link, SctpDataCallback callback) throws IOException {
+	public SctpReceiver(InetSocketAddress local, UdpLinkBroker link, SctpDataCallback callback) throws IOException {
 		socket = Sctp.createSocket(local.getPort());
 		this.link = link;
 		this.callback = callback;
 		socket.setLink(link);
 	}
 
-	public Promise<SctpSocket, Exception, NetworkLink> listen(InetSocketAddress local) throws IOException {
+	public Promise<SctpSocket, Exception, NetworkLink> listen() throws IOException {
 		Deferred<SctpSocket, Exception, NetworkLink> d = new DeferredObject<SctpSocket, Exception, NetworkLink>();
 		socket.listen();
-		SctpListenThread thread = new SctpListenThread(socket, callback, d);
-		thread.start();
+		SctpConfig.getThreadPoolExecutor().execute(new SctpListenThread(socket, callback, d));
 		return d.promise();
 	}
 

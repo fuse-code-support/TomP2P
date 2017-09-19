@@ -57,20 +57,21 @@ public class DirectLink
         throws IOException
     {
         final SctpSocket dest = s == this.a ? this.b : this.a;
-        new Thread(new Runnable()
+        
+        SctpConfig.getThreadPoolExecutor().execute(new Runnable()
         {
             public void run()
             {
                 try
                 {
                 	//FIXME: jwa I might have to change this back
-                    dest.onConnIn(packet, 0, packet.length, null);
+                    dest.onConnIn(packet, 0, packet.length);
                 }
                 catch (IOException e)
                 {
                     logger.error(e.getMessage());
                 }
             }
-        }).start();
+        });
     }
 }
