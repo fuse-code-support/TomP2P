@@ -156,8 +156,7 @@ public class UdpLinkBroker implements NetworkLink {
 		Pair<InetAddress, Integer> remote = Sctp.findRemote(Sctp.getPtr(s));
 		DatagramPacket packet = new DatagramPacket(packetData, packetData.length, remote.element0(), remote.element1());
 		udpSocket.send(packet);
-		
-		
+
 	}
-	
+
 }
