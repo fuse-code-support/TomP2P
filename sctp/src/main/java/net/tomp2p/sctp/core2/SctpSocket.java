@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javassist.NotFoundException;
+import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 
 /**
@@ -172,7 +173,7 @@ public class SctpSocket {
 	}
 
 	/**
-	 * The indicator which determines whether {@link #close()} has been invoked on
+	 * The indicator which determines whether {@link #closeNative()} has been invoked on
 	 * this <tt>SctpSocket</tt>. It does NOT indicate whether
 	 * {@link Sctp#closeSocket(long)} has been invoked with {@link #ptr}.
 	 */
@@ -215,7 +216,7 @@ public class SctpSocket {
 
 	/**
 	 * The number of current readers of {@link #ptr} which are preventing the writer
-	 * (i.e. {@link #close()}) from invoking {@link Sctp#closeSocket(long)}.
+	 * (i.e. {@link #closeNative()}) from invoking {@link Sctp#closeSocket(long)}.
 	 */
 	private int ptrLockCount = 0;
 
@@ -291,7 +292,7 @@ public class SctpSocket {
 	/**
 	 * Closes this socket. After call to this method this instance MUST NOT be used.
 	 */
-	public void close() {
+	public void closeNative() {
 		// The value of the field closed only ever changes from false to true.
 		// Additionally, its reading is always synchronized and combined with
 		// access to the field ptrLockCount governed by logic which binds the
@@ -326,7 +327,7 @@ public class SctpSocket {
 	 *             if this socket is closed or an error occurs while trying to
 	 *             connect the socket.
 	 */
-	public void connect(int remotePort) throws IOException {
+	public void connectNative(int remotePort) throws IOException {
 		long ptr = lockPtr();
 
 		try {
@@ -349,7 +350,7 @@ public class SctpSocket {
 	/**
 	 * Makes SCTP socket passive.
 	 */
-	public void listen() throws IOException {
+	public void listenNative() throws IOException {
 		long ptr = lockPtr();
 
 		try {
@@ -495,7 +496,7 @@ public class SctpSocket {
 
 		if (link != null) {
 			try {
-				link.onConnOut(this, packet);
+				link.onConnOut(SctpDispatcher.locateSctpFacade(this), packet);
 				ret = 0;
 			} catch (IOException | NotFoundException e) {
 				logger.error("Error while sending packet trough the link: " + link, e);

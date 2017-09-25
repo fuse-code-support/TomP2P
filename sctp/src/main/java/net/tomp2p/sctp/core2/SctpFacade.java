@@ -6,12 +6,13 @@ import org.jdeferred.Promise;
 
 public interface SctpFacade {
 	
-	public static final int MAX_NR_OF_CONN = 65535; //2³²
+	static final int MAX_NR_OF_CONN = 65535; //2³²
 	
-	public void listen();
-	public Promise<SctpFacade, Exception, Object> connect(int localPort);
-	public int send(InetSocketAddress remote);
-	public void receive(); //TODO jwa implement this
-	public int close(); //TODO implement shutdown
-	
+	void listen();
+	Promise<SctpFacade, Exception, Object> connect(int localPort);
+	int send(InetSocketAddress remote);
+	void receive(); //TODO jwa implement this
+	int close(); //TODO implement shutdown
+	boolean containsSctpSocket(SctpSocket so);
+	void onConnIn(byte[] data, int offset, int length);
 }

@@ -1,19 +1,24 @@
 package net.tomp2p.sctp.connection;
 
 import java.net.InetSocketAddress;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TooManyListenersException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.tomp2p.sctp.core2.SctpFacade;
-import net.tomp2p.sctp.core2.SctpSocketFacadeImpl;
+import net.tomp2p.sctp.core2.SctpSocket;
+import net.tomp2p.sctp.core2.SctpSocketAdapter;
 
 public class SctpDispatcher implements Dispatcher{
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Dispatcher.class);
 
-	private final ConcurrentHashMap<InetSocketAddress, SctpFacade> socketMap = new ConcurrentHashMap<>();
+	private static final ConcurrentHashMap<InetSocketAddress, SctpFacade> socketMap = new ConcurrentHashMap<>();
 	
 	@Override
 	public synchronized void registerSocket(final InetSocketAddress remote, final SctpFacade so) {
@@ -26,12 +31,19 @@ public class SctpDispatcher implements Dispatcher{
 
 	/**
 	 * This method removes a socket from the {@link Dispatcher} and shuts down the usrsctp counterpart.
-	 * Make sure this {@link SctpSocketFacadeImpl} instance is not used anywhere else!
+	 * Make sure this {@link SctpSocketAdapter} instance is not used anywhere else!
 	 * */
 	@Override
 	public synchronized void unregisterSocket(SctpFacade so) {
-		//TODO jwa handle shutdown
-		
+		if (so == null) {
+			LOG.error("Invalid input, null can't be removed!");
+			return;
+		} else if (!socketMap.contains(so)){
+			LOG.error("Invalid input, a socket, which is not registered, cannot be removed!");
+			return;
+		} else {
+			socketMap.remove(so);
+		}
 	}
 
 	@Override
@@ -50,6 +62,19 @@ public class SctpDispatcher implements Dispatcher{
 	public void getChannel() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public synchronized static SctpFacade locateSctpFacade(final SctpSocket sctpSocket) {
+		SctpFacade facade = socketMap.values().stream()
+		.filter(so -> so.containsSctpSocket(sctpSocket))
+		.findFirst().get();
+		
+		if (facade == null) {
+			LOG.error("Could not retrieve SctpSocket from SctpDispatcher!");
+			return null;
+		} else {
+			return facade;
+		}
 	}
 
 }
