@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
+import lombok.Setter;
 import org.jdeferred.Deferred;
 import org.jdeferred.DeferredManager;
 import org.jdeferred.Promise;
@@ -20,16 +21,20 @@ public class SctpSocketAdapter implements SctpFacade{
 	
 	private final SctpSocket so;
 	@Getter
-	private final int localPort;
+	private final InetSocketAddress local;
 	@Getter
 	private final SctpDataCallback cb;
 	@Getter
 	private final NetworkLink link;
+	@Getter
+	@Setter
+	private InetSocketAddress remote;
 	
-	public SctpSocketAdapter(final int localPort, final NetworkLink link, final SctpDataCallback cb) {
-		this.so = Sctp.createSocket(localPort);
+	public SctpSocketAdapter(final InetSocketAddress local, final NetworkLink link, final SctpDataCallback cb) {
+		this.so = Sctp.createSocket(local.getPort());
 		this.so.setLink(link); //forwards all onConnOut to the corresponding link
-		this.localPort = localPort;
+		this.local = local;
+		this.remote = remote;
 		this.cb = cb;
 		this.link = link;
 	}
