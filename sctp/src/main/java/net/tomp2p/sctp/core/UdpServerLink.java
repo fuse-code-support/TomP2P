@@ -3,6 +3,7 @@ package net.tomp2p.sctp.core;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class UdpServerLink implements NetworkLink {
 	@Getter
 	private final InetSocketAddress remote;
 	
-	/**
+		/**
 	 * Creates new instance of <tt>UdpConnection</tt>.
 	 */
 	public UdpServerLink(InetSocketAddress local, InetSocketAddress remote, SctpFacade so) throws IOException {

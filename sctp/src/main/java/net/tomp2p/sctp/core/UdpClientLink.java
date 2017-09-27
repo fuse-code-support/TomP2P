@@ -23,9 +23,19 @@ public class UdpClientLink implements NetworkLink {
 	 * Udp socket used for transport.
 	 */
 	private final DatagramSocket udpSocket;
-
-	public UdpClientLink(InetSocketAddress local) throws SocketException {
-		this.udpSocket = new DatagramSocket(local.getPort(), local.getAddress());
+	
+	/**
+	 * Creates new instance of <tt>UdpConnection</tt>. The default port used will be 9899.
+	 */
+	public UdpClientLink(final InetAddress local, final SctpDataCallback cb) throws SocketException {
+		this(local, SctpPorts.SCTP_TUNNELING_PORT, cb);
+	}
+	
+	/**
+	 * Creates new instance of <tt>UdpConnection</tt>.
+	 */
+	public UdpClientLink(final InetAddress localAddress, final int localPort, final SctpDataCallback cb) throws SocketException {
+		this.udpSocket = new DatagramSocket(localPort, localAddress);
 		
 		SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
 			
@@ -42,12 +52,11 @@ public class UdpClientLink implements NetworkLink {
 						
 						so = SctpDispatcher.locate(p.getAddress().getHostAddress(), p.getPort());
 						
-						/**
-						 * If so is null it means that we don't know the other Sctp endpoint yet and we need to reply their handshake with INIT ACK.
+						/*
+						 * If so is null it means that we don't know the other Sctp endpoint yet. Thus, we need to reply their handshake with INIT ACK.
 						 * */
 						if (so == null) {
-							
-							Promise<SctpFacade, Exception, Object> promise = createSo(p.getAddress(), p.getPort());
+							so = new SctpSocketBuilder().builder().;
 							
 							promise.done(new DoneCallback<SctpFacade>() {
 								
@@ -76,12 +85,4 @@ public class UdpClientLink implements NetworkLink {
 	public void onConnOut(SctpFacade s, byte[] packet) throws IOException, NotFoundException {
 
 	}
-	
-	private Promise<SctpFacade, Exception, Object> createSo(final InetAddress remoteAddress, final int remotePort) {
-		
-		
-		
-		return null;
-	}
-
 }

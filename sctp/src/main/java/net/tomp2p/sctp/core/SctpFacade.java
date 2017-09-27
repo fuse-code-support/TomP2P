@@ -4,6 +4,8 @@ import java.net.InetSocketAddress;
 
 import org.jdeferred.Promise;
 
+import lombok.Builder;
+
 public interface SctpFacade {
 	
 	static final int MAX_NR_OF_CONN = 65535; //2¹⁶
