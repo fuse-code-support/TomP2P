@@ -1,4 +1,4 @@
-package net.tomp2p.sctp.core2;
+package net.tomp2p.sctp.core;
 
 import java.net.InetSocketAddress;
 
@@ -15,4 +15,6 @@ public interface SctpFacade {
 	int close(); //TODO implement shutdown
 	boolean containsSctpSocket(SctpSocket so);
 	void onConnIn(byte[] data, int offset, int length);
+	void setDataCallback(SctpDataCallback callback);
+	boolean accept();
 }

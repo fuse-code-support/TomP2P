@@ -15,6 +15,7 @@ import net.tomp2p.sctp.core.NetworkLink;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpConfig;
 import net.tomp2p.sctp.core.SctpDataCallback;
+import net.tomp2p.sctp.core.SctpListenThread;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.UdpLink;
 import net.tomp2p.sctp.core.UdpLinkBroker;

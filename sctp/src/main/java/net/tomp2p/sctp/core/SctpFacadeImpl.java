@@ -1,4 +1,4 @@
-package net.tomp2p.sctp.core2;
+package net.tomp2p.sctp.core;
 
 public class SctpFacadeImpl {
 

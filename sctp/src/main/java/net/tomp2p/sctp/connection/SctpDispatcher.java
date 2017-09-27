@@ -11,9 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.tomp2p.sctp.core2.SctpFacade;
-import net.tomp2p.sctp.core2.SctpSocket;
-import net.tomp2p.sctp.core2.SctpSocketAdapter;
+import net.tomp2p.sctp.core.SctpFacade;
+import net.tomp2p.sctp.core.SctpSocket;
+import net.tomp2p.sctp.core.SctpSocketAdapter;
 
 public class SctpDispatcher implements Dispatcher {
 

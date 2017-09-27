@@ -1,13 +1,6 @@
-package net.tomp2p.sctp.listener;
-
-import java.io.IOException;
+package net.tomp2p.sctp.core;
 
 import org.jdeferred.Deferred;
-
-import net.tomp2p.sctp.core.NetworkLink;
-import net.tomp2p.sctp.core.SctpDataCallback;
-import net.tomp2p.sctp.core.SctpSocket;
-import net.tomp2p.sctp.core2.SctpFacade;
 
 public class SctpListenThread extends Thread {
 
@@ -34,7 +27,7 @@ public class SctpListenThread extends Thread {
 					visited = true;
 				}
 			}
-		} catch (IOException | InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

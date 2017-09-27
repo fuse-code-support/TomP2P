@@ -23,8 +23,6 @@ import java.util.concurrent.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javassist.NotFoundException;
-import net.tomp2p.utils.ConcurrentCacheMap;
 import net.tomp2p.utils.Pair;
 
 /**
@@ -43,6 +41,14 @@ import net.tomp2p.utils.Pair;
  *         </ul>
  */
 public class Sctp {
+	
+	/**
+	 * This class is a thread-safe Singleton
+	 */
+	private static final Sctp instance = new Sctp();
+	private Sctp() {}
+	
+	
 	/**
 	 * FIXME Remove once usrsctp_finish is fixed
 	 */
@@ -309,7 +315,7 @@ public class Sctp {
 	 * 
 	 * @return <tt>true</tt> if stack successfully released resources.
 	 */
-	native private static boolean usrsctp_finish();
+	private static native  boolean usrsctp_finish();
 
 	/**
 	 * Initializes native SCTP counterpart.
@@ -363,52 +369,4 @@ public class Sctp {
 	 * FIXME to be added? int usrsctp_shutdown(struct socket *so, int how);
 	 */
 
-	/**
-	 * ************************** Jonas Wagner ******************************
-	 */
-	public static synchronized void putRemote(Long ptr, Pair<InetAddress, Integer> remote) {
-		remotes.put(ptr, remote);
-	}
-
-	public static Pair<InetAddress, Integer> findRemote(Long ptr) {
-		return remotes.get(ptr);
-	}
-
-	public static synchronized SctpSocket findSctpSocket(Pair<InetAddress, Integer> remote) throws NotFoundException {
-		if (!remotes.containsValue(remote)) {
-			return null;
-		} else {
-			for (Map.Entry<Long, Pair<InetAddress, Integer>> element : remotes.entrySet()) {
-				if (isEqualAddress(remote, element) && isEqualPort(remote, element)) {
-					return sockets.get(element.getKey());
-				}
-			}
-			throw new NotFoundException(
-					"Contains found the remote, but the iteration through the map did not.This should not happen.");
-		}
-	}
-
-	private static boolean isEqualPort(Pair<InetAddress, Integer> remote,
-			Map.Entry<Long, Pair<InetAddress, Integer>> element) {
-		return element.getValue().element1().intValue() == remote.element1().intValue();
-	}
-
-	private static boolean isEqualAddress(Pair<InetAddress, Integer> remote,
-			Map.Entry<Long, Pair<InetAddress, Integer>> element) {
-		return element.getValue().element0().equals(remote.element0());
-	}
-
-	public static Long getPtr(SctpSocket newSctpSocket) throws NotFoundException {
-		if (!sockets.containsValue(newSctpSocket)) {
-			return null;
-		} else {
-			for (Map.Entry<Long, SctpSocket> element : sockets.entrySet()) {
-				if (element.getValue().equals(newSctpSocket)) {
-					return element.getKey();
-				}
-			}
-			throw new NotFoundException(
-					"Contains found the Prr, but the iteration through the map did not.This should not happen.");
-		}
-	}
 }

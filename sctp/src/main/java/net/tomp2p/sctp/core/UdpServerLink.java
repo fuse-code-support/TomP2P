@@ -1,4 +1,4 @@
-package net.tomp2p.sctp.core2;
+package net.tomp2p.sctp.core;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import javassist.NotFoundException;
 import lombok.Getter;
-import net.tomp2p.sctp.core.SctpConfig;
 
 public class UdpServerLink implements NetworkLink {
 

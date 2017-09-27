@@ -38,6 +38,6 @@ public interface NetworkLink
      * @throws java.io.IOException in case of transport error.
      * @throws NotFoundException 
      */
-    public void onConnOut(final SctpSocket s, final byte[] packet)
+    public void onConnOut(final SctpFacade so, final byte[] packet)
         throws IOException, NotFoundException;
 }

@@ -1,4 +1,4 @@
-package net.tomp2p.sctp.core2;
+package net.tomp2p.sctp.core;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import javassist.NotFoundException;
 import net.tomp2p.sctp.connection.SctpDispatcher;
-import net.tomp2p.sctp.core.SctpConfig;
-import net.tomp2p.sctp.core2.NetworkLink;
 
 public class UdpClientLink implements NetworkLink {
 

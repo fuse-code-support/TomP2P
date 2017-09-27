@@ -1,4 +1,4 @@
-package net.tomp2p.sctp.core2;
+package net.tomp2p.sctp.core;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -6,6 +6,8 @@ import java.net.InetSocketAddress;
 import org.jdeferred.Promise;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.tomp2p.sctp.core.SctpDataCallback;
 
 public class SctpSocketAdapter implements SctpFacade{
 
@@ -65,6 +67,17 @@ public class SctpSocketAdapter implements SctpFacade{
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
 		}
+	}
+
+	@Override
+	public void setDataCallback(final SctpDataCallback callback) {
+		this.so.setDataCallbackNative(callback);
+	}
+
+	@Override
+	public boolean accept() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
