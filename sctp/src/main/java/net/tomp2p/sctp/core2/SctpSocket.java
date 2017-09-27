@@ -496,7 +496,7 @@ public class SctpSocket {
 
 		if (link != null) {
 			try {
-				link.onConnOut(SctpDispatcher.locateSctpFacade(this), packet);
+				link.onConnOut(SctpDispatcher.locate(this), packet);
 				ret = 0;
 			} catch (IOException | NotFoundException e) {
 				logger.error("Error while sending packet trough the link: " + link, e);

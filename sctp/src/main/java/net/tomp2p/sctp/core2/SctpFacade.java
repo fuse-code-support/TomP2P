@@ -6,7 +6,7 @@ import org.jdeferred.Promise;
 
 public interface SctpFacade {
 	
-	static final int MAX_NR_OF_CONN = 65535; //2³²
+	static final int MAX_NR_OF_CONN = 65535; //2¹⁶
 	
 	void listen();
 	Promise<SctpFacade, Exception, Object> connect(int localPort);

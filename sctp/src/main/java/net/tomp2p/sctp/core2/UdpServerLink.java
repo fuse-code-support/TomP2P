@@ -14,7 +14,7 @@ import net.tomp2p.sctp.core.SctpConfig;
 
 public class UdpServerLink implements NetworkLink {
 
-	private final static Logger logger = LoggerFactory.getLogger(UdpServerLink.class);
+	private final static Logger LOG = LoggerFactory.getLogger(UdpServerLink.class);
 
 	/**
 	 * <tt>SctpFacade</tt> instance that is used in this connection.
@@ -39,7 +39,7 @@ public class UdpServerLink implements NetworkLink {
 	public UdpServerLink(InetSocketAddress local, InetSocketAddress remote, SctpFacade so) throws IOException {
 		this.so = so;
 		this.remote = remote;
-		this.udpSocket = new DatagramSocket(remote.getPort(), remote.getAddress());
+		this.udpSocket = new DatagramSocket(local.getPort(), local.getAddress());
 
 		// Listening thread
 		SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
@@ -52,7 +52,7 @@ public class UdpServerLink implements NetworkLink {
 						so.onConnIn(p.getData(), p.getOffset(), p.getLength());
 					}
 				} catch (IOException e) {
-					logger.error(e.getMessage());
+					LOG.error(e.getMessage());
 				}
 			}
 		});
