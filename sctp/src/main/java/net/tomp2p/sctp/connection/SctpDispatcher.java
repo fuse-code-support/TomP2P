@@ -15,6 +15,7 @@ import net.tomp2p.sctp.core.SctpFacade;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.SctpSocketAdapter;
 
+//TODO jwa remove all static modifiers
 public class SctpDispatcher implements Dispatcher {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Dispatcher.class);

@@ -1,6 +1,7 @@
 package net.tomp2p.sctp.core;
 
 import org.jdeferred.Deferred;
+import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +12,8 @@ public class SctpListenThread extends Thread {
 	final private SctpFacade so;
 	final private Deferred<SctpFacade, Exception, Object> d;
 
-	public SctpListenThread(final SctpFacade so, SctpDataCallback callback,
-			Deferred<SctpFacade, Exception, Object> d) {
+	public SctpListenThread(final SctpFacade so, Deferred<SctpFacade, Exception, Object> d) {
 		this.so = so;
-		this.so.setDataCallback(callback);
 		this.d = d;
 	}
 
@@ -27,6 +26,7 @@ public class SctpListenThread extends Thread {
 			while (!so.accept()) {
 				Thread.sleep(100);
 				if (!visited) {
+					LOG.debug("new connection attempt accepted successfully!");
 					d.resolve(so); //we should fire resolved only once
 					visited = true;
 				}

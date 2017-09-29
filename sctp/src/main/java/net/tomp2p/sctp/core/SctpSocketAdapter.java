@@ -66,8 +66,11 @@ public class SctpSocketAdapter implements SctpFacade{
 
 	@Override
 	public void listen() {
-		// TODO Auto-generated method stub
-		
+		try {
+			this.so.listenNative();
+		} catch (IOException e) {
+			LOG.error(e.getMessage(), e);
+		}
 	}
 
 	@Override
@@ -90,8 +93,12 @@ public class SctpSocketAdapter implements SctpFacade{
 
 	@Override
 	public boolean accept() {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			return so.acceptNative();
+		} catch (IOException e) {
+			LOG.error(e.getMessage());
+			return false; //this signals a accept failure
+		}
 	}
 
 }

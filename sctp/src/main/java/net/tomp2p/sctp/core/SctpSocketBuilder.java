@@ -3,20 +3,18 @@ package net.tomp2p.sctp.core;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-import lombok.Builder;
-import lombok.Setter;
 import net.tomp2p.connection.Ports;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Builder
 public class SctpSocketBuilder {
 
 	//TODO jwa implement all possible variables and parameters for a given SCTP connection
 
 	private static final Logger LOG = LoggerFactory.getLogger(SctpSocketBuilder.class);
 
+	private int localSctpPort = -1;
 	private int localPort = -1;
 	private InetAddress localAddress = null;
 	private int remotePort = -1;
@@ -26,8 +24,8 @@ public class SctpSocketBuilder {
 	
 	public SctpFacade build() {
 
-		if (localPort == -1) {
-			localPort = SctpPorts.getInstance().generateDynPort();
+		if (localSctpPort == -1) {
+			localSctpPort = SctpPorts.getInstance().generateDynPort();
 		}
 
 		if (cb == null) {
@@ -39,24 +37,27 @@ public class SctpSocketBuilder {
 			};
 		}
 
-		InetSocketAddress local = new InetSocketAddress(localAddress, localPort);
+		InetSocketAddress local = new InetSocketAddress(localAddress, localSctpPort);
 
 		SctpFacade so = (SctpFacade) new SctpSocketAdapter(local, link, cb);
 		return so;
 	}
 
-	public SctpSocketBuilder localPort(int localPort, NetworkLink link) {
+	public SctpSocketBuilder localPort(int localPort) {
 		if (isInRange(localPort)) {
 			this.localPort = localPort;
 		} else {
 			LOG.error("Port is out of range (possible range: 0-65535)!");
 			return null;
 		}
+		return this;
+	}
 
-		if (link != null) {
-			this.link = link;
+	public SctpSocketBuilder localSctpPort(int localSctpPort) {
+		if (isInRange(localSctpPort)) {
+			this.localSctpPort = localSctpPort;
 		} else {
-			LOG.error("NetworkLink is not allowed to be null!");
+			LOG.error("Port is out of range (possible range: 0-65535)!");
 			return null;
 		}
 		return this;
