@@ -17,11 +17,10 @@
 package net.tomp2p.message;
 
 import io.netty.buffer.ByteBuf;
-
-import java.io.IOException;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.utils.Utils;
+
+import java.io.IOException;
 
 /**
  * Bare minimum ASN.1 encoder and decoder for the signature.

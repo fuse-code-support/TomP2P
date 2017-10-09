@@ -1,8 +1,5 @@
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import net.tomp2p.dht.FutureSend;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -13,6 +10,9 @@ import net.tomp2p.p2p.builder.BootstrapBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class ExampleDirectData {
 	static int p1Counter = 0;

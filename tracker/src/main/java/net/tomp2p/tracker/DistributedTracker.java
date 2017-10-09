@@ -15,41 +15,23 @@
  */
 package net.tomp2p.tracker;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.PeerBean;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.FutureRouting;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.message.TrackerData;
 import net.tomp2p.p2p.DistributedRouting;
 import net.tomp2p.p2p.builder.RoutingBuilder;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number320;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerStatistic;
+import net.tomp2p.peers.*;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class DistributedTracker {
 	final private static Logger LOG = LoggerFactory.getLogger(DistributedTracker.class);

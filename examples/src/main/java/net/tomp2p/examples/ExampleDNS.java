@@ -15,9 +15,6 @@
  */
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -25,6 +22,9 @@ import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.net.InetAddress;
 
 /**
  * See http://tomp2p.net/doc/quick/ for more information on this

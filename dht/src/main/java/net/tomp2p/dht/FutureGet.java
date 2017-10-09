@@ -15,14 +15,14 @@
  */
 package net.tomp2p.dht;
 
-import java.util.Map;
-
 import net.tomp2p.dht.StorageLayer.PutStatus;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.DigestResult;
 import net.tomp2p.storage.Data;
+
+import java.util.Map;
 
 /**
  * The future object for get() operations including routing.

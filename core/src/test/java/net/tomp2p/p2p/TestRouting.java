@@ -1,15 +1,5 @@
 package net.tomp2p.p2p;
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import net.tomp2p.Utils2;
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.futures.FutureChannelCreator;
@@ -17,20 +7,13 @@ import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.FutureRouting;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.p2p.builder.RoutingBuilder;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number320;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerStatistic;
+import net.tomp2p.peers.*;
 import net.tomp2p.rpc.DigestInfo;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.DigestStorage;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
@@ -38,6 +21,9 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.UnknownHostException;
+import java.util.*;
 
 public class TestRouting {
     private static final Logger LOG = LoggerFactory.getLogger(TestRouting.class);

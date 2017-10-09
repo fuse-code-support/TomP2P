@@ -16,14 +16,14 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.util.Collection;
-
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.p2p.PostRoutingFilter;
 import net.tomp2p.p2p.RequestP2PConfiguration;
 import net.tomp2p.p2p.RoutingConfiguration;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMapFilter;
+
+import java.util.Collection;
 
 /**
  * The basic build methods for the builder classes.

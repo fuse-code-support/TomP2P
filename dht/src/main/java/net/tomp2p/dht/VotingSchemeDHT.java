@@ -16,19 +16,13 @@
 package net.tomp2p.dht;
 
 import io.netty.buffer.ByteBuf;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.TreeMap;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.DigestResult;
 import net.tomp2p.storage.Data;
+
+import java.util.*;
 
 public class VotingSchemeDHT implements EvaluatingSchemeDHT {
     

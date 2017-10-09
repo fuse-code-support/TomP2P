@@ -15,11 +15,11 @@
  */
 package net.tomp2p.peers;
 
-import java.util.Random;
-
 import io.netty.buffer.ByteBuf;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.util.Random;
 
 /**
  * This class represents a 160 bit number. This class is preferred over BigInteger as we always have 160bit, and thus,

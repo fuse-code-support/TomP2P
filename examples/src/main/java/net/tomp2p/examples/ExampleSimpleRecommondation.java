@@ -16,14 +16,6 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
@@ -31,6 +23,9 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Example of storing friends in a DHT.

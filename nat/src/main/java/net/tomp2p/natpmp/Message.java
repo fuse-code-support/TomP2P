@@ -18,12 +18,7 @@
 package net.tomp2p.natpmp;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.PortUnreachableException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
+import java.net.*;
 
 /**
  * The message class manages a message that is being sent to a NAT-PMP gateway.

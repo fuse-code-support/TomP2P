@@ -16,12 +16,12 @@
 package net.tomp2p.futures;
 
 
+import net.tomp2p.peers.PeerAddress;
+import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 
 /**
  * The future that keeps track of network discovery such as discovery if its behind a NAT, the status if UPNP or NAT-PMP

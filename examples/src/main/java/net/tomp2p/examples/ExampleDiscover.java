@@ -1,10 +1,5 @@
 package net.tomp2p.examples;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.util.Collection;
-import java.util.Random;
-
 import net.tomp2p.connection.Bindings;
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
@@ -17,6 +12,11 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.util.Collection;
+import java.util.Random;
 
 public class ExampleDiscover {
 

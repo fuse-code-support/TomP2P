@@ -17,12 +17,10 @@
 package net.tomp2p.connection;
 
 
+import net.tomp2p.futures.FutureDone;
+
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -31,8 +29,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import net.tomp2p.futures.FutureDone;
 
 /**
  * A class to search for addresses to bind the sockets to. The user first

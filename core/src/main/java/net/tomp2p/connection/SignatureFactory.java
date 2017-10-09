@@ -17,17 +17,12 @@
 package net.tomp2p.connection;
 
 import io.netty.buffer.ByteBuf;
+import net.tomp2p.message.SignatureCodec;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
-import java.security.InvalidKeyException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.SignatureException;
-
-import net.tomp2p.message.SignatureCodec;
+import java.security.*;
 
 /**
  * This interface is used in the encoder and decoders. A user may set its own

@@ -15,36 +15,20 @@
  */
 package net.tomp2p.p2p;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.NavigableSet;
-import java.util.Random;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.PeerBean;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.FutureRouting;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.p2p.builder.RoutingBuilder;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerStatistic;
+import net.tomp2p.peers.*;
 import net.tomp2p.rpc.DigestInfo;
 import net.tomp2p.rpc.NeighborRPC;
 import net.tomp2p.utils.Pair;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
 
 /**
  * Handles routing of nodes to other nodes.

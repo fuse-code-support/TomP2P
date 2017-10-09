@@ -15,11 +15,11 @@
  */
 package net.tomp2p.peers;
 
+import net.tomp2p.utils.FIFOCache;
+
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-
-import net.tomp2p.utils.FIFOCache;
 
 /**
  * Keeps track of the statistics of a given peer.

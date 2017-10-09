@@ -1,31 +1,8 @@
 package net.tomp2p;
 
 import io.netty.buffer.ByteBuf;
-
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicReference;
-
-import net.tomp2p.message.Buffer;
-import net.tomp2p.message.DataMap;
-import net.tomp2p.message.Decoder;
-import net.tomp2p.message.Encoder;
-import net.tomp2p.message.KeyCollection;
-import net.tomp2p.message.KeyMap640Keys;
-import net.tomp2p.message.KeyMapByte;
-import net.tomp2p.message.Message;
+import net.tomp2p.message.*;
 import net.tomp2p.message.Message.Content;
-import net.tomp2p.message.NeighborSet;
-import net.tomp2p.message.TestMessage;
-import net.tomp2p.message.TrackerData;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
@@ -33,6 +10,10 @@ import net.tomp2p.peers.PeerSocketAddress;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.AlternativeCompositeByteBuf;
 import net.tomp2p.storage.Data;
+
+import java.net.InetAddress;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MessageEncodeDecode {
 

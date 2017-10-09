@@ -18,17 +18,15 @@ package net.tomp2p.rpc;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.util.Random;
-
 import net.tomp2p.peers.Number160;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.util.Random;
 
 /**
  * Test the counting bloom filter and the regular bloom filter.

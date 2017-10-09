@@ -15,22 +15,6 @@
  */
 package net.tomp2p.dht;
 
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.NavigableMap;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number320;
 import net.tomp2p.peers.Number480;
@@ -41,9 +25,14 @@ import net.tomp2p.storage.Data;
 import net.tomp2p.storage.DigestStorage;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.PublicKey;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class StorageLayer implements DigestStorage {
 

@@ -1,36 +1,24 @@
 package net.tomp2p.p2p;
 
-import io.netty.channel.ChannelHandler;
-import io.netty.util.concurrent.EventExecutorGroup;
-
-import java.net.InetAddress;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
-
 import net.tomp2p.connection.Bindings;
 import net.tomp2p.connection.ChannelClientConfiguration;
 import net.tomp2p.connection.ChannelServerConfiguration;
-import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.StandardProtocolFamily;
-import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.futures.FutureDirect;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureDoneAttachment;
-import net.tomp2p.connection.CountConnectionOutboundHandler;
 import net.tomp2p.futures.FuturePeerConnection;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
-import net.tomp2p.utils.Pair;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.net.InetAddress;
+import java.util.Random;
 
 public class TestConnection {
 

@@ -1,7 +1,5 @@
 package net.tomp2p;
 
-import java.io.IOException;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureResponse;
@@ -13,9 +11,10 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.RawDataReply;
 import net.tomp2p.storage.AlternativeCompositeByteBuf;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
 
 public class TestDirect2 {
 

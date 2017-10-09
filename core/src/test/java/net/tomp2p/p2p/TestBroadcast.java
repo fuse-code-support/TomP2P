@@ -1,13 +1,6 @@
 package net.tomp2p.p2p;
 
 
-import java.io.IOException;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import net.tomp2p.Utils2;
 import net.tomp2p.message.Message;
 import net.tomp2p.p2p.builder.BootstrapBuilder;
@@ -17,13 +10,18 @@ import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerMapConfiguration;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.io.IOException;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.concurrent.CountDownLatch;
 
 public class TestBroadcast {
 	private final static Random RND = new Random(42);

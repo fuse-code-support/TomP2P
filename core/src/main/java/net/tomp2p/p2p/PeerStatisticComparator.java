@@ -1,9 +1,9 @@
 package net.tomp2p.p2p;
 
-import java.util.Comparator;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerStatistic;
+
+import java.util.Comparator;
 
 /**
  * Interface used by the PeerMap. Must return a Comparator that compares

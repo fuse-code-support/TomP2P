@@ -1,10 +1,10 @@
 package net.tomp2p.p2p;
 
-import java.util.Comparator;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerStatistic;
+
+import java.util.Comparator;
 
 /**
  * Default Comparator for PeerStatistics. Compares XOR distance to location.

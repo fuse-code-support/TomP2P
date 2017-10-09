@@ -15,10 +15,10 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.io.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * A direct connection that passes packets between two <tt>SctpSocket</tt>

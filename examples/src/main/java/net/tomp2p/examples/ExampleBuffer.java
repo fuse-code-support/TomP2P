@@ -1,7 +1,5 @@
 package net.tomp2p.examples;
 
-import java.util.Date;
-
 import net.tomp2p.connection.ChannelServerConfiguration;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -13,6 +11,8 @@ import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
+
+import java.util.Date;
 
 public class ExampleBuffer {
 	public static void main(String[] args) throws Exception {

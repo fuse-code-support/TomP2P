@@ -16,11 +16,6 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
-
 import net.tomp2p.dht.FutureDigest;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
@@ -28,6 +23,11 @@ import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Example how to use bloom filters for efficient search.

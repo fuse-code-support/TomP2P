@@ -15,26 +15,22 @@
  */
 package net.tomp2p.connection;
 
-import java.security.KeyPair;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.tomp2p.p2p.MaintenanceTask;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerStatusListener;
-import net.tomp2p.peers.RTT;
+import net.tomp2p.peers.*;
 import net.tomp2p.rpc.BloomfilterFactory;
 import net.tomp2p.storage.DigestStorage;
 import net.tomp2p.storage.DigestTracker;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A bean that holds non-sharable (unique for each peer) configuration settings for the peer. The sharable

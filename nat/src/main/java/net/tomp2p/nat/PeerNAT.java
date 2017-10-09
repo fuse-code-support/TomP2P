@@ -1,22 +1,8 @@
 package net.tomp2p.nat;
 
-import java.net.Inet4Address;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.Ports;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureDiscover;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FuturePeerConnection;
-import net.tomp2p.futures.FutureResponse;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.natpmp.NatPmpException;
@@ -31,6 +17,14 @@ import net.tomp2p.relay.PeerMapUpdateTask;
 import net.tomp2p.relay.RelayRPC;
 import net.tomp2p.relay.RelayUtils;
 import net.tomp2p.rpc.RPC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.Inet4Address;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class PeerNAT {
 

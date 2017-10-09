@@ -1,20 +1,5 @@
 package net.tomp2p.dht;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.security.InvalidKeyException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import net.tomp2p.connection.DSASignatureFactory;
 import net.tomp2p.dht.StorageLayer.PutStatus;
 import net.tomp2p.p2p.PeerBuilder;
@@ -23,13 +8,19 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.security.*;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestH2H {
 

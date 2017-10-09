@@ -15,18 +15,6 @@
  */
 package net.tomp2p.peers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.PeerException;
 import net.tomp2p.connection.PeerException.AbortCause;
@@ -34,9 +22,10 @@ import net.tomp2p.p2p.PeerStatisticComparator;
 import net.tomp2p.utils.CacheMap;
 import net.tomp2p.utils.ConcurrentCacheMap;
 import net.tomp2p.utils.Pair;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
 
 /**
  * This routing implementation uses is based on Kademlia. However, many changes have been applied to make it faster and

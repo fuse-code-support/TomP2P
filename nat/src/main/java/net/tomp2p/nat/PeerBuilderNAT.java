@@ -1,15 +1,8 @@
 package net.tomp2p.nat;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.FutureDone;
-import net.tomp2p.holep.NATHandlerImpl;
 import net.tomp2p.holep.HolePRPC;
 import net.tomp2p.holep.HolePScheduler;
 import net.tomp2p.holep.strategy.HolePStrategy;
@@ -21,6 +14,11 @@ import net.tomp2p.relay.DistributedRelay;
 import net.tomp2p.relay.RconRPC;
 import net.tomp2p.relay.RelayCallback;
 import net.tomp2p.relay.RelayRPC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PeerBuilderNAT {
 

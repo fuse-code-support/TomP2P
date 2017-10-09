@@ -15,9 +15,10 @@
  */
 package net.tomp2p.futures;
 
-import java.util.concurrent.ExecutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * The {@link BaseFuture} always completes either successfully or failed. In

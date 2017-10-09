@@ -16,27 +16,17 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-
-import net.tomp2p.connection.ConnectionConfiguration;
-import net.tomp2p.connection.DefaultConnectionConfiguration;
-import net.tomp2p.connection.DiscoverResults;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.Ports;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureLateJoin;
-import net.tomp2p.futures.FuturePing;
-import net.tomp2p.futures.FutureResponse;
+import net.tomp2p.connection.*;
+import net.tomp2p.futures.*;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 import net.tomp2p.utils.Utils;
+
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class PingBuilder {
     private static final FuturePing FUTURE_PING_SHUTDOWN = new FuturePing().failed("Peer is shutting down.");

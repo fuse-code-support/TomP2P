@@ -1,7 +1,5 @@
 package net.tomp2p.tracker;
 
-import java.util.Random;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureResponse;
@@ -10,9 +8,10 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Random;
 
 public class TestTrackerRPC {
     final static Random rnd = new Random(0);

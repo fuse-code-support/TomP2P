@@ -16,10 +16,10 @@
 
 package net.tomp2p.tracker;
 
-import java.util.Set;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.rpc.SimpleBloomFilter;
+
+import java.util.Set;
 
 public class GetTrackerBuilder extends TrackerBuilder<GetTrackerBuilder> {
     

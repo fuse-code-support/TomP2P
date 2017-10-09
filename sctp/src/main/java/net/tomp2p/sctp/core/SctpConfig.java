@@ -1,9 +1,9 @@
 package net.tomp2p.sctp.core;
 
+import lombok.Getter;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import lombok.Getter;
 
 public class SctpConfig {
 

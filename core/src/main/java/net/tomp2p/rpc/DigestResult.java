@@ -16,14 +16,14 @@
 
 package net.tomp2p.rpc;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.NavigableMap;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.NavigableMap;
 
 public class DigestResult {
     final private SimpleBloomFilter<Number160> contentKeyBloomFilter;

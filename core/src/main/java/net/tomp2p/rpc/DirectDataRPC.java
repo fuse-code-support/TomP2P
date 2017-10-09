@@ -16,24 +16,17 @@
 package net.tomp2p.rpc;
 
 import io.netty.buffer.Unpooled;
-
-import java.io.IOException;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.Responder;
+import net.tomp2p.connection.*;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.message.Buffer;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public class DirectDataRPC extends DispatchHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DirectDataRPC.class);

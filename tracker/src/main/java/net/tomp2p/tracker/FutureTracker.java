@@ -15,12 +15,6 @@
  */
 package net.tomp2p.tracker;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.BaseFutureImpl;
 import net.tomp2p.futures.FutureDone;
@@ -28,6 +22,8 @@ import net.tomp2p.message.TrackerData;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
+
+import java.util.*;
 
 /**
  * This class holds the object for future results from the tracker get() and

@@ -1,18 +1,17 @@
 package net.tomp2p;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import net.tomp2p.message.KeyCollection;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.TestMessage;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
-
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class KeyCollectionTest {
 

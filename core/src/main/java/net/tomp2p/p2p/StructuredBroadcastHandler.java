@@ -1,9 +1,5 @@
 package net.tomp2p.p2p;
 
-import java.util.List;
-import java.util.NavigableMap;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureResponse;
@@ -16,9 +12,12 @@ import net.tomp2p.peers.PeerMap;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.ConcurrentCacheMap;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.NavigableMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * As seen in http://www.hiradastechnika.hu/data/upload/file/2009/2009%20I/

@@ -1,19 +1,13 @@
 package net.tomp2p.sctp.core;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-
+import lombok.Getter;
 import lombok.Setter;
-import org.jdeferred.Deferred;
-import org.jdeferred.DeferredManager;
 import org.jdeferred.Promise;
-import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.Getter;
-import net.tomp2p.sctp.core.SctpDataCallback;
+import java.io.IOException;
+import java.net.InetSocketAddress;
 
 public class SctpSocketAdapter implements SctpFacade{
 
@@ -101,4 +95,8 @@ public class SctpSocketAdapter implements SctpFacade{
 		}
 	}
 
+	@Override
+	public void setSctpDataCallback(final SctpDataCallback cb) {
+		so.setDataCallbackNative(cb);
+	}
 }

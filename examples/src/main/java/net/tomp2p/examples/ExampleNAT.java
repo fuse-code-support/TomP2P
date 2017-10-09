@@ -15,9 +15,6 @@
  */
 package net.tomp2p.examples;
 
-import java.net.InetAddress;
-import java.util.Random;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureDiscover;
@@ -29,6 +26,9 @@ import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.relay.RelayCallback;
+
+import java.net.InetAddress;
+import java.util.Random;
 
 public class ExampleNAT {
 	private final static int PORT_SERVER = 4000;

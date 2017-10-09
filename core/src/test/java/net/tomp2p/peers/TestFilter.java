@@ -1,17 +1,16 @@
 package net.tomp2p.peers;
 
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.tomp2p.Utils2;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class TestFilter {
 	

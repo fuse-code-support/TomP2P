@@ -16,6 +16,14 @@
 
 package net.tomp2p.p2p;
 
+import net.tomp2p.connection.*;
+import net.tomp2p.futures.BaseFuture;
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.PeerMap;
+import net.tomp2p.peers.PeerMapConfiguration;
+import net.tomp2p.rpc.*;
+import net.tomp2p.utils.Utils;
+
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PublicKey;
@@ -24,29 +32,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import net.tomp2p.connection.Bindings;
-import net.tomp2p.connection.ChannelClientConfiguration;
-import net.tomp2p.connection.ChannelServerConfiguration;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.DSASignatureFactory;
-import net.tomp2p.connection.DefaultSendBehavior;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerCreator;
-import net.tomp2p.connection.Ports;
-import net.tomp2p.connection.SendBehavior;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerMapConfiguration;
-import net.tomp2p.rpc.BloomfilterFactory;
-import net.tomp2p.rpc.BroadcastRPC;
-import net.tomp2p.rpc.DefaultBloomfilterFactory;
-import net.tomp2p.rpc.DirectDataRPC;
-import net.tomp2p.rpc.NeighborRPC;
-import net.tomp2p.rpc.PingRPC;
-import net.tomp2p.rpc.QuitRPC;
-import net.tomp2p.utils.Utils;
 
 /**
  * The builder of a {@link Peer} class.

@@ -16,9 +16,6 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.Map;
-
 import net.tomp2p.dht.FutureDigest;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerBuilderDHT;
@@ -29,6 +26,9 @@ import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.replication.IndirectReplication;
 import net.tomp2p.rpc.DigestResult;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Example of indirect replication with put.

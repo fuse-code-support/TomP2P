@@ -1,8 +1,5 @@
 package net.tomp2p.holep;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
 import net.tomp2p.connection.Dispatcher;
 import net.tomp2p.connection.NATHandler;
 import net.tomp2p.connection.PeerConnection;
@@ -10,15 +7,17 @@ import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.futures.Futures;
-import net.tomp2p.holep.strategy.HolePStrategy;
 import net.tomp2p.message.Message;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerSocketAddress;
 import net.tomp2p.rpc.RPC;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * @author Jonas Wagner

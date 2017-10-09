@@ -15,38 +15,20 @@
  */
 package net.tomp2p.rpc;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NavigableSet;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.ConnectionConfiguration;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.PeerException;
+import net.tomp2p.connection.*;
 import net.tomp2p.connection.PeerException.AbortCause;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.Responder;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.message.KeyCollection;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.message.NeighborSet;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number320;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerStatistic;
-import net.tomp2p.peers.PeerStatusListener;
-
+import net.tomp2p.peers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Handles the neighbor requests and replies.

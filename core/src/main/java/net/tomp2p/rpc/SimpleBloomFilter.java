@@ -17,16 +17,11 @@
 package net.tomp2p.rpc;
 
 import io.netty.buffer.ByteBuf;
-
-import java.io.Serializable;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * A simple Bloom Filter (see http://en.wikipedia.org/wiki/Bloom_filter) that

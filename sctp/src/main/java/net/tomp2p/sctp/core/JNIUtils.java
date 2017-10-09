@@ -15,11 +15,14 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.regex.*;
+import com.sun.jna.Native;
+import com.sun.jna.Platform;
 
-import com.sun.jna.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 /**
  * Implements Java Native Interface (JNI)-related facilities such as loading a

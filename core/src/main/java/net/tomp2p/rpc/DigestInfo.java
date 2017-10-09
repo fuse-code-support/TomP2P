@@ -15,13 +15,13 @@
  */
 package net.tomp2p.rpc;
 
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.Number640;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number640;
 
 /**
  * Calculates or sets a global hash. The digest is used in two places: for routing, where a message needs to have a

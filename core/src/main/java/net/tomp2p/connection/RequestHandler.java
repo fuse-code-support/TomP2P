@@ -15,27 +15,23 @@
  */
 package net.tomp2p.connection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+ import io.netty.channel.ChannelHandlerContext;
+ import io.netty.channel.SimpleChannelInboundHandler;
+ import io.netty.handler.timeout.IdleState;
+ import io.netty.handler.timeout.IdleStateEvent;
+ import net.tomp2p.futures.FutureResponse;
+ import net.tomp2p.message.Message;
+ import net.tomp2p.message.MessageID;
+ import net.tomp2p.peers.PeerAddress;
+ import net.tomp2p.peers.PeerSocketAddress;
+ import net.tomp2p.peers.PeerStatusListener;
+ import net.tomp2p.rpc.RPC;
+ import net.tomp2p.utils.Pair;
+ import net.tomp2p.utils.Utils;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
 
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
-import java.util.ArrayList;
-import java.util.List;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.Futures;
-import net.tomp2p.message.Message;
-import net.tomp2p.message.MessageID;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerSocketAddress;
-import net.tomp2p.peers.PeerStatusListener;
-import net.tomp2p.rpc.RPC;
-import net.tomp2p.utils.Pair;
-import net.tomp2p.utils.Utils;
+ import java.util.List;
 
 /**
  * Is able to send TCP and UDP messages (as a request) and processes incoming responses. It is important that

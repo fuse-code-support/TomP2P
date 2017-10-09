@@ -16,11 +16,6 @@
 
 package net.tomp2p.tracker;
 
-import java.security.KeyPair;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
-
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.p2p.RoutingConfiguration;
@@ -29,6 +24,11 @@ import net.tomp2p.p2p.builder.RoutingBuilder;
 import net.tomp2p.p2p.builder.SignatureBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMapFilter;
+
+import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
 public abstract class TrackerBuilder<K extends TrackerBuilder<K>> extends DefaultConnectionConfiguration
         implements SignatureBuilder<K>, Builder {

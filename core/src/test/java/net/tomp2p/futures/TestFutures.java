@@ -16,20 +16,19 @@
 
 package net.tomp2p.futures;
 
+import net.tomp2p.peers.Number160;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReferenceArray;
-
-import net.tomp2p.peers.Number160;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 
 /**
  * Test the correctness and the performance of futures.

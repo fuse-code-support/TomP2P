@@ -1,11 +1,11 @@
 package net.tomp2p.message;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class KeyCollection {
     private final Collection<Number640> keys;

@@ -1,10 +1,10 @@
 package net.tomp2p.p2p;
 
-import java.util.Comparator;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerStatistic;
+
+import java.util.Comparator;
 
 /**
  * A sample class class used by the routing mechanism to prioritise peers with

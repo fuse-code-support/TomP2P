@@ -15,10 +15,10 @@
  */
 package net.tomp2p.examples;
 
-import java.io.IOException;
-
 import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.p2p.Peer;
+
+import java.io.IOException;
 
 /**
  * See http://tomp2p.net/doc/quick/ for more information

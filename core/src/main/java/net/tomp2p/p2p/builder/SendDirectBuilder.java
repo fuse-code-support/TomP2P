@@ -17,9 +17,6 @@
 package net.tomp2p.p2p.builder;
 
 import io.netty.buffer.ByteBuf;
-
-import java.security.KeyPair;
-
 import net.tomp2p.connection.ConnectionBean;
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.PeerConnection;
@@ -33,6 +30,8 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.SendDirectBuilderI;
 import net.tomp2p.utils.Utils;
+
+import java.security.KeyPair;
 
 public class SendDirectBuilder
 		implements ConnectionConfiguration, SendDirectBuilderI, SignatureBuilder<SendDirectBuilder> {

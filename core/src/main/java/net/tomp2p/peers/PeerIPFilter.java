@@ -16,10 +16,10 @@
 
 package net.tomp2p.peers;
 
-import java.util.Collection;
-
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
+
+import java.util.Collection;
 
 /**
  * Filter peers if the IP is the same. Being too strict does not mean to harm

@@ -2,7 +2,6 @@ package net.tomp2p;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

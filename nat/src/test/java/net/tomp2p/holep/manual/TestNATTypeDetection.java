@@ -1,23 +1,21 @@
 package net.tomp2p.holep.manual;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Random;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.holep.NATType;
 import net.tomp2p.holep.NATTypeDetection;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Random;
 
 /**
  * Add the following lines to sudoers username ALL=(ALL) NOPASSWD:

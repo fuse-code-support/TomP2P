@@ -2,12 +2,9 @@ package net.tomp2p;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import net.tomp2p.storage.AlternativeCompositeByteBuf;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-
-import net.tomp2p.storage.AlternativeCompositeByteBuf;
 
 /***
  * This class generates/checks the binary encoding/decoding of data types between Java and .NET.

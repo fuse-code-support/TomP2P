@@ -16,33 +16,21 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.net.InetAddress;
-import java.util.Collection;
-
-import net.tomp2p.connection.Bindings;
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionConfiguration;
-import net.tomp2p.connection.DefaultConnectionConfiguration;
-import net.tomp2p.connection.DiscoverNetworks;
-import net.tomp2p.connection.DiscoverResults;
-import net.tomp2p.connection.Ports;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureDiscover;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.Futures;
+import net.tomp2p.connection.*;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerReachable;
+import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
-import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
+import java.util.Collection;
 
 public class DiscoverBuilder {
     final private static Logger LOG = LoggerFactory.getLogger(DiscoverBuilder.class);

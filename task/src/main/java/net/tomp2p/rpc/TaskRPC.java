@@ -15,12 +15,6 @@
  */
 package net.tomp2p.rpc;
 
-import java.io.IOException;
-import java.security.KeyPair;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 import net.tomp2p.connection2.ChannelCreator;
 import net.tomp2p.connection2.ConnectionBean;
 import net.tomp2p.connection2.PeerBean;
@@ -37,11 +31,16 @@ import net.tomp2p.task.TaskManager;
 import net.tomp2p.task.TaskStatus;
 import net.tomp2p.task.Worker;
 import net.tomp2p.utils.Utils;
-
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.security.KeyPair;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaskRPC extends DispatchHandler {
     final private static Logger logger = LoggerFactory.getLogger(TaskRPC.class);

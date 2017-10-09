@@ -1,13 +1,5 @@
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.examples.Query.QueryType;
@@ -15,10 +7,12 @@ import net.tomp2p.examples.Query.ValueType;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+
+import java.io.IOException;
+import java.util.*;
 
 public class ExampleUnQL {
     final private static String QUERY_1 = "INSERT INTO abc VALUE 1234;";

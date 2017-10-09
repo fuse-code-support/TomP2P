@@ -16,24 +16,9 @@
 package net.tomp2p.dht;
 
 import io.netty.buffer.ByteBuf;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.NavigableSet;
-import java.util.TreeSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.dht.StorageLayer.PutStatus;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.FutureRouting;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.KeyMap640Keys;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.p2p.DistributedRouting;
@@ -43,16 +28,16 @@ import net.tomp2p.p2p.builder.RoutingBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.rpc.DefaultBloomfilterFactory;
-import net.tomp2p.rpc.DigestResult;
-import net.tomp2p.rpc.DirectDataRPC;
-import net.tomp2p.rpc.RPC;
-import net.tomp2p.rpc.SimpleBloomFilter;
+import net.tomp2p.rpc.*;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class DistributedHashTable {
     private static final Logger logger = LoggerFactory.getLogger(DistributedHashTable.class);

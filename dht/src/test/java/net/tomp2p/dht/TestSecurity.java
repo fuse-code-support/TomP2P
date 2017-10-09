@@ -1,24 +1,6 @@
 package net.tomp2p.dht;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javax.crypto.Cipher;
-
-import net.tomp2p.connection.ChannelClientConfiguration;
-import net.tomp2p.connection.ChannelServerConfiguration;
-import net.tomp2p.connection.DSASignatureFactory;
-import net.tomp2p.connection.RSASignatureFactory;
-import net.tomp2p.connection.SignatureFactory;
+import net.tomp2p.connection.*;
 import net.tomp2p.dht.StorageLayer.ProtectionEnable;
 import net.tomp2p.dht.StorageLayer.ProtectionMode;
 import net.tomp2p.message.RSASignatureCodec;
@@ -29,13 +11,20 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import javax.crypto.Cipher;
+import java.io.IOException;
+import java.security.*;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TestSecurity {
 	final private static Random rnd = new Random(42L);

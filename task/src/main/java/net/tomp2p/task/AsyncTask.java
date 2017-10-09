@@ -16,9 +16,6 @@
 
 package net.tomp2p.task;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import net.tomp2p.connection2.ChannelCreator;
 import net.tomp2p.connection2.PeerBean;
 import net.tomp2p.connection2.Scheduler;
@@ -31,9 +28,11 @@ import net.tomp2p.peers.Number320;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.TaskRPC;
 import net.tomp2p.storage.Data;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AsyncTask implements TaskResultListener {
     final private static Logger logger = LoggerFactory.getLogger(AsyncTask.class);

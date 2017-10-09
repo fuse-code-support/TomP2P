@@ -16,6 +16,9 @@
 
 package net.tomp2p.natpmp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +27,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Gateway {
     final private static Logger logger = LoggerFactory.getLogger(Gateway.class);

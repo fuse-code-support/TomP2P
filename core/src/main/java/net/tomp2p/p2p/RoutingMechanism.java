@@ -1,16 +1,5 @@
 package net.tomp2p.p2p;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.Random;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.futures.FutureRouting;
@@ -21,9 +10,11 @@ import net.tomp2p.peers.PeerMapFilter;
 import net.tomp2p.peers.PeerStatistic;
 import net.tomp2p.rpc.DigestInfo;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * The routing mechanism. Since this is called from Netty handlers, we don't have any visibility issues. If you want to

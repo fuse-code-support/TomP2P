@@ -1,8 +1,14 @@
 package net.tomp2p.relay;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import io.netty.buffer.ByteBuf;
+import net.tomp2p.connection.DSASignatureFactory;
+import net.tomp2p.connection.SignatureFactory;
+import net.tomp2p.message.Buffer;
+import net.tomp2p.message.Message;
+import net.tomp2p.peers.PeerAddress;
+import net.tomp2p.peers.PeerSocketAddress;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -13,15 +19,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tomp2p.connection.DSASignatureFactory;
-import net.tomp2p.connection.SignatureFactory;
-import net.tomp2p.message.Buffer;
-import net.tomp2p.message.Message;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerSocketAddress;
-
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestRelayUtils {
 

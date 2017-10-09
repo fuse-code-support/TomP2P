@@ -18,25 +18,19 @@ package net.tomp2p.storage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.security.InvalidKeyException;
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import net.tomp2p.connection.DSASignatureFactory;
 import net.tomp2p.connection.SignatureFactory;
 import net.tomp2p.message.SignatureCodec;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.utils.Utils;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.security.*;
+import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class holds the data for the transport. The data is already serialized

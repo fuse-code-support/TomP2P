@@ -1,11 +1,5 @@
 package net.tomp2p.tracker;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.futures.BaseFuture;
@@ -19,6 +13,12 @@ import net.tomp2p.peers.PeerStatistic;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class PeerBuilderTracker {
 

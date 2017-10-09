@@ -1,7 +1,5 @@
 package net.tomp2p.holep;
 
-import java.io.IOException;
-
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.holep.strategy.NonPreservingSequentialStrategy;
 import net.tomp2p.holep.strategy.PortPreservingStrategy;
@@ -11,11 +9,12 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.rpc.RPC.Commands;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 public class TestNATType {
 

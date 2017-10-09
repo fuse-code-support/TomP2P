@@ -16,22 +16,16 @@
 
 package net.tomp2p.nat;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import net.tomp2p.natpmp.Gateway;
-import net.tomp2p.natpmp.MapRequestMessage;
-import net.tomp2p.natpmp.NatPmpDevice;
-import net.tomp2p.natpmp.NatPmpException;
-import net.tomp2p.natpmp.ResultCode;
-
+import net.tomp2p.natpmp.*;
 import org.bitlet.weupnp.GatewayDevice;
 import org.bitlet.weupnp.GatewayDiscover;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.net.InetAddress;
 
 /**
  * This class is used to do automatic port forwarding. It maps with PMP und UPNP

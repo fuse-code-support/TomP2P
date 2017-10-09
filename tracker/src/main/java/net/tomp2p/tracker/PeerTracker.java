@@ -1,11 +1,11 @@
 package net.tomp2p.tracker;
 
-import java.util.concurrent.ScheduledFuture;
-
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerMap;
+
+import java.util.concurrent.ScheduledFuture;
 
 public class PeerTracker {
 

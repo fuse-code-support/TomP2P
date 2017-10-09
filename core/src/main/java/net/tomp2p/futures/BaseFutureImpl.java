@@ -15,17 +15,15 @@
  */
 package net.tomp2p.futures;
 
+import net.tomp2p.connection.ConnectionBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-
-import net.tomp2p.connection.ConnectionBean;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The base for all BaseFuture implementations. Be aware of possible deadlocks. Never await from a listener. This class

@@ -1,14 +1,10 @@
 package net.tomp2p.replication;
 
+import net.tomp2p.p2p.Peer;
+import net.tomp2p.peers.*;
+
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import net.tomp2p.p2p.Peer;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerMapChangeListener;
-import net.tomp2p.peers.PeerStatistic;
 
 /**
  * AutomaticReplication class observes the local network conditions and predicts

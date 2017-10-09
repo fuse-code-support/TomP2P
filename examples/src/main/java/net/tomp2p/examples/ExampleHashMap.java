@@ -15,16 +15,16 @@
  */
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Map;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * This example shows how TomP2P can be used to have Objects instead of

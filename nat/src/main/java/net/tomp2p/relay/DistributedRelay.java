@@ -1,18 +1,5 @@
 package net.tomp2p.relay;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.connection.PeerException;
 import net.tomp2p.connection.PeerException.AbortCause;
@@ -22,12 +9,13 @@ import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.builder.BootstrapBuilder;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMapChangeListener;
-import net.tomp2p.peers.PeerSocketAddress;
-import net.tomp2p.peers.PeerStatistic;
+import net.tomp2p.peers.*;
 import net.tomp2p.utils.ConcurrentCacheSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.ExecutorService;
 
 /**
  * The relay manager is responsible for setting up and maintaining connections

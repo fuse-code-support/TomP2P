@@ -16,48 +16,25 @@
 
 package net.tomp2p.dht;
 
-import java.io.IOException;
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.Responder;
+import net.tomp2p.connection.*;
 import net.tomp2p.dht.StorageLayer.PutStatus;
 import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.message.DataMap;
-import net.tomp2p.message.KeyCollection;
-import net.tomp2p.message.KeyMap640Keys;
-import net.tomp2p.message.KeyMapByte;
-import net.tomp2p.message.Message;
+import net.tomp2p.message.*;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number320;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.rpc.BloomfilterFactory;
-import net.tomp2p.rpc.DigestInfo;
-import net.tomp2p.rpc.DispatchHandler;
-import net.tomp2p.rpc.RPC;
-import net.tomp2p.rpc.SimpleBloomFilter;
+import net.tomp2p.rpc.*;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.security.PublicKey;
+import java.util.*;
 
 /**
  * The RPC that deals with storage.

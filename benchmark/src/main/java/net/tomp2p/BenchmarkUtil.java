@@ -1,8 +1,5 @@
 package net.tomp2p;
 
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-
 import net.tomp2p.connection.Bindings;
 import net.tomp2p.connection.ChannelServerConfiguration;
 import net.tomp2p.connection.Ports;
@@ -12,6 +9,9 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerMapConfiguration;
 import net.tomp2p.utils.InteropRandom;
+
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
 
 public class BenchmarkUtil {
 

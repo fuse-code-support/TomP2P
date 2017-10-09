@@ -1,18 +1,17 @@
 package net.tomp2p.test;
 
-import java.io.IOException;
-
+import net.tomp2p.connection.Bindings;
+import net.tomp2p.futures.FutureBootstrap;
+import net.tomp2p.futures.FutureDirect;
+import net.tomp2p.futures.FutureDiscover;
 import net.tomp2p.nat.PeerBuilderNAT;
 import net.tomp2p.nat.PeerNAT;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.connection.Bindings;
-import net.tomp2p.futures.FutureBootstrap;
-import net.tomp2p.futures.FutureDirect;
-import net.tomp2p.futures.FutureDiscover;
 
+import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 

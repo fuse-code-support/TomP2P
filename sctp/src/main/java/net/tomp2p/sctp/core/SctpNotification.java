@@ -15,7 +15,8 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.nio.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * Partially implemented SCTP notifications for which the native wrapper

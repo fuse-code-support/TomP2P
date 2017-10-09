@@ -17,11 +17,10 @@
 package net.tomp2p.synchronization;
 
 import io.netty.buffer.ByteBuf;
+import net.tomp2p.peers.Number160;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.tomp2p.peers.Number160;
 
 public class SyncUtils {
 	

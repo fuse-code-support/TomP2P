@@ -16,8 +16,6 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.util.NavigableMap;
-
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.message.DataMap;
 import net.tomp2p.message.Message;
@@ -26,6 +24,8 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
+
+import java.util.NavigableMap;
 
 public class BroadcastBuilder extends DefaultConnectionConfiguration {
 

@@ -15,10 +15,6 @@
  */
 package net.tomp2p.futures;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Map;
-
 import net.tomp2p.message.Buffer;
 import net.tomp2p.message.DataMap;
 import net.tomp2p.message.Message;
@@ -27,6 +23,8 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.RTT;
 import net.tomp2p.storage.Data;
+
+import java.util.Map;
 
 /**
  * Each response has one request messages. The corresponding response message is set only if the request has been

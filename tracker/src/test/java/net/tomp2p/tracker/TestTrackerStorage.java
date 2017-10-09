@@ -1,22 +1,16 @@
 package net.tomp2p.tracker;
 
+import net.tomp2p.connection.PeerException;
+import net.tomp2p.message.TrackerData;
+import net.tomp2p.peers.*;
+import net.tomp2p.storage.Data;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-
-import net.tomp2p.connection.PeerException;
-import net.tomp2p.message.TrackerData;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number320;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerMapConfiguration;
-import net.tomp2p.peers.PeerStatistic;
-import net.tomp2p.storage.Data;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class TestTrackerStorage {
 	

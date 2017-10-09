@@ -1,17 +1,16 @@
 package net.tomp2p;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import net.tomp2p.message.DataMap;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.TestMessage;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
-
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertTrue;
 
 public class DataTest {
 

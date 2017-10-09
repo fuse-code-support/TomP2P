@@ -1,17 +1,11 @@
 package net.tomp2p.dht;
 
+import net.tomp2p.connection.ChannelCreator;
+import net.tomp2p.futures.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReferenceArray;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.BaseFutureImpl;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.FutureRouting;
 
 public abstract class FutureDHT<K extends BaseFuture> extends BaseFutureImpl<K> {
 

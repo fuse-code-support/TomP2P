@@ -16,10 +16,6 @@
 
 package net.tomp2p.dht;
 
-import java.security.KeyPair;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.futures.FutureChannelCreator;
@@ -31,6 +27,10 @@ import net.tomp2p.p2p.builder.RoutingBuilder;
 import net.tomp2p.p2p.builder.SignatureBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMapFilter;
+
+import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Every DHT builder has those methods in common.

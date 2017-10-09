@@ -18,24 +18,7 @@ package net.tomp2p.synchronization;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.Responder;
+import net.tomp2p.connection.*;
 import net.tomp2p.dht.ReplicationListener;
 import net.tomp2p.dht.StorageLayer;
 import net.tomp2p.dht.StorageLayer.PutStatus;
@@ -52,9 +35,14 @@ import net.tomp2p.rpc.DispatchHandler;
 import net.tomp2p.rpc.RPC;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * This Synchronization RPC is used to synchronize data between peers by transferring only changes.

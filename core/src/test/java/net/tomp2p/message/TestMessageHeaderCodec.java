@@ -1,15 +1,14 @@
 package net.tomp2p.message;
 
-import java.util.Random;
-
 import net.tomp2p.message.Message.Content;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.util.Random;
 
 public class TestMessageHeaderCodec {
 	

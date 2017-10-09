@@ -2,24 +2,16 @@ package net.tomp2p.storage;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import net.tomp2p.connection.SignatureFactory;
+import net.tomp2p.peers.Number160;
+import org.mapdb.Serializer;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.InvalidKeyException;
 import java.security.SignatureException;
-
-import net.tomp2p.connection.SignatureFactory;
-import net.tomp2p.peers.Number160;
-
-import org.mapdb.Serializer;
 
 public class DataSerializer implements Serializer<Data>, Serializable {
 

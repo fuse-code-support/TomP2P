@@ -6,13 +6,11 @@ import io.netty.buffer.CompositeByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.sctp.SctpMessage;
-
-import java.net.InetSocketAddress;
-
 import net.tomp2p.connection.SignatureFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.InetSocketAddress;
 
 public class TomP2PCumulationTCP extends ChannelInboundHandlerAdapter {
 

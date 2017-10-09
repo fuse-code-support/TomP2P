@@ -2,7 +2,6 @@ package net.tomp2p;
 
 import net.tomp2p.peers.Number160;
 import net.tomp2p.rpc.SimpleBloomFilter;
-
 import org.junit.Test;
 
 public class BloomFilterTest {

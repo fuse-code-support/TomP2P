@@ -16,22 +16,9 @@
 
 package net.tomp2p.p2p;
 
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.connection2.ChannelCreator;
 import net.tomp2p.connection2.ConnectionReservation;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureAsyncTask;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.futures.FutureRouting;
-import net.tomp2p.futures.FutureTask;
+import net.tomp2p.futures.*;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.p2p.builder.RoutingBuilder;
 import net.tomp2p.peers.Number160;
@@ -42,9 +29,12 @@ import net.tomp2p.storage.Data;
 import net.tomp2p.task.AsyncTask;
 import net.tomp2p.task.Worker;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class DistributedTask {
     final private static Logger logger = LoggerFactory.getLogger(DistributedTask.class);

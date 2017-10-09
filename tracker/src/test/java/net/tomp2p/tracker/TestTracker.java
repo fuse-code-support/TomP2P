@@ -1,10 +1,5 @@
 package net.tomp2p.tracker;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-
 import net.tomp2p.message.TrackerData;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.p2p.RoutingConfiguration;
@@ -13,9 +8,13 @@ import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerMapConfiguration;
 import net.tomp2p.storage.Data;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TestTracker {
 

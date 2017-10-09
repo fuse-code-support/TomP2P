@@ -1,16 +1,12 @@
 package net.tomp2p;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.PeerAddress;
+
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Scanner;
-
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
 
 public class Inbox {
 

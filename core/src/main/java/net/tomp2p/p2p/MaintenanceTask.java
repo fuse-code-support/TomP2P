@@ -1,5 +1,14 @@
 package net.tomp2p.p2p;
 
+import net.tomp2p.futures.BaseFuture;
+import net.tomp2p.futures.BaseFutureAdapter;
+import net.tomp2p.futures.FutureDone;
+import net.tomp2p.peers.Maintainable;
+import net.tomp2p.peers.PeerAddress;
+import net.tomp2p.peers.PeerStatistic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,16 +17,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.peers.Maintainable;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerStatistic;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class MaintenanceTask implements Runnable {
     

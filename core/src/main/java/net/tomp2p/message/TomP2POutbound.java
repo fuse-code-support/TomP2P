@@ -1,11 +1,5 @@
 package net.tomp2p.message;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
@@ -18,6 +12,11 @@ import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.DatagramPacket;
 import net.tomp2p.connection.SignatureFactory;
 import net.tomp2p.peers.PeerAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class TomP2POutbound extends ChannelOutboundHandlerAdapter {
 

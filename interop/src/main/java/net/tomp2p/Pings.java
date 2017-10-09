@@ -1,7 +1,5 @@
 package net.tomp2p;
 
-import java.io.IOException;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
@@ -12,6 +10,8 @@ import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.PingRPC;
+
+import java.io.IOException;
 
 public class Pings {
 	

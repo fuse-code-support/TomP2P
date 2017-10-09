@@ -1,17 +1,5 @@
 package net.tomp2p.holep.manual;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Random;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
@@ -29,6 +17,13 @@ import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 import net.tomp2p.relay.RelayCallback;
 import net.tomp2p.storage.Data;
+import org.junit.*;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 2 UPNP peers behind same NAT, 1 behind other NAT (total 3 peers) 2 port

@@ -16,13 +16,13 @@
 
 package net.tomp2p.dht;
 
+import net.tomp2p.peers.Number160;
+import net.tomp2p.storage.Data;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
-
-import net.tomp2p.peers.Number160;
-import net.tomp2p.storage.Data;
 
 public class AddBuilder extends DHTBuilder<AddBuilder> {
     private final static FuturePut FUTURE_SHUTDOWN = new FuturePut(null, 0, 0)

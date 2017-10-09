@@ -1,17 +1,6 @@
 package net.tomp2p.message;
 
 import io.netty.buffer.CompositeByteBuf;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.tomp2p.connection.SignatureFactory;
 import net.tomp2p.message.Message.Content;
 import net.tomp2p.peers.Number160;
@@ -22,6 +11,16 @@ import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
 import net.tomp2p.rpc.RPC.Commands;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.PublicKey;
+import java.security.SignatureException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Encoder {
 

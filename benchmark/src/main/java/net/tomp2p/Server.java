@@ -1,11 +1,11 @@
 package net.tomp2p;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.utils.InteropRandom;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Server {
 

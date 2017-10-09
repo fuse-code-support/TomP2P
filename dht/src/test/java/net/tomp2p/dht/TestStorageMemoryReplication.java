@@ -1,7 +1,6 @@
 package net.tomp2p.dht;
 
 import net.tomp2p.peers.Number160;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

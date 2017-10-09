@@ -16,9 +16,9 @@
 
 package net.tomp2p.peers;
 
-import java.util.Collection;
-
 import net.tomp2p.p2p.Statistics;
+
+import java.util.Collection;
 
 /**
  * The default filter accepts all peers.

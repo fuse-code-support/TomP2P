@@ -1,8 +1,5 @@
 package net.tomp2p.p2p.builder;
 
-import java.util.Collection;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.futures.FutureRouting;
@@ -13,6 +10,9 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerMapFilter;
 import net.tomp2p.rpc.NeighborRPC.SearchValues;
 import net.tomp2p.rpc.SimpleBloomFilter;
+
+import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class RoutingBuilder extends DefaultConnectionConfiguration {
 

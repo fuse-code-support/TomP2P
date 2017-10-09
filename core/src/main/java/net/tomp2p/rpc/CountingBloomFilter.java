@@ -17,11 +17,7 @@
 package net.tomp2p.rpc;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A counting Bloom Filter (see http://en.wikipedia.org/wiki/Bloom_filter) that uses java.util.Random as a primitive

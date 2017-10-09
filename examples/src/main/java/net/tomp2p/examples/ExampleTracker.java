@@ -16,13 +16,13 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.tracker.FutureTracker;
 import net.tomp2p.tracker.PeerBuilderTracker;
 import net.tomp2p.tracker.PeerTracker;
+
+import java.io.IOException;
 
 /**
  * Example of storing friends in a Tracker.

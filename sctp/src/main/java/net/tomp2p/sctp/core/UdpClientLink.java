@@ -1,22 +1,17 @@
 package net.tomp2p.sctp.core;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
-
-import net.tomp2p.sctp.listener.SctpConnectThread;
+import javassist.NotFoundException;
+import net.tomp2p.sctp.connection.SctpDispatcher;
 import org.jdeferred.Deferred;
 import org.jdeferred.DoneCallback;
+import org.jdeferred.FailCallback;
 import org.jdeferred.Promise;
 import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javassist.NotFoundException;
-import net.tomp2p.sctp.connection.SctpDispatcher;
+import java.io.IOException;
+import java.net.*;
 
 public class UdpClientLink implements NetworkLink {
 
@@ -69,7 +64,13 @@ public class UdpClientLink implements NetworkLink {
                                     UdpClientLink.this.dispatcher.register(new InetSocketAddress(p.getAddress(), p.getPort()), so);
                                     so.onConnIn(p.getData(), p.getOffset(), p.getLength());
                                 }
+                            });
 
+                            promise.fail(new FailCallback<Exception>() {
+                                @Override
+                                public void onFail(Exception result) {
+                                    LOG.error("Unknown error: Incoming connection attempt could not be answered.", result);
+                                }
                             });
                         }
                     } catch (IOException e) {
@@ -96,6 +97,8 @@ public class UdpClientLink implements NetworkLink {
                 remoteAddress(remoteAddress).
                 remotePort(remotePort).
                 build();
+        so.listen();
+
         Deferred<SctpFacade, Exception, Object> d = new DeferredObject<>();
         SctpConfig.getThreadPoolExecutor().execute(new SctpListenThread(so, d));
         return d.promise();

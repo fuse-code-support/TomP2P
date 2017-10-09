@@ -16,10 +16,10 @@
 package net.tomp2p.dht;
 
 import io.netty.buffer.ByteBuf;
-import java.util.Map;
-
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.peers.PeerAddress;
+
+import java.util.Map;
 
 /**
  * The future object for put() operations including routing.

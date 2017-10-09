@@ -1,10 +1,5 @@
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.CountDownLatch;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
@@ -13,6 +8,11 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 public class ExampleVDHT {
 

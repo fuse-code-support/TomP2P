@@ -18,12 +18,12 @@ package net.tomp2p.synchronization;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import net.tomp2p.utils.Utils;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.tomp2p.utils.Utils;
 
 /**
  * Synchronization class is responsible for efficient and optimal

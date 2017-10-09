@@ -6,7 +6,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import net.tomp2p.connection.Dispatcher;
 import net.tomp2p.holep.strategy.AbstractHolePStrategy;
 import net.tomp2p.message.Message;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

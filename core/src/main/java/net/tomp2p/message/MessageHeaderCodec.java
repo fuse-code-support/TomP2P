@@ -15,22 +15,21 @@
  */
 package net.tomp2p.message;
 
-import java.net.Inet4Address;
-import java.net.InetSocketAddress;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.buffer.ByteBuf;
 import net.tomp2p.message.Message.Content;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.peers.IP.IPv6;
-import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
-import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
+import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
+import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
 import net.tomp2p.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.Inet4Address;
+import java.net.InetSocketAddress;
 
 /**
  * Encodes and decodes the header of a {@code Message} sing a Netty Buffer.

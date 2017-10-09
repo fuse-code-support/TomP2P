@@ -15,16 +15,7 @@
  */
 package net.tomp2p.rpc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.ConnectionConfiguration;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.Responder;
+import net.tomp2p.connection.*;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureResponse;
@@ -36,9 +27,11 @@ import net.tomp2p.p2p.PeerReceivedBroadcastPing;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Ping message handler. Also used for NAT detection and other things.

@@ -1,20 +1,5 @@
 package net.tomp2p.dht;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.ChannelServerConfiguration;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
@@ -36,15 +21,15 @@ import net.tomp2p.rpc.NeighborRPC.SearchValues;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.*;
 
 public class TestStorageDHT {
     

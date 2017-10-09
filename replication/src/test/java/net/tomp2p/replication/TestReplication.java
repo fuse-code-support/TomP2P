@@ -16,13 +16,6 @@
 
 package net.tomp2p.replication;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeSet;
-
 import net.tomp2p.Utils2;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerBuilderDHT;
@@ -37,9 +30,11 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.storage.Data;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.util.*;
 
 
 /**

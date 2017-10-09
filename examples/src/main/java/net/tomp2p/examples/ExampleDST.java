@@ -16,32 +16,17 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import net.tomp2p.dht.FutureGet;
-import net.tomp2p.dht.FuturePut;
-import net.tomp2p.dht.PeerBuilderDHT;
-import net.tomp2p.dht.PeerDHT;
-import net.tomp2p.dht.StorageLayer;
-import net.tomp2p.dht.StorageMemory;
+import net.tomp2p.dht.*;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.security.PublicKey;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Example how to do range queries. The range queries is inspired by DST. 

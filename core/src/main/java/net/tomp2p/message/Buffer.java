@@ -1,10 +1,9 @@
 package net.tomp2p.message;
 
 import io.netty.buffer.ByteBuf;
+import net.tomp2p.utils.Utils;
 
 import java.io.IOException;
-
-import net.tomp2p.utils.Utils;
 
 public class Buffer {
 

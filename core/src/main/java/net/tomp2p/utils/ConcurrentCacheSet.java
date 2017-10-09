@@ -1,10 +1,6 @@
 package net.tomp2p.utils;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Wrapper of {@link ConcurrentCacheMap}

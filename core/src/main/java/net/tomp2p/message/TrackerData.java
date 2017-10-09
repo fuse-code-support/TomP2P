@@ -15,17 +15,17 @@
  */
 package net.tomp2p.message;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerStatistic;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class TrackerData {
 

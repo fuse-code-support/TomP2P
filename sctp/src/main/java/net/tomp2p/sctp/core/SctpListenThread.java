@@ -1,7 +1,6 @@
 package net.tomp2p.sctp.core;
 
 import org.jdeferred.Deferred;
-import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

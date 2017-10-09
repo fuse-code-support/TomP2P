@@ -1,5 +1,16 @@
 package net.tomp2p.storage;
 
+import net.tomp2p.connection.DSASignatureFactory;
+import net.tomp2p.dht.Storage;
+import net.tomp2p.dht.StorageLayer;
+import net.tomp2p.dht.StorageLayer.PutStatus;
+import net.tomp2p.dht.StorageMemory;
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.Number640;
+import net.tomp2p.rpc.DigestInfo;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -9,18 +20,6 @@ import java.util.Collection;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.concurrent.CountDownLatch;
-
-import net.tomp2p.connection.DSASignatureFactory;
-import net.tomp2p.dht.Storage;
-import net.tomp2p.dht.StorageLayer;
-import net.tomp2p.dht.StorageLayer.PutStatus;
-import net.tomp2p.dht.StorageMemory;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.rpc.DigestInfo;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * This is an exact copy of TestStorage in the core package. I was not able to

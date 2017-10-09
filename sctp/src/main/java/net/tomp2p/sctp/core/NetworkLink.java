@@ -15,9 +15,9 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.io.*;
-
 import javassist.NotFoundException;
+
+import java.io.IOException;
 
 /**
  * Interface used by {@link SctpSocket} for sending network packets.

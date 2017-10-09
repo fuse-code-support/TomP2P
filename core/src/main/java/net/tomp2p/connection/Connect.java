@@ -16,28 +16,12 @@
 
 package net.tomp2p.connection;
 
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.concurrent.GenericFutureListener;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.Cancel;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.message.DataFilter;
-import net.tomp2p.message.DataFilterTTL;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.message.TomP2PCumulationTCP;
@@ -47,11 +31,14 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerSocketAddress;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
-import net.tomp2p.peers.PeerStatusListener;
-import net.tomp2p.rpc.RPC;
 import net.tomp2p.utils.ConcurrentCacheMap;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetSocketAddress;
+import java.util.*;
 
 /**
  * The class that sends out messages.

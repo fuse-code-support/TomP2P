@@ -1,8 +1,5 @@
 package net.tomp2p.rpc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.tomp2p.connection.Bindings;
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
@@ -13,13 +10,15 @@ import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestPing {
     static Bindings bindings = new Bindings();

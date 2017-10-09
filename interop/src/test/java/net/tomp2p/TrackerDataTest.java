@@ -1,10 +1,10 @@
 package net.tomp2p;
 
-import static org.junit.Assert.assertTrue;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.TestMessage;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class TrackerDataTest {
 

@@ -15,18 +15,18 @@
  */
 package net.tomp2p.utils;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.SequenceInputStream;
+import io.netty.buffer.ByteBuf;
+import net.tomp2p.connection.ChannelCreator;
+import net.tomp2p.futures.BaseFuture;
+import net.tomp2p.futures.BaseFutureAdapter;
+import net.tomp2p.futures.FutureChannelCreator;
+import net.tomp2p.message.Message;
+import net.tomp2p.message.TrackerData;
+import net.tomp2p.peers.IP.IPv4;
+import net.tomp2p.peers.*;
+import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
+
+import java.io.*;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -37,37 +37,12 @@ import java.nio.channels.FileChannel.MapMode;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
-
-import io.netty.buffer.ByteBuf;
-import net.tomp2p.connection.ChannelCreator;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.message.Message;
-import net.tomp2p.message.TrackerData;
-import net.tomp2p.peers.IP.IPv4;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number480;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerAddress.PeerAddressBuilder;
-import net.tomp2p.peers.PeerSocketAddress;
-import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 
 /**
  * 

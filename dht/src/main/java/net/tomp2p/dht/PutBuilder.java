@@ -16,15 +16,15 @@
 
 package net.tomp2p.dht;
 
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.Number640;
+import net.tomp2p.storage.Data;
+
 import java.io.IOException;
 import java.security.PublicKey;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TreeMap;
-
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.storage.Data;
 
 public class PutBuilder extends DHTBuilder<PutBuilder> {
     private final static FuturePut FUTURE_SHUTDOWN = new FuturePut(null, 0, 0)

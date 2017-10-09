@@ -28,7 +28,6 @@ import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.NeighborRPC.SearchValues;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

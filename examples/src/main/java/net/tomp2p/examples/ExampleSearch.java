@@ -16,10 +16,6 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
 import net.tomp2p.dht.FutureDigest;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
@@ -27,6 +23,10 @@ import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Example how to search.

@@ -1,5 +1,18 @@
 package net.tomp2p.dht;
 
+import net.tomp2p.connection.DSASignatureFactory;
+import net.tomp2p.dht.StorageLayer.PutStatus;
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.Number640;
+import net.tomp2p.rpc.DigestInfo;
+import net.tomp2p.storage.Data;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -9,20 +22,6 @@ import java.util.Collection;
 import java.util.NavigableMap;
 import java.util.SortedMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import net.tomp2p.connection.DSASignatureFactory;
-import net.tomp2p.dht.StorageLayer.PutStatus;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.Number640;
-import net.tomp2p.rpc.DigestInfo;
-import net.tomp2p.storage.Data;
-
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 
 public class TestStorage {
     final private static Number160 locationKey = new Number160(10);

@@ -1,19 +1,6 @@
 package net.tomp2p.replication;
 
 import io.netty.buffer.ByteBuf;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicReference;
-
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.futures.BaseFutureAdapter;
@@ -27,18 +14,25 @@ import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
-import net.tomp2p.synchronization.Checksum;
-import net.tomp2p.synchronization.Instruction;
-import net.tomp2p.synchronization.PeerSync;
-import net.tomp2p.synchronization.RSync;
-import net.tomp2p.synchronization.SyncBuilder;
-import net.tomp2p.synchronization.SyncStat;
+import net.tomp2p.synchronization.*;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class SynchronizationTest {
 

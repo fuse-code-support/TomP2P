@@ -16,25 +16,10 @@
 
 package net.tomp2p.replication;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.SortedSet;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.dht.PutBuilder;
 import net.tomp2p.dht.StorageRPC;
-import net.tomp2p.futures.BaseFuture;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureDone;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.futures.Futures;
+import net.tomp2p.futures.*;
 import net.tomp2p.p2p.Shutdown;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
@@ -43,9 +28,12 @@ import net.tomp2p.peers.PeerStatistic;
 import net.tomp2p.storage.Data;
 import net.tomp2p.synchronization.PeerSync;
 import net.tomp2p.utils.Utils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This implements the default indirect replication.

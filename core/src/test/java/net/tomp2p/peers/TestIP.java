@@ -1,12 +1,12 @@
 package net.tomp2p.peers;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class TestIP {
 	@Test

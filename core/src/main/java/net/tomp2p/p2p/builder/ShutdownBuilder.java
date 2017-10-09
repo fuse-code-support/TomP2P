@@ -16,8 +16,6 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.security.KeyPair;
-
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.connection.DefaultConnectionConfiguration;
 import net.tomp2p.futures.BaseFutureAdapter;
@@ -27,6 +25,8 @@ import net.tomp2p.futures.FutureRouting;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.RoutingConfiguration;
 import net.tomp2p.utils.Utils;
+
+import java.security.KeyPair;
 
 /**
  * Set the configuration options for the shutdown command. The shutdown does first a rounting, searches for its close

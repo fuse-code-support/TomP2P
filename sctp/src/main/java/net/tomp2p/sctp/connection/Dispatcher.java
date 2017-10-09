@@ -1,8 +1,8 @@
 package net.tomp2p.sctp.connection;
 
-import java.net.InetSocketAddress;
-
 import net.tomp2p.sctp.core.SctpFacade;
+
+import java.net.InetSocketAddress;
 
 public interface Dispatcher {
 

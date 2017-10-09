@@ -16,15 +16,6 @@
 
 package net.tomp2p.task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import net.tomp2p.connection2.ConnectionBean;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureChannelCreator;
@@ -37,9 +28,13 @@ import net.tomp2p.rpc.DigestInfo;
 import net.tomp2p.rpc.TaskRPC;
 import net.tomp2p.storage.Data;
 import net.tomp2p.task.TaskStatus.Status;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class TaskManager {
     final private static Logger logger = LoggerFactory.getLogger(TaskManager.class);

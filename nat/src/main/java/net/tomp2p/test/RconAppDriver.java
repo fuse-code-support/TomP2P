@@ -1,11 +1,10 @@
 package net.tomp2p.test;
 
-import java.net.UnknownHostException;
-
+import ch.qos.logback.classic.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.qos.logback.classic.Level;
+import java.net.UnknownHostException;
 
 public class RconAppDriver {
 

@@ -15,9 +15,9 @@
  */
 package net.tomp2p.futures;
 
-import java.util.Collection;
-
 import net.tomp2p.peers.PeerAddress;
+
+import java.util.Collection;
 
 /**
  * The bootstrap will be a wrapped future, because we need to ping a server first.

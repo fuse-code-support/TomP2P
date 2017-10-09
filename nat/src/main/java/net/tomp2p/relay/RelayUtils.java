@@ -1,5 +1,21 @@
 package net.tomp2p.relay;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.CompositeByteBuf;
+import io.netty.buffer.Unpooled;
+import net.tomp2p.connection.*;
+import net.tomp2p.futures.BaseFutureAdapter;
+import net.tomp2p.futures.FutureChannelCreator;
+import net.tomp2p.futures.FutureResponse;
+import net.tomp2p.message.Buffer;
+import net.tomp2p.message.Decoder;
+import net.tomp2p.message.Encoder;
+import net.tomp2p.message.Message;
+import net.tomp2p.p2p.Peer;
+import net.tomp2p.peers.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -16,31 +32,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.CompositeByteBuf;
-import io.netty.buffer.Unpooled;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
-import net.tomp2p.connection.SignatureFactory;
-import net.tomp2p.futures.BaseFutureAdapter;
-import net.tomp2p.futures.FutureChannelCreator;
-import net.tomp2p.futures.FutureResponse;
-import net.tomp2p.message.Buffer;
-import net.tomp2p.message.Decoder;
-import net.tomp2p.message.Encoder;
-import net.tomp2p.message.Message;
-import net.tomp2p.p2p.Peer;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerMapConfiguration;
-import net.tomp2p.peers.PeerStatistic;
 //import net.tomp2p.storage.AlternativeCompositeByteBuf;
 
 public class RelayUtils {

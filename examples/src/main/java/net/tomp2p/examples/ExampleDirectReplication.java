@@ -16,8 +16,6 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.dht.PutBuilder;
 import net.tomp2p.dht.RemoveBuilder;
@@ -27,6 +25,8 @@ import net.tomp2p.p2p.JobScheduler;
 import net.tomp2p.p2p.Shutdown;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
 
 /**
  * Example of direct replication with put and remove.

@@ -1,11 +1,7 @@
 package net.tomp2p.test;
 
-import java.awt.Button;
-import java.awt.GridLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 public class RconView {
 

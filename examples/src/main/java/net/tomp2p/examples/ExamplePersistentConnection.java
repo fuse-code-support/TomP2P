@@ -15,18 +15,18 @@
  */
 package net.tomp2p.examples;
 
-import java.util.Random;
-
 import net.tomp2p.connection.ChannelClientConfiguration;
 import net.tomp2p.connection.ChannelServerConfiguration;
-import net.tomp2p.futures.FutureDirect;
 import net.tomp2p.connection.CountConnectionOutboundHandler;
+import net.tomp2p.futures.FutureDirect;
 import net.tomp2p.futures.FuturePeerConnection;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
+
+import java.util.Random;
 
 /**
  * Example how to use persistent connection with Peer.sendDirect().

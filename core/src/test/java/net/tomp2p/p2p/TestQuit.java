@@ -1,7 +1,5 @@
 package net.tomp2p.p2p;
 
-import java.util.Random;
-
 import net.tomp2p.Utils2;
 import net.tomp2p.connection.ChannelCreator;
 import net.tomp2p.futures.FutureChannelCreator;
@@ -9,13 +7,14 @@ import net.tomp2p.futures.FutureDone;
 import net.tomp2p.p2p.builder.ShutdownBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.util.Random;
 
 public class TestQuit {
 	

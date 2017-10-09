@@ -3,25 +3,19 @@ package net.tomp2p.storage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
-import java.util.Random;
-import java.util.UUID;
-
 import net.tomp2p.connection.DSASignatureFactory;
 import net.tomp2p.peers.Number160;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.io.IOException;
+import java.security.*;
+import java.util.Random;
+import java.util.UUID;
 
 public class TestData {
 	

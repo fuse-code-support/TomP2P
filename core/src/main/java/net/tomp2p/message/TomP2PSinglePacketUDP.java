@@ -5,13 +5,11 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.DatagramPacket;
-
-import java.net.InetSocketAddress;
-
 import net.tomp2p.connection.SignatureFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.InetSocketAddress;
 
 @Sharable
 public class TomP2PSinglePacketUDP extends ChannelInboundHandlerAdapter {

@@ -6,7 +6,6 @@ import net.tomp2p.futures.FutureDirect;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.ObjectDataReply;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

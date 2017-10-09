@@ -1,23 +1,17 @@
 package net.tomp2p.holep.manual;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Random;
-
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.FutureDirect;
 import net.tomp2p.futures.FutureDiscover;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerSocketAddress;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
+import org.junit.*;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Random;
 
 //travis-ci cannot test this, the kernel does not support all the required features:
 //Perhaps iptables or your kernel needs to be upgraded

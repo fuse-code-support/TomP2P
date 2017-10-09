@@ -3,11 +3,13 @@ package net.tomp2p.connection;
 /**
  * @author Jonas Wagner
  */
-import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
+
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.FutureResponse;
 import net.tomp2p.message.Message;
+
+import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * This interface makes sure that a hole punch procedure can be started from the {@link Sender} class.

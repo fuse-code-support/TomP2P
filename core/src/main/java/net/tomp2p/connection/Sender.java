@@ -16,14 +16,6 @@
 
 package net.tomp2p.connection;
 
-import java.net.ConnectException;
-import java.nio.channels.ClosedChannelException;
-import java.util.List;
-import java.util.concurrent.CancellationException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelPipeline;
@@ -40,6 +32,13 @@ import net.tomp2p.rpc.DispatchHandler;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.ConcurrentCacheMap;
 import net.tomp2p.utils.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.ConnectException;
+import java.nio.channels.ClosedChannelException;
+import java.util.List;
+import java.util.concurrent.CancellationException;
 
 /**
  * The class that sends out messages.

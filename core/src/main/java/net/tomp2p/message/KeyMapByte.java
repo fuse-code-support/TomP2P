@@ -1,9 +1,9 @@
 package net.tomp2p.message;
 
-import java.util.Map;
-
 import net.tomp2p.peers.Number640;
 import net.tomp2p.utils.Utils;
+
+import java.util.Map;
 
 public class KeyMapByte {
 

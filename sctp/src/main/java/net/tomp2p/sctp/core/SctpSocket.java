@@ -15,15 +15,14 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.io.*;
-import java.net.InetAddress;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javassist.NotFoundException;
 import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.net.InetAddress;
 
 /**
  * SCTP socket implemented using "usrsctp" lib.

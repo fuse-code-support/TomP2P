@@ -1,13 +1,12 @@
 package net.tomp2p;
 
-import static org.junit.Assert.assertEquals;
+import net.tomp2p.peers.PeerSocketAddress;
+import net.tomp2p.storage.AlternativeCompositeByteBuf;
+import org.junit.Test;
 
 import java.net.InetAddress;
 
-import net.tomp2p.peers.PeerSocketAddress;
-import net.tomp2p.storage.AlternativeCompositeByteBuf;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class PeerSocketAddressTest {
 

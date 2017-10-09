@@ -3,13 +3,11 @@ package net.tomp2p.connection;
 import io.netty.channel.ChannelFuture;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.Futures;
 import net.tomp2p.peers.PeerAddress;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

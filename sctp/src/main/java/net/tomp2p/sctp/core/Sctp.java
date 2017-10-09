@@ -15,15 +15,14 @@
  */
 package net.tomp2p.sctp.core;
 
-import java.io.*;
-import java.net.InetAddress;
-import java.util.*;
-import java.util.concurrent.*;
-
+import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.tomp2p.utils.Pair;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class encapsulates native SCTP counterpart.

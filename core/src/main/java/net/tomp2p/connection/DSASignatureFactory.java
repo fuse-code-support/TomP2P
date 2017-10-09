@@ -17,25 +17,17 @@
 package net.tomp2p.connection;
 
 import io.netty.buffer.ByteBuf;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.SignatureException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
-
 import net.tomp2p.message.DSASignatureCodec;
 import net.tomp2p.message.SignatureCodec;
 import net.tomp2p.p2p.PeerBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 
 /**
  * The default signature is done with SHA1withDSA.

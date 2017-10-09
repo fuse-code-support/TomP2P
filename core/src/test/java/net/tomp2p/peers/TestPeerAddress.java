@@ -16,14 +16,9 @@
 
 package net.tomp2p.peers;
 
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-
+import net.tomp2p.Utils2;
+import net.tomp2p.utils.Pair;
+import net.tomp2p.utils.Utils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,9 +26,13 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import net.tomp2p.Utils2;
-import net.tomp2p.utils.Pair;
-import net.tomp2p.utils.Utils;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 /**
  * Test the serialization and deserialization of PeerAddress.

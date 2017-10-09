@@ -1,10 +1,10 @@
 package net.tomp2p.message;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.utils.Utils;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 public class NeighborSet {
     private final int neighborLimit;

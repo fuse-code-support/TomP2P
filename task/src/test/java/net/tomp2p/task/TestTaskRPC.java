@@ -1,11 +1,5 @@
 package net.tomp2p.task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import junit.framework.Assert;
 import net.tomp2p.futures.FutureAsyncTask;
 import net.tomp2p.futures.FutureChannelCreator;
@@ -15,8 +9,9 @@ import net.tomp2p.p2p.PeerMaker;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
 import net.tomp2p.utils.Utils;
-
 import org.junit.Test;
+
+import java.util.*;
 
 public class TestTaskRPC {
     final private static Random rnd = new Random(42L);

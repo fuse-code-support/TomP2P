@@ -16,11 +16,11 @@
 
 package net.tomp2p.dht;
 
-import java.util.NavigableSet;
-import java.util.TreeSet;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
+
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 public class ParallelRequestBuilder<K extends FutureDHT<?>> extends
         DHTBuilder<ParallelRequestBuilder<K>> {

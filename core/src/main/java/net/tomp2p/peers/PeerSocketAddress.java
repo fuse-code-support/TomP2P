@@ -1,9 +1,5 @@
 package net.tomp2p.peers;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +9,10 @@ import net.tomp2p.peers.IP.IPv4;
 import net.tomp2p.peers.IP.IPv6;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public abstract class PeerSocketAddress {
 	

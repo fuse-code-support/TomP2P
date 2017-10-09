@@ -1,10 +1,10 @@
 package net.tomp2p;
 
+import net.tomp2p.futures.FutureBootstrap;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.tomp2p.futures.FutureBootstrap;
 
 public class BootstrapProfiler extends Profiler {
 

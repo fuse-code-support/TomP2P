@@ -16,9 +16,6 @@
 
 package net.tomp2p.p2p.builder;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureTask;
 import net.tomp2p.p2p.Peer;
@@ -27,6 +24,9 @@ import net.tomp2p.p2p.RoutingConfiguration;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
 import net.tomp2p.task.Worker;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SubmitBuilder {
     private final static FutureTask FUTURE_TASK_SHUTDOWN = new FutureTask().setFailed("Peer is shutting down");

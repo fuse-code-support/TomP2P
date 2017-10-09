@@ -16,12 +16,12 @@
 
 package net.tomp2p.p2p;
 
-import java.util.List;
-import java.util.Map;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerMap;
 import net.tomp2p.peers.PeerStatistic;
+
+import java.util.List;
+import java.util.Map;
 
 public class Statistics {
 

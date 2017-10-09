@@ -1,11 +1,10 @@
 package net.tomp2p.futures;
 
 import io.netty.buffer.Unpooled;
-
-import java.io.IOException;
-
 import net.tomp2p.message.Buffer;
 import net.tomp2p.message.Message;
+
+import java.io.IOException;
 
 
 public class FutureDirect extends FutureResponse {

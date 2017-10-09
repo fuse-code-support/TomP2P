@@ -1,14 +1,13 @@
 package net.tomp2p;
 
+import net.tomp2p.storage.AlternativeCompositeByteBuf;
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-
-import net.tomp2p.storage.AlternativeCompositeByteBuf;
-
-import org.apache.commons.io.IOUtils;
 
 public class InteropUtil {
 

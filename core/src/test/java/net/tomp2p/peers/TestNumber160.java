@@ -16,16 +16,16 @@
 
 package net.tomp2p.peers;
 
-import java.math.BigInteger;
-import java.util.Random;
-import java.util.concurrent.ConcurrentSkipListSet;
-
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+
+import java.math.BigInteger;
+import java.util.Random;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 public class TestNumber160 {
     private final Random rnd = new Random();

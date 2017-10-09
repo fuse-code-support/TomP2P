@@ -16,11 +16,11 @@
 
 package net.tomp2p.peers;
 
+import net.tomp2p.utils.ConcurrentCacheMap;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import net.tomp2p.utils.ConcurrentCacheMap;
 
 /**
  * Maintenance is important in an iterative P2P network. Thus we need to identify the important peers and start polling

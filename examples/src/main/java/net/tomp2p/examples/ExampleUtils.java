@@ -15,20 +15,19 @@
  */
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.message.Message;
-import net.tomp2p.p2p.BroadcastHandler;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.p2p.StructuredBroadcastHandler;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.tracker.PeerBuilderTracker;
 import net.tomp2p.tracker.PeerTracker;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This simple example creates 10 nodes, bootstraps to the first and put and get data from those 10 nodes.

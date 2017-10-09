@@ -3,17 +3,16 @@ package net.tomp2p.holep.strategy;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.util.concurrent.EventExecutorGroup;
-
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.message.Message;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PortPreservingStrategy extends AbstractHolePStrategy {
 

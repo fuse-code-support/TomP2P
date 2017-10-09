@@ -15,17 +15,12 @@
  */
 package net.tomp2p.rpc;
 
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.PeerBean;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.PeerException;
-import net.tomp2p.connection.Responder;
+import net.tomp2p.connection.*;
 import net.tomp2p.message.Message;
 import net.tomp2p.message.Message.Type;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.peers.PeerStatusListener;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,12 +1,12 @@
 package net.tomp2p.sctp.core;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-
 import net.tomp2p.connection.Ports;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class SctpSocketBuilder {
 

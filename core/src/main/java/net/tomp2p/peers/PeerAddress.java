@@ -15,16 +15,6 @@
  */
 package net.tomp2p.peers;
 
-import java.io.Serializable;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.Collections;
-
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +25,16 @@ import net.tomp2p.peers.PeerSocketAddress.PeerSocket4Address;
 import net.tomp2p.peers.PeerSocketAddress.PeerSocket6Address;
 import net.tomp2p.utils.Pair;
 import net.tomp2p.utils.Utils;
+
+import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A PeerAddress contains the node ID and how to contact this node using both

@@ -1,10 +1,5 @@
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.NavigableMap;
-import java.util.Random;
-import java.util.TreeMap;
-
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.futures.FutureDone;
@@ -14,6 +9,11 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.storage.Data;
 import net.tomp2p.synchronization.PeerSync;
 import net.tomp2p.synchronization.SyncStat;
+
+import java.io.IOException;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.TreeMap;
 
 public class ExampleRsync {
 	private static final Random RND = new Random(42L);

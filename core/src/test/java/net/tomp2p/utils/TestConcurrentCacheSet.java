@@ -1,10 +1,10 @@
 package net.tomp2p.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestConcurrentCacheSet {
 	

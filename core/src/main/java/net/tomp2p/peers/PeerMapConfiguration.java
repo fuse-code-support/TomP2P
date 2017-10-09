@@ -16,11 +16,11 @@
 
 package net.tomp2p.peers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.tomp2p.p2p.DefaultPeerStatisticComparator;
 import net.tomp2p.p2p.PeerStatisticComparator;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * The class that holds configuration settings for the {@link PeerMap}.

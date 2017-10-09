@@ -1,12 +1,12 @@
 package net.tomp2p.examples;
 
-import java.io.IOException;
-
 import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.p2p.Peer;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
+
+import java.io.IOException;
 
 public class ExampleReconnect2 {
 	public static void main(String[] args) throws IOException, InterruptedException {

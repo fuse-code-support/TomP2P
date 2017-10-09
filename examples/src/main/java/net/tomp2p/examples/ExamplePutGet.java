@@ -16,16 +16,16 @@
 
 package net.tomp2p.examples;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Random;
-
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Random;
 
 /**
  * This simple example creates 10 nodes, bootstraps to the first and put and get data from those 10 nodes.

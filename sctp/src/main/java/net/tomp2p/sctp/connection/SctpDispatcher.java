@@ -1,19 +1,14 @@
 package net.tomp2p.sctp.connection;
 
-import java.net.InetSocketAddress;
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TooManyListenersException;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.tomp2p.sctp.core.SctpFacade;
 import net.tomp2p.sctp.core.SctpSocket;
 import net.tomp2p.sctp.core.SctpSocketAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.net.InetSocketAddress;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 //TODO jwa remove all static modifiers
 public class SctpDispatcher implements Dispatcher {

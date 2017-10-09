@@ -1,16 +1,15 @@
 package net.tomp2p.replication;
 
-import java.util.Random;
-
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.p2p.RequestP2PConfiguration;
 import net.tomp2p.p2p.RoutingConfiguration;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Random;
 
 public class TestConsistency {
 	

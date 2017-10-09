@@ -1,5 +1,8 @@
 package net.tomp2p.natpmp;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,9 +11,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class TestFindRouter {
     public final static Map<String, String> MAP = new HashMap<String, String>();

@@ -16,13 +16,6 @@
 
 package net.tomp2p.replication;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.dht.ReplicationListener;
 import net.tomp2p.dht.StorageLayer;
@@ -30,14 +23,12 @@ import net.tomp2p.futures.BaseFuture;
 import net.tomp2p.futures.BaseFutureListener;
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.futures.FutureForkJoin;
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.peers.PeerMap;
-import net.tomp2p.peers.PeerMapChangeListener;
-import net.tomp2p.peers.PeerStatistic;
-
+import net.tomp2p.peers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 /**
  * This class has 3 methods that are called from outside events: check, peerInsert, peerRemoved.

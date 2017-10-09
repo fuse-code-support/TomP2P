@@ -16,8 +16,6 @@
 
 package net.tomp2p.synchronization;
 
-import java.util.NavigableMap;
-
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.dht.ReplicationListener;
 import net.tomp2p.futures.FutureDone;
@@ -27,6 +25,8 @@ import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.replication.ReplicationSender;
 import net.tomp2p.storage.Data;
+
+import java.util.NavigableMap;
 
 public class PeerSync implements ReplicationSender {
 

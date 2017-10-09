@@ -16,14 +16,14 @@
 
 package net.tomp2p.futures;
 
+import net.tomp2p.peers.Number160;
+import net.tomp2p.peers.PeerAddress;
+import net.tomp2p.storage.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.tomp2p.peers.Number160;
-import net.tomp2p.peers.PeerAddress;
-import net.tomp2p.storage.Data;
 
 /**
  * This future keeps track of one or more tasks send to remote peers.

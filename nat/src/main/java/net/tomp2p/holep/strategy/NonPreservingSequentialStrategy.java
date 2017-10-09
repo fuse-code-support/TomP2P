@@ -1,12 +1,11 @@
 package net.tomp2p.holep.strategy;
 
 import io.netty.channel.ChannelFuture;
-
-import java.util.List;
-
 import net.tomp2p.futures.FutureDone;
 import net.tomp2p.message.Message;
 import net.tomp2p.p2p.Peer;
+
+import java.util.List;
 
 /**
  * @since 30.03.2015

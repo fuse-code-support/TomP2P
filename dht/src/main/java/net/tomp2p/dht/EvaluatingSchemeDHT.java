@@ -16,14 +16,14 @@
 package net.tomp2p.dht;
 
 import io.netty.buffer.ByteBuf;
-import java.util.Collection;
-import java.util.Map;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.DigestResult;
 import net.tomp2p.storage.Data;
+
+import java.util.Collection;
+import java.util.Map;
 
 public interface EvaluatingSchemeDHT {
     public Collection<Number640> evaluate1(Map<PeerAddress, Map<Number640, Number160>> rawKeys480);

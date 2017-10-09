@@ -15,9 +15,9 @@
  */
 package net.tomp2p.futures;
 
-import java.util.Collection;
-
 import net.tomp2p.peers.PeerAddress;
+
+import java.util.Collection;
 
 /**
  * Used for bootstrapping. One important information in bootstrapping is to get

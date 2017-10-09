@@ -15,14 +15,10 @@
  */
 package net.tomp2p.futures;
 
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.rpc.DigestInfo;
+
+import java.util.*;
 
 /**
  * The routing future keeps track of the routing process. This means that the

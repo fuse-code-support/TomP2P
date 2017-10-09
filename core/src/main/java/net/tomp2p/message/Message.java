@@ -15,21 +15,6 @@
  */
 package net.tomp2p.message;
 
-import java.net.InetSocketAddress;
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.Queue;
-import java.util.Random;
-import java.util.TreeMap;
-
 import net.tomp2p.connection.PeerConnection;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.Number640;
@@ -41,6 +26,12 @@ import net.tomp2p.rpc.RPC;
 import net.tomp2p.rpc.RPC.Commands;
 import net.tomp2p.rpc.SimpleBloomFilter;
 import net.tomp2p.storage.Data;
+
+import java.net.InetSocketAddress;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.*;
 
 /**
  * The message is in binary format in TomP2P. It has several header and payload fields. Since

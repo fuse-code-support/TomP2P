@@ -16,11 +16,11 @@
 
 package net.tomp2p.futures;
 
-import java.util.Map;
-
 import net.tomp2p.peers.Number160;
 import net.tomp2p.peers.PeerAddress;
 import net.tomp2p.storage.Data;
+
+import java.util.Map;
 
 /**
  * A future to keep track of a future task. The task is submitted using an RPC,
