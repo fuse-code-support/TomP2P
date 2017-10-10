@@ -2,6 +2,9 @@ package net.tomp2p.sctp.core;
 
 import javassist.NotFoundException;
 import lombok.Getter;
+import net.tomp2p.sctp.connection.SctpConfig;
+import net.tomp2p.sctp.connection.SctpUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +21,7 @@ public class UdpClientLink implements NetworkLink {
 	 * <tt>SctpFacade</tt> instance that is used in this connection.
 	 */
 	@Getter
-	private final SctpFacade so;
+	private final SctpAdapter so;
 
 	/**
 	 * Udp socket used for transport.
@@ -34,14 +37,14 @@ public class UdpClientLink implements NetworkLink {
 	/**
 	 * Creates new instance of <tt>UdpConnection</tt>.
 	 */
-	public UdpClientLink(InetSocketAddress local, InetSocketAddress remote, SctpFacade so) throws IOException {
+	public UdpClientLink(InetSocketAddress local, InetSocketAddress remote, SctpAdapter so) throws IOException {
 		this.so = so;
 		this.so.setLink(this);
 		this.remote = remote;
 		this.udpSocket = new DatagramSocket(local.getPort(), local.getAddress());
 
 		// Listening thread
-		SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
+		SctpUtils.getThreadPoolExecutor().execute(new Runnable() {
 			public void run() {
 				try {
 					byte[] buff = new byte[2048];
@@ -58,7 +61,7 @@ public class UdpClientLink implements NetworkLink {
 	}
 	
 	@Override
-	public void onConnOut(SctpFacade so, byte[] data) throws IOException, NotFoundException {
+	public void onConnOut(SctpAdapter so, byte[] data) throws IOException, NotFoundException {
 		DatagramPacket packet = new DatagramPacket(data, data.length, this.remote.getAddress(), this.remote.getPort());
 		udpSocket.send(packet);
 	}

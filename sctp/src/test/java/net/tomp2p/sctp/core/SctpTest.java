@@ -20,7 +20,7 @@ public class SctpTest {
     * Server settings
     */
     UdpClientLink server;
-    SctpFacade serverSo;
+    SctpAdapter serverSo;
     InetAddress serverLocalAddress = localhost;
     int serverlocalPort = 1111;
     InetSocketAddress serverSocketLocalAddress = new InetSocketAddress(serverLocalAddress, serverlocalPort);

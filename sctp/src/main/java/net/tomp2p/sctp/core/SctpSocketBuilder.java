@@ -1,7 +1,6 @@
 package net.tomp2p.sctp.core;
 
 import net.tomp2p.connection.Ports;
-import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +21,9 @@ public class SctpSocketBuilder {
 	private InetAddress remoteAddress = null;
 	private SctpDataCallback cb = null;
 	private NetworkLink link = null;
-	private SctpDispatcher dispatcher = null;
+	private SctpMapper mapper = null;
 	
-	public SctpFacade build() {
+	public SctpAdapter build() {
 
 		if (localSctpPort == -1) {
 			localSctpPort = SctpPorts.getInstance().generateDynPort();
@@ -33,24 +32,24 @@ public class SctpSocketBuilder {
 		if (cb == null) {
 			cb = new SctpDataCallback() {
 				@Override
-				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags, SctpFacade so) {
+				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags, SctpAdapter so) {
 					//do nothing
 				}
 			};
 		}
 		
-		if (dispatcher == null) {
-			LOG.error("No dispatcher added! You need a Dispatcher to create a new SctpFacade!");
+		if (mapper == null) {
+			LOG.error("No mapper added! You need a mapper to create a new SctpFacade!");
 			return null;
 		}
 
 		InetSocketAddress local = new InetSocketAddress(localAddress, localPort);
-		SctpFacade so = null;
+		SctpAdapter so = null;
 		if (remoteAddress == null || remotePort == -1) {
-			return (SctpFacade) new SctpSocketAdapter(local, localSctpPort, link, cb, dispatcher);
+			return (SctpAdapter) new SctpSocketAdapter(local, localSctpPort, link, cb, mapper);
 		} else {
 			InetSocketAddress remote = new InetSocketAddress(remoteAddress, remotePort);
-			return (SctpFacade) new SctpSocketAdapter(local, localSctpPort, remote, link, cb, dispatcher);
+			return (SctpAdapter) new SctpSocketAdapter(local, localSctpPort, remote, link, cb, mapper);
 		}
 
 	}
@@ -124,11 +123,11 @@ public class SctpSocketBuilder {
 		return this;
 	}
 	
-	public SctpSocketBuilder dispatcher(SctpDispatcher dispatcher) {
-		if (dispatcher != null) {
-			this.dispatcher = dispatcher;
+	public SctpSocketBuilder mapper(SctpMapper mapper) {
+		if (mapper != null) {
+			this.mapper = mapper;
 		} else {
-			LOG.error("Null can't be added as dispatcher!");
+			LOG.error("Null can't be added as mapper!");
 		}
 		return this;
 	}

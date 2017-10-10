@@ -16,7 +16,6 @@
 package net.tomp2p.sctp.core;
 
 import javassist.NotFoundException;
-import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -445,7 +444,7 @@ public class SctpSocket {
 	 * @param so
 	 */
 	private void onSctpIn(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-			SctpFacade so) {
+			SctpAdapter so) {
 		if (dataCallback != null) {
 			dataCallback.onSctpPacket(data, sid, ssn, tsn, ppid, context, flags, so);
 		} else {
@@ -469,7 +468,7 @@ public class SctpSocket {
 	 * @param so
 	 */
 	void onSctpInboundPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-			SctpFacade so) {
+			SctpAdapter so) {
 		if ((flags & Sctp.MSG_NOTIFICATION) != 0) {
 			onNotification(SctpNotification.parse(data));
 		} else {
@@ -495,7 +494,7 @@ public class SctpSocket {
 
 		if (link != null) {
 			try {
-				link.onConnOut(SctpDispatcher.locate(this), packet);
+				link.onConnOut(SctpMapper.locate(this), packet);
 				ret = 0;
 			} catch (IOException | NotFoundException e) {
 				logger.error("Error while sending packet trough the link: " + link, e);

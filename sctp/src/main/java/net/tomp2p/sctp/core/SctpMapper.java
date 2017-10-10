@@ -1,8 +1,5 @@
-package net.tomp2p.sctp.connection;
+package net.tomp2p.sctp.core;
 
-import net.tomp2p.sctp.core.SctpFacade;
-import net.tomp2p.sctp.core.SctpSocket;
-import net.tomp2p.sctp.core.SctpSocketAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,14 +7,13 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-//TODO jwa remove all static modifiers
-public class SctpDispatcher {
+public class SctpMapper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SctpDispatcher.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SctpMapper.class);
 
-	private static final ConcurrentHashMap<InetSocketAddress, SctpFacade> socketMap = new ConcurrentHashMap<>();
+	private static final ConcurrentHashMap<InetSocketAddress, SctpAdapter> socketMap = new ConcurrentHashMap<>();
 
-	public synchronized void register(final InetSocketAddress remote, final SctpFacade so) {
+	public synchronized void register(final InetSocketAddress remote, final SctpAdapter so) {
 		if (remote != null && so != null) {
 			socketMap.put(remote, so);
 		} else {
@@ -26,11 +22,11 @@ public class SctpDispatcher {
 	}
 
 	/**
-	 * This method removes a socket from the {@link Dispatcher} and shuts down the
+	 * This method removes a socket from the {@link Mapper} and shuts down the
 	 * usrsctp counterpart. Make sure this {@link SctpSocketAdapter} instance is not
 	 * used anywhere else!
 	 */
-	public synchronized void unregister(SctpFacade so) {
+	public synchronized void unregister(SctpAdapter so) {
 		if (so == null) {
 			LOG.error("Invalid input, null can't be removed!");
 			return;
@@ -43,8 +39,8 @@ public class SctpDispatcher {
 	}
 	
 	/**
-	 * This method removes a socket from the {@link Dispatcher} and shuts down the
-	 * usrsctp counterpart. Make sure this {@link SctpFacade} instance is not
+	 * This method removes a socket from the {@link Mapper} and shuts down the
+	 * usrsctp counterpart. Make sure this {@link SctpAdapter} instance is not
 	 * used anywhere else!
 	 */
 	public synchronized void unregister(InetSocketAddress remote) {
@@ -59,8 +55,8 @@ public class SctpDispatcher {
 		}
 	}
 
-	public synchronized static SctpFacade locate(final String remoteAddress, final int remotePort) {
-		for (Map.Entry<InetSocketAddress, SctpFacade> element : socketMap.entrySet()) {
+	public synchronized static SctpAdapter locate(final String remoteAddress, final int remotePort) {
+		for (Map.Entry<InetSocketAddress, SctpAdapter> element : socketMap.entrySet()) {
 			int port = element.getKey().getPort();
 			String address = element.getKey().getHostName();
 			
@@ -77,16 +73,16 @@ public class SctpDispatcher {
 		return null;
 	}
 
-	public synchronized static SctpFacade locate(final SctpSocket sctpSocket) {
+	public synchronized static SctpAdapter locate(final SctpSocket sctpSocket) {
 		if (socketMap.isEmpty()) {
 			return null;
 		}
 		
-		SctpFacade facade = socketMap.values().stream().filter(so -> so.containsSctpSocket(sctpSocket)).findFirst()
+		SctpAdapter facade = socketMap.values().stream().filter(so -> so.containsSctpSocket(sctpSocket)).findFirst()
 				.get();
 
 		if (facade == null) {
-			LOG.error("Could not retrieve SctpSocket from SctpDispatcher!");
+			LOG.error("Could not retrieve SctpSocket from SctpMapper!");
 			return null;
 		} else {
 			return facade;

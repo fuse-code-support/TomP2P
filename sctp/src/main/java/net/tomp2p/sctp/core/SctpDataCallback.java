@@ -38,5 +38,5 @@ public interface SctpDataCallback
      * @param so 
      */
     void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid,
-                      int context, int flags, SctpFacade so);
+                      int context, int flags, SctpAdapter so);
 }

@@ -2,7 +2,8 @@ package net.tomp2p.sctp.core;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.tomp2p.sctp.connection.SctpDispatcher;
+import net.tomp2p.sctp.connection.SctpConfig;
+import net.tomp2p.sctp.connection.SctpUtils;
 
 import org.jdeferred.Deferred;
 import org.jdeferred.Promise;
@@ -13,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-public class SctpSocketAdapter implements SctpFacade{
+public class SctpSocketAdapter implements SctpAdapter{
 
 	private static final Logger LOG = LoggerFactory.getLogger(SctpSocketAdapter.class);
 	
@@ -27,14 +28,14 @@ public class SctpSocketAdapter implements SctpFacade{
 	@Setter
 	private InetSocketAddress remote;
 	@Getter
-	private SctpDispatcher dispatcher;
+	private SctpMapper mapper;
 	
-	public SctpSocketAdapter(final InetSocketAddress local, int localSctpPort, final NetworkLink link, final SctpDataCallback cb, SctpDispatcher dispatcher) {
-		this(local, localSctpPort, null, link, cb, dispatcher);
+	public SctpSocketAdapter(final InetSocketAddress local, int localSctpPort, final NetworkLink link, final SctpDataCallback cb, SctpMapper mapper) {
+		this(local, localSctpPort, null, link, cb, mapper);
 	}
 
 public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketAddress remote, NetworkLink link,
-			SctpDataCallback cb, SctpDispatcher dispatcher) {
+			SctpDataCallback cb, SctpMapper mapper) {
 		this.so = Sctp.createSocket(localSctpPort);
 		this.so.setLink(link); //forwards all onConnOut to the corresponding link
 		this.link = link;
@@ -42,12 +43,12 @@ public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketA
 		this.remote = remote;
 		this.so.setDataCallbackNative(cb);
 		this.cb = cb;
-		this.dispatcher = dispatcher;
+		this.mapper = mapper;
 	}
 
 	@Override
-	public Promise<SctpFacade, Exception, Object> connect(final InetSocketAddress remote) {
-		Deferred<SctpFacade, Exception, Object> d = new DeferredObject<>();
+	public Promise<SctpAdapter, Exception, Object> connect(final InetSocketAddress remote) {
+		Deferred<SctpAdapter, Exception, Object> d = new DeferredObject<>();
 		
 		class SctpConnectThread extends Thread {
 			@Override
@@ -55,17 +56,17 @@ public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketA
 				super.run();
 				try {
 					so.connectNative(remote.getPort());
-					dispatcher.register(remote, SctpSocketAdapter.this);
+					mapper.register(remote, SctpSocketAdapter.this);
 					d.resolve(SctpSocketAdapter.this);
 				} catch (IOException e) {
 					LOG.error("Could not connect via SCTP! Cause: " + e.getMessage(), e);
-					dispatcher.unregister(remote);
+					mapper.unregister(remote);
 					d.reject(e);
 				}
 			}
 		}
 		
-		SctpConfig.getThreadPoolExecutor().execute(new SctpConnectThread());
+		SctpUtils.getThreadPoolExecutor().execute(new SctpConnectThread());
 		
 		return d.promise();
 	}

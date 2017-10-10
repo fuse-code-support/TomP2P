@@ -18,7 +18,7 @@ public class SctpPorts {
 	 * Since the implementation is based on native C code, we need to make sure that
 	 * a port isn't used twice.
 	 */
-	private static final ConcurrentHashMap<SctpFacade, Integer> portMap = new ConcurrentHashMap<>();
+	private static final ConcurrentHashMap<SctpAdapter, Integer> portMap = new ConcurrentHashMap<>();
 
 	/**
 	 * This is a simple {@link Random} object. {@link Date}.getTime() should provide
@@ -49,11 +49,11 @@ public class SctpPorts {
 		return attempt;
 	}
 
-	public synchronized void putPort(final SctpFacade so, final int port) {
+	public synchronized void putPort(final SctpAdapter so, final int port) {
 		portMap.put(so, port);
 	}
 
-	public synchronized void removePort(final SctpFacade so) {
+	public synchronized void removePort(final SctpAdapter so) {
 		portMap.remove(so);
 	}
 

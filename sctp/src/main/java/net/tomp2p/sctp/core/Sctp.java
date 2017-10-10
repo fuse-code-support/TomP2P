@@ -15,7 +15,6 @@
  */
 package net.tomp2p.sctp.core;
 
-import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -244,7 +243,7 @@ public class Sctp {
 		if (socket == null) {
 			logger.error("No SctpSocket found for ptr: " + socketAddr);
 		} else {
-			socket.onSctpInboundPacket(data, sid, ssn, tsn, ppid, context, flags, SctpDispatcher.locate(socket));
+			socket.onSctpInboundPacket(data, sid, ssn, tsn, ppid, context, flags, SctpMapper.locate(socket));
 		}
 
 	}

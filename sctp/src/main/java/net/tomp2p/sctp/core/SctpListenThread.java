@@ -8,10 +8,10 @@ public class SctpListenThread extends Thread {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SctpListenThread.class);
 	
-	final private SctpFacade so;
-	final private Deferred<SctpFacade, Exception, Object> d;
+	final private SctpAdapter so;
+	final private Deferred<SctpAdapter, Exception, Object> d;
 
-	public SctpListenThread(final SctpFacade so, Deferred<SctpFacade, Exception, Object> d) {
+	public SctpListenThread(final SctpAdapter so, Deferred<SctpAdapter, Exception, Object> d) {
 		this.so = so;
 		this.d = d;
 	}

@@ -18,6 +18,9 @@ package net.tomp2p.sctp.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.tomp2p.sctp.connection.SctpConfig;
+import net.tomp2p.sctp.connection.SctpUtils;
+
 import java.io.IOException;
 
 /**
@@ -53,12 +56,12 @@ public class DirectLink
     /**
      * {@inheritDoc}
      */
-    public void onConnOut(final SctpFacade s, final byte[] packet)
+    public void onConnOut(final SctpAdapter s, final byte[] packet)
         throws IOException
     {
         final SctpSocket dest = s == this.a ? this.b : this.a;
         
-        SctpConfig.getThreadPoolExecutor().execute(new Runnable()
+        SctpUtils.getThreadPoolExecutor().execute(new Runnable()
         {
             public void run()
             {
