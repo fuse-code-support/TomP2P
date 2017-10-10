@@ -17,35 +17,40 @@ import net.tomp2p.sctp.core.SctpPorts;
 import net.tomp2p.sctp.core.UdpServerLink;
 
 public class SctpUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SctpUtils.class);
-	
+
 	@Getter
 	private static final SctpMapper mapper = new SctpMapper();
 	@Getter
-	private static final ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	private static final ExecutorService threadPoolExecutor = Executors
+			.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 	@Getter
 	private static volatile boolean isInitialized = false;
-	
-	public static synchronized void init(final InetAddress serverAddress, final int sctpServerPort) {
-		
+
+	public static synchronized void init(final InetAddress serverAddress, final int sctpServerPort,
+			SctpDataCallback cb) {
+
 		if (isInitialized) {
-			return; //we only need to init once
+			return; // we only need to init once
 		} else {
 			Sctp.init();
 			isInitialized = true;
 		}
-	
-		SctpDataCallback cb = new SctpDataCallback() {
-			
-			@Override
-			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-					SctpAdapter so) {
-				//do nothing
-			}
-		};
-		
+
+		if (cb == null) {
+
+			cb = new SctpDataCallback() {
+
+				@Override
+				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
+						SctpAdapter so) {
+					// do nothing
+				}
+			};
+		}
+
 		try {
 			if (!checkFreePort(sctpServerPort) || !checkRange(sctpServerPort)) {
 				new UdpServerLink(mapper, serverAddress, cb);
@@ -60,7 +65,7 @@ public class SctpUtils {
 	private static boolean checkFreePort(final int sctpServerPort) {
 		return SctpPorts.getInstance().isFreePort(sctpServerPort);
 	}
-	
+
 	private static boolean checkRange(final int sctpServerPort) {
 		return sctpServerPort <= 65535 || sctpServerPort > 0;
 	}

@@ -54,9 +54,14 @@ public class SctpChannel {
 					config = new SctpDefaultConfig();
 				}
 
-				SctpAdapter so = new SctpSocketBuilder().localAddress(local.getAddress()).localPort(local.getPort())
-						.remoteAddress(remote.getAddress()).remotePort(remote.getPort())
-						.sctpDataCallBack(config.getCb()).mapper(SctpUtils.getMapper()).build();
+				SctpAdapter so = new SctpSocketBuilder().
+						localAddress(local.getAddress()).
+						localPort(local.getPort()).
+						remoteAddress(remote.getAddress()).
+						remotePort(remote.getPort()).
+						sctpDataCallBack(config.getCb()).
+						mapper(SctpUtils.getMapper()).
+						build();
 
 				UdpClientLink link = null;
 				try {

@@ -98,9 +98,8 @@ public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketA
 
 	@Override
 	public int close() {
-		// TODO Auto-generated method stub
-		
-		//TODO jwa remove port assignement from SctpPorts
+		// TODO jwa
+		so.closeNative();
 		return 0;
 	}
 
