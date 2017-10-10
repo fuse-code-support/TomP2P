@@ -1,106 +1,67 @@
 package net.tomp2p.sctp.core;
 
 import javassist.NotFoundException;
-import net.tomp2p.sctp.connection.SctpDispatcher;
-import org.jdeferred.Deferred;
-import org.jdeferred.DoneCallback;
-import org.jdeferred.FailCallback;
-import org.jdeferred.Promise;
-import org.jdeferred.impl.DeferredObject;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
 
 public class UdpClientLink implements NetworkLink {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UdpClientLink.class);
-    private final SctpDispatcher dispatcher;
+	private final static Logger LOG = LoggerFactory.getLogger(UdpClientLink.class);
 
-    /**
-     * Udp socket used for transport.
-     */
-    private final DatagramSocket udpSocket;
+	/**
+	 * <tt>SctpFacade</tt> instance that is used in this connection.
+	 */
+	@Getter
+	private final SctpFacade so;
 
-    /**
-     * Creates new instance of <tt>UdpConnection</tt>. The default port used will be 9899.
-     */
-    public UdpClientLink(final SctpDispatcher dispatcher, final InetAddress local, final SctpDataCallback cb) throws SocketException {
-        this(dispatcher, local, SctpPorts.SCTP_TUNNELING_PORT, cb);
-    }
+	/**
+	 * Udp socket used for transport.
+	 */
+	private final DatagramSocket udpSocket;
 
-    /**
-     * Creates new instance of <tt>UdpConnection</tt>.
-     */
-    public UdpClientLink(final SctpDispatcher dispatcher, final InetAddress localAddress, final int localPort, final SctpDataCallback cb) throws SocketException {
-        this.dispatcher = dispatcher;
-        this.udpSocket = new DatagramSocket(localPort, localAddress);
+	/**
+	 * Destination <tt>InetSocketAddress</tt>.
+	 */
+	@Getter
+	private final InetSocketAddress remote;
+	
+	/**
+	 * Creates new instance of <tt>UdpConnection</tt>.
+	 */
+	public UdpClientLink(InetSocketAddress local, InetSocketAddress remote, SctpFacade so) throws IOException {
+		this.so = so;
+		this.so.setLink(this);
+		this.remote = remote;
+		this.udpSocket = new DatagramSocket(local.getPort(), local.getAddress());
 
-        SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
+		// Listening thread
+		SctpConfig.getThreadPoolExecutor().execute(new Runnable() {
+			public void run() {
+				try {
+					byte[] buff = new byte[2048];
+					DatagramPacket p = new DatagramPacket(buff, 2048);
+					while (true) {
+						udpSocket.receive(p);
+						so.onConnIn(p.getData(), p.getOffset(), p.getLength());
+					}
+				} catch (IOException e) {
+					LOG.error(e.getMessage());
+				}
+			}
+		});
+	}
+	
+	@Override
+	public void onConnOut(SctpFacade so, byte[] data) throws IOException, NotFoundException {
+		DatagramPacket packet = new DatagramPacket(data, data.length, this.remote.getAddress(), this.remote.getPort());
+		udpSocket.send(packet);
+	}
 
-            @Override
-            public void run() {
-                SctpFacade so = null;
 
-                while (true) {
-                    byte[] buff = new byte[2048];
-                    DatagramPacket p = new DatagramPacket(buff, 2048);
-
-                    try {
-                        udpSocket.receive(p);
-
-                        so = SctpDispatcher.locate(p.getAddress().getHostAddress(), p.getPort());
-
-						/*
-						 * If so is null it means that we don't know the other Sctp endpoint yet. Thus, we need to reply their handshake with INIT ACK.
-						 * */
-                        if (so == null) {
-                            Promise<SctpFacade, Exception, Object> promise = replyHandshake(localAddress, localPort, p.getAddress(), p.getPort(), cb);
-                            promise.done(new DoneCallback<SctpFacade>() {
-
-                                @Override
-                                public void onDone(final SctpFacade so) {
-                                    UdpClientLink.this.dispatcher.register(new InetSocketAddress(p.getAddress(), p.getPort()), so);
-                                    so.onConnIn(p.getData(), p.getOffset(), p.getLength());
-                                }
-                            });
-
-                            promise.fail(new FailCallback<Exception>() {
-                                @Override
-                                public void onFail(Exception result) {
-                                    LOG.error("Unknown error: Incoming connection attempt could not be answered.", result);
-                                }
-                            });
-                        }
-                    } catch (IOException e) {
-                        LOG.error("Error while receiving packet in UDPClientLink.class!", e);
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onConnOut(SctpFacade s, byte[] packet) throws IOException, NotFoundException {
-
-    }
-
-    private Promise<SctpFacade, Exception, Object> replyHandshake(final InetAddress localAddress, final int localPort, final InetAddress remoteAddress, final int remotePort, final SctpDataCallback cb){
-
-        //since there is no socket yet, we need to create one first
-        SctpFacade so = new SctpSocketBuilder().
-                networkLink(UdpClientLink.this).
-                localAddress(localAddress).
-                localPort(localPort).
-                sctpDataCallBack(cb).
-                remoteAddress(remoteAddress).
-                remotePort(remotePort).
-                build();
-        so.listen();
-
-        Deferred<SctpFacade, Exception, Object> d = new DeferredObject<>();
-        SctpConfig.getThreadPoolExecutor().execute(new SctpListenThread(so, d));
-        return d.promise();
-    }
 }

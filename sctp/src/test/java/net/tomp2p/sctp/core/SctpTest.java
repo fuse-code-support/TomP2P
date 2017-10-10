@@ -19,7 +19,7 @@ public class SctpTest {
     /*
     * Server settings
     */
-    UdpServerLink server;
+    UdpClientLink server;
     SctpFacade serverSo;
     InetAddress serverLocalAddress = localhost;
     int serverlocalPort = 1111;
@@ -29,7 +29,7 @@ public class SctpTest {
     InetSocketAddress serverSocketRemoteAddress = new InetSocketAddress(serverRemoteAddress, serverRemotePort);
 
 
-    UdpClientLink client;
+    UdpServerLink client;
 
     public SctpTest() throws UnknownHostException {
     }
@@ -44,7 +44,7 @@ public class SctpTest {
                     remotePort(serverRemotePort).
                     localSctpPort(SctpPorts.SCTP_TUNNELING_PORT).
                     build();
-            server = new UdpServerLink(serverSocketLocalAddress, serverSocketRemoteAddress, serverSo);
+            server = new UdpClientLink(serverSocketLocalAddress, serverSocketRemoteAddress, serverSo);
         } catch (IOException e) {
             e.printStackTrace();
         }

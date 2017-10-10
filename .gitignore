@@ -4,6 +4,7 @@
 .checkstyle
 .cache
 .idea
+*.class
 *.iml
 *~
 p2p.log

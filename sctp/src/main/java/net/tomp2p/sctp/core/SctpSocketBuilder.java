@@ -1,6 +1,7 @@
 package net.tomp2p.sctp.core;
 
 import net.tomp2p.connection.Ports;
+import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class SctpSocketBuilder {
 	private InetAddress remoteAddress = null;
 	private SctpDataCallback cb = null;
 	private NetworkLink link = null;
+	private SctpDispatcher dispatcher = null;
 	
 	public SctpFacade build() {
 
@@ -36,11 +38,21 @@ public class SctpSocketBuilder {
 				}
 			};
 		}
+		
+		if (dispatcher == null) {
+			LOG.error("No dispatcher added! You need a Dispatcher to create a new SctpFacade!");
+			return null;
+		}
 
 		InetSocketAddress local = new InetSocketAddress(localAddress, localSctpPort);
+		SctpFacade so = null;
+		if (remoteAddress == null || remotePort == -1) {
+			return (SctpFacade) new SctpSocketAdapter(local, link, cb, dispatcher);
+		} else {
+			InetSocketAddress remote = new InetSocketAddress(remoteAddress, remotePort);
+			return (SctpFacade) new SctpSocketAdapter(local, remote, link, cb, dispatcher);
+		}
 
-		SctpFacade so = (SctpFacade) new SctpSocketAdapter(local, link, cb);
-		return so;
 	}
 
 	public SctpSocketBuilder localPort(int localPort) {
@@ -108,6 +120,15 @@ public class SctpSocketBuilder {
 			this.link = link;
 		} else {
 			LOG.error("Null can't be added as networkLink!");
+		}
+		return this;
+	}
+	
+	public SctpSocketBuilder dispatcher(SctpDispatcher dispatcher) {
+		if (dispatcher != null) {
+			this.dispatcher = dispatcher;
+		} else {
+			LOG.error("Null can't be added as dispatcher!");
 		}
 		return this;
 	}

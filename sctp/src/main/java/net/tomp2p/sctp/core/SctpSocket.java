@@ -519,7 +519,7 @@ public class SctpSocket {
 	 * @return sent bytes count or <tt>-1</tt> in case of an error.
 	 */
 	public int send(byte[] data, boolean ordered, int sid, int ppid) throws IOException {
-		return send(data, 0, data.length, ordered, sid, ppid);
+		return sendNative(data, 0, data.length, ordered, sid, ppid);
 	}
 
 	/**
@@ -540,7 +540,7 @@ public class SctpSocket {
 	 *            payload protocol identifier
 	 * @return sent bytes count or <tt>-1</tt> in case of an error.
 	 */
-	public int send(byte[] data, int offset, int len, boolean ordered, int sid, int ppid) throws IOException {
+	public int sendNative(byte[] data, int offset, int len, boolean ordered, int sid, int ppid) throws IOException {
 		if (data == null) {
 			throw new NullPointerException("data");
 		}

@@ -11,13 +11,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //TODO jwa remove all static modifiers
-public class SctpDispatcher implements Dispatcher {
+public class SctpDispatcher {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Dispatcher.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SctpDispatcher.class);
 
 	private static final ConcurrentHashMap<InetSocketAddress, SctpFacade> socketMap = new ConcurrentHashMap<>();
 
-	@Override
 	public synchronized void register(final InetSocketAddress remote, final SctpFacade so) {
 		if (remote != null && so != null) {
 			socketMap.put(remote, so);
@@ -31,7 +30,6 @@ public class SctpDispatcher implements Dispatcher {
 	 * usrsctp counterpart. Make sure this {@link SctpSocketAdapter} instance is not
 	 * used anywhere else!
 	 */
-	@Override
 	public synchronized void unregister(SctpFacade so) {
 		if (so == null) {
 			LOG.error("Invalid input, null can't be removed!");
@@ -41,6 +39,23 @@ public class SctpDispatcher implements Dispatcher {
 			return;
 		} else {
 			socketMap.remove(so);
+		}
+	}
+	
+	/**
+	 * This method removes a socket from the {@link Dispatcher} and shuts down the
+	 * usrsctp counterpart. Make sure this {@link SctpFacade} instance is not
+	 * used anywhere else!
+	 */
+	public synchronized void unregister(InetSocketAddress remote) {
+		if (remote == null) {
+			LOG.error("Invalid input, null can't be removed!");
+			return;
+		} else if (!socketMap.containsKey(remote)) {
+			LOG.error("Invalid input, a socket, which is not registered, cannot be removed!");
+			return;
+		} else {
+			socketMap.remove(remote);
 		}
 	}
 
@@ -56,18 +71,6 @@ public class SctpDispatcher implements Dispatcher {
 		
 		LOG.info("No socketMap entry found for IP:" + remoteAddress + " and port: " + remotePort);
 		return null;
-	}
-
-	@Override
-	public void establishChannel() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void getChannel() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public synchronized static SctpFacade locate(final SctpSocket sctpSocket) {
