@@ -18,7 +18,6 @@ package net.tomp2p.sctp.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.tomp2p.sctp.connection.SctpConfig;
 import net.tomp2p.sctp.connection.SctpUtils;
 
 import java.io.IOException;

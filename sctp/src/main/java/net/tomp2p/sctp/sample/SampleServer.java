@@ -11,7 +11,6 @@ import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpMapper;
 import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.UdpServerLink;
-import net.tomp2p.utils.Pair;
 
 public class SampleServer {
 

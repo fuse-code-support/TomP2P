@@ -36,23 +36,29 @@ public class SctpTest {
 
     @Before
     public void setUp() {
-        try {
-            serverSo = new SctpSocketBuilder().
-                    localAddress(serverLocalAddress).
-                    localPort(serverlocalPort).
-                    remoteAddress(serverRemoteAddress).
-                    remotePort(serverRemotePort).
-                    localSctpPort(SctpPorts.SCTP_TUNNELING_PORT).
-                    build();
-            server = new UdpClientLink(serverSocketLocalAddress, serverSocketRemoteAddress, serverSo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            serverSo = new SctpSocketBuilder().
+//                    localAddress(serverLocalAddress).
+//                    localPort(serverlocalPort).
+//                    remoteAddress(serverRemoteAddress).
+//                    remotePort(serverRemotePort).
+//                    localSctpPort(SctpPorts.SCTP_TUNNELING_PORT).
+//                    build();
+//            server = new UdpClientLink(serverSocketLocalAddress, serverSocketRemoteAddress, serverSo);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Test
     public void sctpTransmissionTest() {
         LOG.error("finished!");
+        
+        if (!false || !true) {
+        	System.out.println("THIS");
+        } else {
+        	System.out.println("THAT");
+        }
     }
 
 }
