@@ -4,10 +4,12 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpDataCallback;
+import net.tomp2p.sctp.core.SctpFacade;
 import net.tomp2p.sctp.core.UdpServerLink;
 import net.tomp2p.utils.Pair;
 
@@ -17,6 +19,14 @@ public class SampleServer {
 
 		Sctp.init();
 		
+		/*
+		 * Usage: echo_server [local_encaps_port] [remote_encaps_port]
+		 * 
+		 * Example
+		 * Server: $ ./echo_server 11111 22222
+		 * Client: $ ./client 127.0.0.1 7 0 22222 11111
+		 */
+		
 		InetSocketAddress local = new InetSocketAddress(InetAddress.getByName("127.0.0.1"), 9899);
 		
 		SctpDispatcher dispatcher = new SctpDispatcher();
@@ -25,8 +35,10 @@ public class SampleServer {
 			
 			@Override
 			public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-					Pair<InetAddress, Integer> remote) {
+					SctpFacade so) {
 				System.out.println("I WAS HERE");
+				System.out.println("got data: " + new String(data, StandardCharsets.UTF_8));
+				so.send(data, false, sid, (int) ppid);
 			}
 		};
 		

@@ -63,7 +63,6 @@ public class UdpServerLink implements NetworkLink {
                                 @Override
                                 public void onDone(final SctpFacade so) {
                                 	dispatcher.register(remote, so);
-                                    UdpServerLink.this.dispatcher.register(new InetSocketAddress(p.getAddress(), p.getPort()), so);
                                     so.onConnIn(p.getData(), p.getOffset(), p.getLength());
                                 }
                             });
@@ -75,6 +74,8 @@ public class UdpServerLink implements NetworkLink {
                                     LOG.error("Unknown error: Incoming connection attempt could not be answered.", result);
                                 }
                             });
+                        } else {
+                        	so.onConnIn(p.getData(), p.getOffset(), p.getLength());
                         }
                     } catch (IOException e) {
                         LOG.error("Error while receiving packet in UDPClientLink.class!", e);
@@ -91,19 +92,21 @@ public class UdpServerLink implements NetworkLink {
     }
 
     private Promise<SctpFacade, Exception, Object> replyHandshake(final InetAddress localAddress, final int localPort, final InetAddress remoteAddress, final int remotePort, final SctpDataCallback cb){
+  	
+    	Deferred<SctpFacade, Exception, Object> d = new DeferredObject<>();
 
         //since there is no socket yet, we need to create one first
         SctpFacade so = new SctpSocketBuilder().
                 networkLink(UdpServerLink.this).
                 localAddress(localAddress).
                 localPort(localPort).
+                localSctpPort(localPort).
                 sctpDataCallBack(cb).
                 remoteAddress(remoteAddress).
                 remotePort(remotePort).
                 dispatcher(dispatcher).
                 build();
-
-        Deferred<SctpFacade, Exception, Object> d = new DeferredObject<>();
+        
         SctpConfig.getThreadPoolExecutor().execute(new SctpListenThread(so, d));
         return d.promise();
     }

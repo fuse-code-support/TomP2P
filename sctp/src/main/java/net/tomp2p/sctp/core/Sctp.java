@@ -15,6 +15,7 @@
  */
 package net.tomp2p.sctp.core;
 
+import net.tomp2p.sctp.connection.SctpDispatcher;
 import net.tomp2p.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,7 +183,7 @@ public class Sctp {
 		// if(sctpEngineCount++ > 0)
 		// return;
 		if (!initialized) {
-			logger.error("Init'ing brian's patched usrsctp");
+			logger.error("Init'ing brian's & jonas' patched usrsctp");
 			usrsctp_init(0);
 			initialized = true;
 		}
@@ -239,16 +240,11 @@ public class Sctp {
 	public static void onSctpInboundPacket(long socketAddr, byte[] data, int sid, int ssn, int tsn, long ppid,
 			int context, int flags) {
 		SctpSocket socket = sockets.get(Long.valueOf(socketAddr));
-		Pair<InetAddress, Integer> remote = remotes.get(Long.valueOf(socketAddr));
-
+		
 		if (socket == null) {
 			logger.error("No SctpSocket found for ptr: " + socketAddr);
-		} else if (remote == null) {
-			logger.error("No remote address found for ptr " + socketAddr);
 		} else {
-			logger.error(
-					"Data received from ptr: " + socketAddr + " (" + remote.element0() + ":" + remote.element1() + ")");
-			socket.onSctpInboundPacket(data, sid, ssn, tsn, ppid, context, flags, remote);
+			socket.onSctpInboundPacket(data, sid, ssn, tsn, ppid, context, flags, SctpDispatcher.locate(socket));
 		}
 
 	}

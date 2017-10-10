@@ -172,8 +172,8 @@ public class SctpSocket {
 	}
 
 	/**
-	 * The indicator which determines whether {@link #closeNative()} has been invoked on
-	 * this <tt>SctpSocket</tt>. It does NOT indicate whether
+	 * The indicator which determines whether {@link #closeNative()} has been
+	 * invoked on this <tt>SctpSocket</tt>. It does NOT indicate whether
 	 * {@link Sctp#closeSocket(long)} has been invoked with {@link #ptr}.
 	 */
 	private boolean closed = false;
@@ -442,12 +442,12 @@ public class SctpSocket {
 	 *            payload protocol identifier
 	 * @param context
 	 * @param flags
-	 * @param remote
+	 * @param so
 	 */
 	private void onSctpIn(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-			Pair<InetAddress, Integer> remote) {
+			SctpFacade so) {
 		if (dataCallback != null) {
-			dataCallback.onSctpPacket(data, sid, ssn, tsn, ppid, context, flags, remote);
+			dataCallback.onSctpPacket(data, sid, ssn, tsn, ppid, context, flags, so);
 		} else {
 			logger.warn("No dataCallback set, dropping a message from usrsctp");
 		}
@@ -466,14 +466,14 @@ public class SctpSocket {
 	 *            payload protocol identifier
 	 * @param context
 	 * @param flags
-	 * @param remote
+	 * @param so
 	 */
 	void onSctpInboundPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-			Pair<InetAddress, Integer> remote) {
+			SctpFacade so) {
 		if ((flags & Sctp.MSG_NOTIFICATION) != 0) {
 			onNotification(SctpNotification.parse(data));
 		} else {
-			onSctpIn(data, sid, ssn, tsn, ppid, context, flags, remote);
+			onSctpIn(data, sid, ssn, tsn, ppid, context, flags, so);
 		}
 	}
 

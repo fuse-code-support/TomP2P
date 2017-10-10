@@ -29,24 +29,20 @@ public class SctpSocketAdapter implements SctpFacade{
 	@Getter
 	private SctpDispatcher dispatcher;
 	
-	public SctpSocketAdapter(final InetSocketAddress local, final NetworkLink link, final SctpDataCallback cb, SctpDispatcher dispatcher) {
-		this.so = Sctp.createSocket(local.getPort());
-		this.so.setLink(link); //forwards all onConnOut to the corresponding link
-		this.local = local;
-		this.cb = cb;
-		this.dispatcher = dispatcher;
-		this.link = link;
+	public SctpSocketAdapter(final InetSocketAddress local, int localSctpPort, final NetworkLink link, final SctpDataCallback cb, SctpDispatcher dispatcher) {
+		this(local, localSctpPort, null, link, cb, dispatcher);
 	}
 
-public SctpSocketAdapter(InetSocketAddress local, InetSocketAddress remote, NetworkLink link,
+public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketAddress remote, NetworkLink link,
 			SctpDataCallback cb, SctpDispatcher dispatcher) {
-		this.so = Sctp.createSocket(local.getPort());
+		this.so = Sctp.createSocket(localSctpPort);
 		this.so.setLink(link); //forwards all onConnOut to the corresponding link
+		this.link = link;
 		this.local = local;
 		this.remote = remote;
+		this.so.setDataCallbackNative(cb);
 		this.cb = cb;
 		this.dispatcher = dispatcher;
-		this.link = link;
 	}
 
 	@Override

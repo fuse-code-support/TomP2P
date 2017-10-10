@@ -20,6 +20,13 @@ public class SctpListenThread extends Thread {
 	public void run() {
 		super.run();
 
+		so.listen();
+		try {
+			Thread.sleep(50); //listen needs to kick in (JNI)
+		} catch (InterruptedException e) {
+			LOG.error(e.getMessage(), e);
+		}
+		
 		boolean visited = false;
 		try {
 			while (!so.accept()) {
@@ -35,5 +42,4 @@ public class SctpListenThread extends Thread {
 			d.reject(e);
 		}
 	}
-
 }

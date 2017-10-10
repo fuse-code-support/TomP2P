@@ -35,8 +35,8 @@ public interface SctpDataCallback
      * @param ppid payload protocol identifier.
      * @param context
      * @param flags
-     * @param remote 
+     * @param so 
      */
     void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid,
-                      int context, int flags, Pair<InetAddress, Integer> remote);
+                      int context, int flags, SctpFacade so);
 }

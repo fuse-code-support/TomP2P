@@ -61,8 +61,12 @@ public class SctpDispatcher {
 
 	public synchronized static SctpFacade locate(final String remoteAddress, final int remotePort) {
 		for (Map.Entry<InetSocketAddress, SctpFacade> element : socketMap.entrySet()) {
-			final int port = element.getKey().getPort();
-			final String address = element.getKey().getHostName();
+			int port = element.getKey().getPort();
+			String address = element.getKey().getHostName();
+			
+			if (address.equals("localhost")) {
+				address = "127.0.0.1"; //FIXME jwa quickfix
+			}
 			
 			if (port == remotePort && address.equals(remoteAddress)) {
 				return socketMap.get(element.getKey());
@@ -74,6 +78,10 @@ public class SctpDispatcher {
 	}
 
 	public synchronized static SctpFacade locate(final SctpSocket sctpSocket) {
+		if (socketMap.isEmpty()) {
+			return null;
+		}
+		
 		SctpFacade facade = socketMap.values().stream().filter(so -> so.containsSctpSocket(sctpSocket)).findFirst()
 				.get();
 

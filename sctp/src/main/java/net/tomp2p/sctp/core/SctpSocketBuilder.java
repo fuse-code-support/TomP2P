@@ -33,7 +33,7 @@ public class SctpSocketBuilder {
 		if (cb == null) {
 			cb = new SctpDataCallback() {
 				@Override
-				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags, Pair<InetAddress, Integer> remote) {
+				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags, SctpFacade so) {
 					//do nothing
 				}
 			};
@@ -44,13 +44,13 @@ public class SctpSocketBuilder {
 			return null;
 		}
 
-		InetSocketAddress local = new InetSocketAddress(localAddress, localSctpPort);
+		InetSocketAddress local = new InetSocketAddress(localAddress, localPort);
 		SctpFacade so = null;
 		if (remoteAddress == null || remotePort == -1) {
-			return (SctpFacade) new SctpSocketAdapter(local, link, cb, dispatcher);
+			return (SctpFacade) new SctpSocketAdapter(local, localSctpPort, link, cb, dispatcher);
 		} else {
 			InetSocketAddress remote = new InetSocketAddress(remoteAddress, remotePort);
-			return (SctpFacade) new SctpSocketAdapter(local, remote, link, cb, dispatcher);
+			return (SctpFacade) new SctpSocketAdapter(local, localSctpPort, remote, link, cb, dispatcher);
 		}
 
 	}
