@@ -40,4 +40,6 @@ public interface NetworkLink
      */
     public void onConnOut(final SctpAdapter so, final byte[] packet)
         throws IOException, NotFoundException;
+
+	public void close();
 }

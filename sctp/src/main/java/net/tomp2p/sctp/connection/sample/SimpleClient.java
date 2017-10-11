@@ -9,7 +9,6 @@ import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 
 import net.tomp2p.sctp.connection.SctpChannel;
-import net.tomp2p.sctp.connection.SctpUtils;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpChannelFacade;

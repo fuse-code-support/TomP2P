@@ -25,6 +25,11 @@ public class UdpServerLink implements NetworkLink {
     private final DatagramSocket udpSocket;
 
     /**
+	 * Trigger to end the wrapper thread.
+	 */
+	private boolean isShutdown = false;
+    
+    /**
      * Creates new instance of <tt>UdpConnection</tt>. The default port used will be 9899.
      */
     public UdpServerLink(final SctpMapper mapper, final InetAddress local, final SctpDataCallback cb) throws SocketException {
@@ -44,7 +49,7 @@ public class UdpServerLink implements NetworkLink {
             public void run() {
                 SctpAdapter so = null;
 
-                while (true) {
+                while (!isShutdown) {
                     byte[] buff = new byte[2048];
                     DatagramPacket p = new DatagramPacket(buff, 2048);
 
@@ -111,4 +116,9 @@ public class UdpServerLink implements NetworkLink {
         SctpUtils.getThreadPoolExecutor().execute(new SctpListenThread(so, d));
         return d.promise();
     }
+
+	@Override
+	public void close() {
+//		this.isShutdown = true; TODO jwa do nothing I guess! maybe implement a volatile for this
+	}
 }

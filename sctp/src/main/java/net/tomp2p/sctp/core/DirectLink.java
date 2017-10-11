@@ -66,7 +66,6 @@ public class DirectLink
             {
                 try
                 {
-                	//FIXME: jwa I might have to change this back
                     dest.onConnIn(packet, 0, packet.length);
                 }
                 catch (IOException e)
@@ -76,4 +75,9 @@ public class DirectLink
             }
         });
     }
+
+	@Override
+	public void close() {
+		// TODO jwa do nothing I guess
+	}
 }

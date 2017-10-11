@@ -22,8 +22,6 @@ import net.tomp2p.sctp.core.UdpClientLink;
 @Builder
 public class SctpChannel {
 
-	private static final int WAIT_PERIOD = 500;
-
 	private static final Logger LOG = LoggerFactory.getLogger(SctpChannel.class);
 
 	private SctpDefaultConfig config;
@@ -53,13 +51,17 @@ public class SctpChannel {
 				if (config == null) {
 					config = new SctpDefaultConfig();
 				}
+				
+				if (cb == null) {
+					cb = config.getCb();
+				}
 
 				SctpAdapter so = new SctpSocketBuilder().
 						localAddress(local.getAddress()).
 						localPort(local.getPort()).
 						remoteAddress(remote.getAddress()).
 						remotePort(remote.getPort()).
-						sctpDataCallBack(config.getCb()).
+						sctpDataCallBack(cb).
 						mapper(SctpUtils.getMapper()).
 						build();
 

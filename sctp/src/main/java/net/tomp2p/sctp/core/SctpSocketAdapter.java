@@ -92,14 +92,11 @@ public SctpSocketAdapter(InetSocketAddress local, int localSctpPort, InetSocketA
 	}
 
 	@Override
-	public void receive() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public int close() {
-		// TODO jwa
 		so.closeNative();
+		mapper.unregister(this);
+		SctpPorts.getInstance().removePort(this);
+		link.close();
 		return 0;
 	}
 

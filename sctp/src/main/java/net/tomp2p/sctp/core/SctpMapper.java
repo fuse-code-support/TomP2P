@@ -58,11 +58,7 @@ public class SctpMapper {
 	public synchronized static SctpAdapter locate(final String remoteAddress, final int remotePort) {
 		for (Map.Entry<InetSocketAddress, SctpAdapter> element : socketMap.entrySet()) {
 			int port = element.getKey().getPort();
-			String address = element.getKey().getHostName();
-			
-			if (address.equals("localhost")) {
-				address = "127.0.0.1"; //FIXME jwa quickfix
-			}
+			String address = element.getKey().getAddress().getHostAddress();
 			
 			if (port == remotePort && address.equals(remoteAddress)) {
 				return socketMap.get(element.getKey());

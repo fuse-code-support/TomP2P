@@ -32,6 +32,11 @@ public class UdpClientLink implements NetworkLink {
 	 */
 	@Getter
 	private final InetSocketAddress remote;
+
+	/**
+	 * Trigger to end the wrapper thread.
+	 */
+	private boolean isShutdown = false;
 	
 	/**
 	 * Creates new instance of <tt>UdpConnection</tt>.
@@ -48,7 +53,7 @@ public class UdpClientLink implements NetworkLink {
 				try {
 					byte[] buff = new byte[2048];
 					DatagramPacket p = new DatagramPacket(buff, 2048);
-					while (true) {
+					while (!isShutdown) {
 						udpSocket.receive(p);
 						so.onConnIn(p.getData(), p.getOffset(), p.getLength());
 					}
@@ -63,6 +68,11 @@ public class UdpClientLink implements NetworkLink {
 	public void onConnOut(SctpAdapter so, byte[] data) throws IOException, NotFoundException {
 		DatagramPacket packet = new DatagramPacket(data, data.length, this.remote.getAddress(), this.remote.getPort());
 		udpSocket.send(packet);
+	}
+
+	@Override
+	public void close() {
+		this.isShutdown = true;
 	}
 
 
