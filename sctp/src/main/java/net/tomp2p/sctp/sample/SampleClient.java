@@ -9,9 +9,9 @@ import org.jdeferred.Promise;
 
 import net.tomp2p.sctp.connection.SctpUtils;
 import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpMapper;
-import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpSocketBuilder;
 import net.tomp2p.sctp.core.UdpClientLink;
 

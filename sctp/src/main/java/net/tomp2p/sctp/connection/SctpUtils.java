@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import lombok.Getter;
 import net.tomp2p.sctp.core.Sctp;
-import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpMapper;
 import net.tomp2p.sctp.core.SctpPorts;
@@ -40,15 +39,7 @@ public class SctpUtils {
 		}
 
 		if (cb == null) {
-
-			cb = new SctpDataCallback() {
-
-				@Override
-				public void onSctpPacket(byte[] data, int sid, int ssn, int tsn, long ppid, int context, int flags,
-						SctpAdapter so) {
-					// do nothing
-				}
-			};
+			cb = new SctpDefaultConfig().getCb();
 		}
 
 		try {

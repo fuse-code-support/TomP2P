@@ -15,10 +15,6 @@
  */
 package net.tomp2p.sctp.core;
 
-import net.tomp2p.utils.Pair;
-
-import java.net.InetAddress;
-
 /**
  * Callback used to listen for incoming data on SCTP socket.
  *

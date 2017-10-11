@@ -15,17 +15,20 @@
  */
 package net.tomp2p.sctp.core;
 
-import javassist.NotFoundException;
-
 import java.io.IOException;
+
+import javassist.NotFoundException;
 
 /**
  * Interface used by {@link SctpSocket} for sending network packets.
  *
  * FIXME: introduce offset and length parameters in order to be able to
  *        re-use single buffer instance
+ *        
+ * Modified slighly by Jonas Wagner
  *
  * @author Pawel Domas
+ * @author Jonas Wagner
  */
 public interface NetworkLink
 {

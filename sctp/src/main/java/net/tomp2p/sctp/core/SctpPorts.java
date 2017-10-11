@@ -1,10 +1,10 @@
 package net.tomp2p.sctp.core;
 
-import net.tomp2p.connection.Ports;
-
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+
+import net.tomp2p.connection.Ports;
 
 public class SctpPorts {
 
@@ -36,11 +36,14 @@ public class SctpPorts {
 	private SctpPorts() {
 	}
 
+	/**
+	 * @return the instance of this class
+	 */
 	public static SctpPorts getInstance() {
 		return instance;
 	}
 
-	public int generateDynPort() {
+	public synchronized int generateDynPort() {
 		int attempt = RND.nextInt(Ports.MAX_PORT - Ports.MIN_DYN_PORT) + Ports.MIN_DYN_PORT;
 
 		while (isFreePort(attempt)) {
@@ -57,7 +60,7 @@ public class SctpPorts {
 		portMap.remove(so);
 	}
 
-	public boolean isFreePort(final int port) {
+	public synchronized boolean isFreePort(final int port) {
 		return portMap.contains(port);
 	}
 }

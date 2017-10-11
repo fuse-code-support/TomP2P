@@ -1,16 +1,16 @@
 package net.tomp2p.sctp.core;
 
-import javassist.NotFoundException;
-import lombok.Getter;
-import net.tomp2p.sctp.connection.SctpUtils;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javassist.NotFoundException;
+import lombok.Getter;
+import net.tomp2p.sctp.connection.SctpUtils;
 
 public class UdpClientLink implements NetworkLink {
 

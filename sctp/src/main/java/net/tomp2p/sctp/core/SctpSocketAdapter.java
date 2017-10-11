@@ -1,8 +1,7 @@
 package net.tomp2p.sctp.core;
 
-import lombok.Getter;
-import lombok.Setter;
-import net.tomp2p.sctp.connection.SctpUtils;
+import java.io.IOException;
+import java.net.InetSocketAddress;
 
 import org.jdeferred.Deferred;
 import org.jdeferred.Promise;
@@ -10,8 +9,9 @@ import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
+import lombok.Getter;
+import lombok.Setter;
+import net.tomp2p.sctp.connection.SctpUtils;
 
 public class SctpSocketAdapter implements SctpAdapter{
 

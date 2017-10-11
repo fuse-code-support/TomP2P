@@ -23,7 +23,7 @@ public class SimpleClient {
 
 		InetAddress localHost = Inet6Address.getByName("::1");
 		InetSocketAddress local = new InetSocketAddress(localHost, SctpPorts.getInstance().generateDynPort());
-		InetSocketAddress remote = new InetSocketAddress(localHost, 9899);
+		InetSocketAddress remote = new InetSocketAddress(localHost, SctpPorts.SCTP_TUNNELING_PORT);
 		
 		SctpDataCallback cb = new SctpDataCallback() {
 			
@@ -33,7 +33,7 @@ public class SimpleClient {
 				System.out.println("I WAS HERE");
 				System.out.println("got data: " + new String(data, StandardCharsets.UTF_8));
 				System.out.println("Now closing channel");
-				so.close();
+//				so.close();
 			}
 		};
 

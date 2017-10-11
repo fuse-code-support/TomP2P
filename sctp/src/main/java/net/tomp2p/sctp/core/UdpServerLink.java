@@ -1,7 +1,11 @@
 package net.tomp2p.sctp.core;
 
-import javassist.NotFoundException;
-import net.tomp2p.sctp.connection.SctpUtils;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
 
 import org.jdeferred.Deferred;
 import org.jdeferred.DoneCallback;
@@ -11,8 +15,8 @@ import org.jdeferred.impl.DeferredObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.net.*;
+import javassist.NotFoundException;
+import net.tomp2p.sctp.connection.SctpUtils;
 
 public class UdpServerLink implements NetworkLink {
 

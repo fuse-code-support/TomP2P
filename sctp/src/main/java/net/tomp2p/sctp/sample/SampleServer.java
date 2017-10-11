@@ -7,9 +7,9 @@ import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 
 import net.tomp2p.sctp.core.Sctp;
+import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpMapper;
-import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.UdpServerLink;
 
 public class SampleServer {
