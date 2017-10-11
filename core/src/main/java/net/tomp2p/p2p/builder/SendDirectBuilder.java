@@ -17,6 +17,7 @@
 package net.tomp2p.p2p.builder;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.sctp.SctpChannel;
 import net.tomp2p.connection.ConnectionBean;
 import net.tomp2p.connection.ConnectionConfiguration;
 import net.tomp2p.connection.PeerConnection;
@@ -32,6 +33,8 @@ import net.tomp2p.rpc.SendDirectBuilderI;
 import net.tomp2p.utils.Utils;
 
 import java.security.KeyPair;
+
+import org.jdeferred.Promise;
 
 public class SendDirectBuilder
 		implements ConnectionConfiguration, SendDirectBuilderI, SignatureBuilder<SendDirectBuilder> {
@@ -206,26 +209,7 @@ public class SendDirectBuilder
 		else {
 			
 			//TODO jwa implement this pls
-//			if (peerConnection != null) {
-////				peerConnection.sendSctp(message);
-//			} else {
-//				Promise<SctpSocket, Exception, UdpLink> p = peer.peerAddress().createSocket(peer, remotePeer);
-//				p.done(new DoneCallback<SctpSocket>() {
-//					
-//					@Override
-//					public void onDone(SctpSocket result) {
-//						
-//						//TODO jwa continue here
-//						try {
-//							result.send("Sendonce".getBytes(), 0, "Sendonce".length(), false, 0, 1);
-//						
-//							//TODO jwa close socket
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				});
-//			}
+//			Promise<SctpChannelFacade, Object, UdpClientLink> p = 
 		}
 
 		return futureResponse;

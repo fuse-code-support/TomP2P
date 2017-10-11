@@ -8,10 +8,10 @@ import java.nio.charset.StandardCharsets;
 import org.jdeferred.DoneCallback;
 import org.jdeferred.Promise;
 
+import net.tomp2p.connection.SctpChannelFacade;
 import net.tomp2p.sctp.connection.SctpChannel;
 import net.tomp2p.sctp.core.Sctp;
 import net.tomp2p.sctp.core.SctpAdapter;
-import net.tomp2p.sctp.core.SctpChannelFacade;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpPorts;
 import net.tomp2p.sctp.core.UdpClientLink;

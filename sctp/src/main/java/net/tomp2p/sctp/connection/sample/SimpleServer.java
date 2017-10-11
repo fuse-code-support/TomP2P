@@ -4,10 +4,10 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 
+import net.tomp2p.connection.SctpChannelFacade;
 import net.tomp2p.sctp.connection.SctpDefaultConfig;
 import net.tomp2p.sctp.connection.SctpUtils;
 import net.tomp2p.sctp.core.SctpAdapter;
-import net.tomp2p.sctp.core.SctpChannelFacade;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpPorts;
 
