@@ -4,8 +4,6 @@ import java.net.InetSocketAddress;
 
 import org.jdeferred.Promise;
 
-import net.tomp2p.connection.SctpChannelFacade;
-
 public interface SctpAdapter extends SctpChannelFacade{
 	void listen();
 	Promise<SctpAdapter, Exception, Object> connect(InetSocketAddress remote);

@@ -1,4 +1,4 @@
-package net.tomp2p.connection;
+package net.tomp2p.sctp.core;
 /**
  * @author jonaswagner
  */

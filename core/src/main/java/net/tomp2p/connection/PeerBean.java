@@ -54,7 +54,6 @@ public class PeerBean {
     @Getter @Setter private DigestStorage digestStorage;
     @Getter @Setter private DigestTracker digestTracker;
     @Getter @Setter private NATHandler natHandler;
-    @Getter @Setter private SctpChannelFacade sctpHandler;
 
     //This map is used for all open PeerConnections which are meant to stay open. {@link Number160} = peer ID.
     private ConcurrentHashMap<Number160, PeerConnection> openPeerConnections = 

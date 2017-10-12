@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SctpTest {
+public class SctpIntegrationTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SctpTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SctpIntegrationTest.class);
 
     InetAddress localhost = InetAddress.getByName("127.0.0.1");
 
@@ -30,23 +30,14 @@ public class SctpTest {
 
     UdpServerLink client;
 
-    public SctpTest() throws UnknownHostException {
+    public SctpIntegrationTest() throws UnknownHostException {
     }
 
     @Before
     public void setUp() {
-//        try {
-//            serverSo = new SctpSocketBuilder().
-//                    localAddress(serverLocalAddress).
-//                    localPort(serverlocalPort).
-//                    remoteAddress(serverRemoteAddress).
-//                    remotePort(serverRemotePort).
-//                    localSctpPort(SctpPorts.SCTP_TUNNELING_PORT).
-//                    build();
-//            server = new UdpClientLink(serverSocketLocalAddress, serverSocketRemoteAddress, serverSo);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+
+
     }
 
     @Test

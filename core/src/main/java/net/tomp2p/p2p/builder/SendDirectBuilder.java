@@ -18,10 +18,9 @@ package net.tomp2p.p2p.builder;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.sctp.SctpChannel;
-import net.tomp2p.connection.ConnectionBean;
-import net.tomp2p.connection.ConnectionConfiguration;
-import net.tomp2p.connection.PeerConnection;
-import net.tomp2p.connection.RequestHandler;
+import lombok.Getter;
+import lombok.Setter;
+import net.tomp2p.connection.*;
 import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureChannelCreator;
 import net.tomp2p.futures.FutureDirect;
@@ -204,14 +203,11 @@ public class SendDirectBuilder
 			}
 		}
 		/**
-		 * The packet needs to be sent via SCTP
+		 * Packets need to be sent via SCTP
 		 */
-		else {
-			
-			//TODO jwa implement this pls
-//			Promise<SctpChannelFacade, Object, UdpClientLink> p = 
-		}
 
+			//TODO jwa implement this pls
+//			Promise<SctpChannelFacade, Object, UdpClientLink> p =
 		return futureResponse;
 	}
 
@@ -243,7 +239,7 @@ public class SendDirectBuilder
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see net.tomp2p.p2p.builder.ConnectionConfiguration#idleTCPSeconds()
 	 */
 	@Override
@@ -252,7 +248,6 @@ public class SendDirectBuilder
 	}
 
 	/**
-	 * @param idleTCPSeconds
 	 *            The time that a connection can be idle before its considered not
 	 *            active for short-lived connections
 	 * @return This class
@@ -264,7 +259,7 @@ public class SendDirectBuilder
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see net.tomp2p.p2p.builder.ConnectionConfiguration#idleUDPSeconds()
 	 */
 	@Override
@@ -273,7 +268,6 @@ public class SendDirectBuilder
 	}
 
 	/**
-	 * @param idleUDPSeconds
 	 *            The time that a connection can be idle before its considered not
 	 *            active for short-lived connections
 	 * @return This class
@@ -295,7 +289,7 @@ public class SendDirectBuilder
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * net.tomp2p.p2p.builder.ConnectionConfiguration#connectionTimeoutTCPMillis ()
 	 */
@@ -338,7 +332,6 @@ public class SendDirectBuilder
 	}
 
 	/**
-	 * @param slowResponseTimeoutSeconds
 	 *            the amount of seconds a requester waits for the final answer of a
 	 *            slow peer. If the slow peer does not answer within this time, the
 	 *            request fails.

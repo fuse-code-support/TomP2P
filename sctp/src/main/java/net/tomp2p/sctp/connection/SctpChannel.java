@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import lombok.Builder;
-import net.tomp2p.connection.SctpChannelFacade;
+import net.tomp2p.sctp.core.SctpChannelFacade;
 import net.tomp2p.sctp.core.SctpAdapter;
 import net.tomp2p.sctp.core.SctpDataCallback;
 import net.tomp2p.sctp.core.SctpPorts;
@@ -123,4 +123,5 @@ public class SctpChannel {
 		SctpUtils.getThreadPoolExecutor().execute(connectSeq);
 		return d.promise();
 	}
+
 }
